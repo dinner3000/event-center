@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.chinaccs.exhibit.ucsp.eventcenter.modules.common.dao.EventTypeDao">
+
+    <resultMap type="com.chinaccs.exhibit.ucsp.eventcenter.modules.common.entity.EventTypeEntity" id="eventTypeMap">
+        <result property="id" column="id"/>
+        <result property="name" column="name"/>
+        <result property="desc" column="desc"/>
+        <result property="level" column="level"/>
+        <result property="appCode" column="app_code"/>
+        <result property="fwNeeded" column="fw_needed"/>
+        <result property="fwConfigIds" column="fw_config_ids"/>
+        <result property="status" column="status"/>
+    </resultMap>
+
+
+</mapper>
