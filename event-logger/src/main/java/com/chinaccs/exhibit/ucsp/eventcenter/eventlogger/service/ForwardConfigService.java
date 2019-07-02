@@ -1,7 +1,7 @@
-package com.chinaccs.exhibit.ucsp.eventcenter.common.service;
+package com.chinaccs.exhibit.ucsp.eventcenter.eventlogger.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.chinaccs.exhibit.ucsp.eventcenter.common.entity.ForwardConfigEntity;
+import com.chinaccs.exhibit.ucsp.eventcenter.eventlogger.entity.ForwardConfigEntity;
 
 /**
  * 事件推送配置 

@@ -1,4 +1,4 @@
-package com.chinaccs.exhibit.ucsp.eventcenter.common.dto;
+package com.chinaccs.exhibit.ucsp.eventcenter.eventlogger.dto;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -8,14 +8,14 @@ import java.io.Serializable;
 
 
 /**
- * 事件推送配置 
+ * 事件类型 
  *
  * @author Gary.Z zhujiawei@sunseaaiot.com
  * @since 1.0.0 2019-07-01
  */
 @Data
-@ApiModel(value = "事件推送配置 ")
-public class ForwardConfigDTO implements Serializable {
+@ApiModel(value = "事件类型 ")
+public class EventTypeDTO implements Serializable {
     private static final long serialVersionUID = 1L;
 
 	@ApiModelProperty(value = "ID")
@@ -27,14 +27,17 @@ public class ForwardConfigDTO implements Serializable {
 	@ApiModelProperty(value = "说明")
 	private String desc;
 
-	@ApiModelProperty(value = "推送接口地址")
-	private String apiUrl;
+	@ApiModelProperty(value = "级别")
+	private Integer level;
 
-	@ApiModelProperty(value = "推送类型 如：SMS，VOICE")
-	private String type;
+	@ApiModelProperty(value = "源应用系统代码")
+	private String appCode;
 
-	@ApiModelProperty(value = "推送目标列表 JSON数组")
-	private String targetList;
+	@ApiModelProperty(value = "是否需要推送 Y/N")
+	private String fwNeeded;
+
+	@ApiModelProperty(value = "推送配置 JSON数组")
+	private String fwConfigIds;
 
 	@ApiModelProperty(value = "状态")
 	private Integer status;

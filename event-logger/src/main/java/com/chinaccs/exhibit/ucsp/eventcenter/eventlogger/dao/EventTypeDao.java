@@ -1,7 +1,7 @@
-package com.chinaccs.exhibit.ucsp.eventcenter.common.dao;
+package com.chinaccs.exhibit.ucsp.eventcenter.eventlogger.dao;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.chinaccs.exhibit.ucsp.eventcenter.common.entity.EventTypeEntity;
+import com.chinaccs.exhibit.ucsp.eventcenter.eventlogger.entity.EventTypeEntity;
 import org.apache.ibatis.annotations.Mapper;
 
 /**

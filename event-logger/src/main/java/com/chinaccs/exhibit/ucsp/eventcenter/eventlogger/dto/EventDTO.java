@@ -1,4 +1,4 @@
-package com.chinaccs.exhibit.ucsp.eventcenter.common.dto;
+package com.chinaccs.exhibit.ucsp.eventcenter.eventlogger.dto;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;

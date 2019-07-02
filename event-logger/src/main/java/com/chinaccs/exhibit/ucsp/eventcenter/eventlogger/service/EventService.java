@@ -1,7 +1,7 @@
-package com.chinaccs.exhibit.ucsp.eventcenter.common.service;
+package com.chinaccs.exhibit.ucsp.eventcenter.eventlogger.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.chinaccs.exhibit.ucsp.eventcenter.common.entity.EventEntity;
+import com.chinaccs.exhibit.ucsp.eventcenter.eventlogger.entity.EventEntity;
 
 /**
  * 事件 存储事件信息，每个事件作为一条记录

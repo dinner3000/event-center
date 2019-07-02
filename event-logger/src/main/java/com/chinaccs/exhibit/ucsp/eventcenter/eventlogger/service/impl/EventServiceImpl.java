@@ -1,9 +1,9 @@
-package com.chinaccs.exhibit.ucsp.eventcenter.common.service.impl;
+package com.chinaccs.exhibit.ucsp.eventcenter.eventlogger.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.chinaccs.exhibit.ucsp.eventcenter.common.dao.EventDao;
-import com.chinaccs.exhibit.ucsp.eventcenter.common.entity.EventEntity;
-import com.chinaccs.exhibit.ucsp.eventcenter.common.service.EventService;
+import com.chinaccs.exhibit.ucsp.eventcenter.eventlogger.dao.EventDao;
+import com.chinaccs.exhibit.ucsp.eventcenter.eventlogger.entity.EventEntity;
+import com.chinaccs.exhibit.ucsp.eventcenter.eventlogger.service.EventService;
 import org.springframework.stereotype.Service;
 
 /**

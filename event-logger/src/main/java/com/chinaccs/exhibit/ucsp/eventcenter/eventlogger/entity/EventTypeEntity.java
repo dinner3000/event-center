@@ -1,10 +1,9 @@
-package com.chinaccs.exhibit.ucsp.eventcenter.common.entity;
+package com.chinaccs.exhibit.ucsp.eventcenter.eventlogger.entity;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-
-import java.io.Serializable;
 
 /**
  * 事件类型 
@@ -15,7 +14,7 @@ import java.io.Serializable;
 @Data
 @EqualsAndHashCode(callSuper=false)
 @TableName("event_type")
-public class EventTypeEntity implements Serializable {
+public class EventTypeEntity extends BaseEntity {
 	private static final long serialVersionUID = 1L;
 
     /**
@@ -25,6 +24,7 @@ public class EventTypeEntity implements Serializable {
     /**
      * 说明
      */
+	@TableField("`desc`")
 	private String desc;
     /**
      * 级别

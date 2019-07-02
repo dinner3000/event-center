@@ -1,10 +1,9 @@
-package com.chinaccs.exhibit.ucsp.eventcenter.common.entity;
+package com.chinaccs.exhibit.ucsp.eventcenter.eventlogger.entity;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-
-import java.io.Serializable;
 
 /**
  * 事件推送配置 
@@ -15,7 +14,7 @@ import java.io.Serializable;
 @Data
 @EqualsAndHashCode(callSuper=false)
 @TableName("forward_config")
-public class ForwardConfigEntity implements Serializable {
+public class ForwardConfigEntity extends BaseEntity {
 	private static final long serialVersionUID = 1L;
 
     /**
@@ -25,6 +24,7 @@ public class ForwardConfigEntity implements Serializable {
     /**
      * 说明
      */
+    @TableField("`desc`")
 	private String desc;
     /**
      * 推送接口地址

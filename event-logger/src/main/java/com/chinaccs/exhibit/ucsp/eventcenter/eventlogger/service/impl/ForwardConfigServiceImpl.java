@@ -1,9 +1,9 @@
-package com.chinaccs.exhibit.ucsp.eventcenter.common.service.impl;
+package com.chinaccs.exhibit.ucsp.eventcenter.eventlogger.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.chinaccs.exhibit.ucsp.eventcenter.common.dao.ForwardConfigDao;
-import com.chinaccs.exhibit.ucsp.eventcenter.common.entity.ForwardConfigEntity;
-import com.chinaccs.exhibit.ucsp.eventcenter.common.service.ForwardConfigService;
+import com.chinaccs.exhibit.ucsp.eventcenter.eventlogger.dao.ForwardConfigDao;
+import com.chinaccs.exhibit.ucsp.eventcenter.eventlogger.entity.ForwardConfigEntity;
+import com.chinaccs.exhibit.ucsp.eventcenter.eventlogger.service.ForwardConfigService;
 import org.springframework.stereotype.Service;
 
 /**
