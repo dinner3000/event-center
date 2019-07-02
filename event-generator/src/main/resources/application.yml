@@ -1,0 +1,10 @@
+spring:
+  # 环境 dev|test|prod
+  profiles:
+    active: dev
+  main:
+    web-application-type: none
+
+global-params:
+  mq-topic: ucsp-event
+
