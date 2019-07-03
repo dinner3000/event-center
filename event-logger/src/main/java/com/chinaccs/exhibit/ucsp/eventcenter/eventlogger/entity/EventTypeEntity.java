@@ -54,7 +54,7 @@ public class EventTypeEntity implements Serializable{
 
 	private String fwTargets;
 
-	private Integer fwTextTpl;
+	private String fwTextTpl;
 
 	/**
      * 状态

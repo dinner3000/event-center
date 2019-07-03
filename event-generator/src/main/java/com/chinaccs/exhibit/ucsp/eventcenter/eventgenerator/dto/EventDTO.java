@@ -3,6 +3,7 @@ package com.chinaccs.exhibit.ucsp.eventcenter.eventgenerator.dto;
 import lombok.Data;
 
 import java.io.Serializable;
+import java.util.Date;
 
 
 /**
@@ -23,6 +24,7 @@ public class EventDTO implements Serializable {
 
 	private String appCode;
 
-	private Integer status;
+	private Date occurTime;
 
+	private String geoInfo;
 }
