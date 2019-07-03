@@ -8,22 +8,24 @@
 
 package com.chinaccs.exhibit.ucsp.eventcenter.eventlogger;
 
-import com.alibaba.fastjson.JSON;
-import com.chinaccs.exhibit.ucsp.eventcenter.eventlogger.dao.ForwardConfigDao;
-import com.chinaccs.exhibit.ucsp.eventcenter.eventlogger.entity.ForwardConfigEntity;
+import com.chinaccs.exhibit.ucsp.eventcenter.eventlogger.service.EventListenService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import java.util.ArrayList;
-import java.util.List;
-
 @SpringBootApplication
-public class LoggerApplication {
+public class MainEntry implements CommandLineRunner {
 
 	public static void main(String[] args) {
-		SpringApplication.run(LoggerApplication.class, args);
+		SpringApplication.run(MainEntry.class, args);
 	}
 
+//	@Autowired
+//    EventListenService eventListenService;
+
+    @Override
+    public void run(String... args) throws Exception {
+//        eventListenService.onMessage();
+    }
 }

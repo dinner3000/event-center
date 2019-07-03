@@ -15,7 +15,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication
 //@ComponentScan(basePackages = "com.chinaccs.exhibit.ucsp.eventcenter.eventgenerator")
@@ -36,7 +35,7 @@ public class MainEntry implements CommandLineRunner {
             logger.info("EventGenerator.run() started.");
             while (true) {
                 Thread.sleep(3000);
-                eventSendService.Send();
+                eventSendService.send();
             }
         } catch (Exception e){
             logger.info("EventGenerator.run() stopped.");

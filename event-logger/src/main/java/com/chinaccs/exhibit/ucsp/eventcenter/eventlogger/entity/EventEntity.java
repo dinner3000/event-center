@@ -1,10 +1,13 @@
 package com.chinaccs.exhibit.ucsp.eventcenter.eventlogger.entity;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
-import java.math.BigDecimal;
+import java.io.Serializable;
+import java.util.Date;
 
 /**
  * 事件 存储事件信息，每个事件作为一条记录
@@ -15,9 +18,14 @@ import java.math.BigDecimal;
 @Data
 @EqualsAndHashCode(callSuper=false)
 @TableName("event")
-public class EventEntity extends BaseEntity {
+public class EventEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
+	/**
+	 * id
+	 */
+	@TableId(type = IdType.AUTO)
+	private Long id;
     /**
      * 类型
      */
@@ -34,4 +42,14 @@ public class EventEntity extends BaseEntity {
      * 状态
      */
 	private Integer status;
+
+	private String typeName;
+
+	private Integer level;
+
+	private Date occurTime;
+
+	private Date logTime;
+
+	private String geoInfo;
 }

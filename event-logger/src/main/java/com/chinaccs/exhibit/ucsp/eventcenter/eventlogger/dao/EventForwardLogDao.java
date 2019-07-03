@@ -1,7 +1,7 @@
 package com.chinaccs.exhibit.ucsp.eventcenter.eventlogger.dao;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.chinaccs.exhibit.ucsp.eventcenter.eventlogger.entity.ForwardConfigEntity;
+import com.chinaccs.exhibit.ucsp.eventcenter.eventlogger.entity.EventForwardLogEntity;
 import org.apache.ibatis.annotations.Mapper;
 
 /**
@@ -11,6 +11,6 @@ import org.apache.ibatis.annotations.Mapper;
  * @since 1.0.0 2019-07-01
  */
 @Mapper
-public interface ForwardConfigDao extends BaseMapper<ForwardConfigEntity> {
+public interface EventForwardLogDao extends BaseMapper<EventForwardLogEntity> {
 	
 }

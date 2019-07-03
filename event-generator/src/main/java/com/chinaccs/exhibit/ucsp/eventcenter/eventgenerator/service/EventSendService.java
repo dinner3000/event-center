@@ -8,6 +8,6 @@ package com.chinaccs.exhibit.ucsp.eventcenter.eventgenerator.service;
  */
 public interface EventSendService {
 
-    void Send();
+    void send();
 
 }

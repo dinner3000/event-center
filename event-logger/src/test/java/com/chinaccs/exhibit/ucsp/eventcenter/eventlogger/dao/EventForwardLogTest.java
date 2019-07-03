@@ -1,6 +1,6 @@
 package com.chinaccs.exhibit.ucsp.eventcenter.eventlogger.dao;
 
-import com.chinaccs.exhibit.ucsp.eventcenter.eventlogger.entity.EventEntity;
+import com.chinaccs.exhibit.ucsp.eventcenter.eventlogger.entity.EventForwardLogEntity;
 import org.apache.commons.lang.SerializationUtils;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -14,19 +14,19 @@ import static org.junit.Assert.*;
 
 @SpringBootTest
 @RunWith(SpringRunner.class)
-public class EventDaoTest {
+public class EventForwardLogTest {
 
     @Autowired
-    EventDao eventDao;
+    EventForwardLogDao eventForwardLogDao;
 
 
     @Test
     public void test() {
 //        Init a entity for test
-        EventEntity entity4Insert = buildEntity();
+        EventForwardLogEntity entity4Insert = buildEntity();
 
 //        insert
-        int affected = eventDao.insert(entity4Insert);
+        int affected = eventForwardLogDao.insert(entity4Insert);
         assertTrue(affected > 0);
 
         Long id = entity4Insert.getId();
@@ -34,31 +34,31 @@ public class EventDaoTest {
         assertTrue(id > 0);
 
 //        query
-        EventEntity entity4Query = eventDao.selectById(id);
+        EventForwardLogEntity entity4Query = eventForwardLogDao.selectById(id);
         assertEquals(entity4Insert.getId(), entity4Query.getId());
-        assertEquals(entity4Insert.getMessage(), entity4Query.getMessage());
         assertEquals(entity4Insert.getStatus(), entity4Query.getStatus());
 
 //        update
-        EventEntity entity4Update = (EventEntity) SerializationUtils.clone(entity4Query);
+        EventForwardLogEntity entity4Update = (EventForwardLogEntity) SerializationUtils.clone(entity4Query);
         entity4Update.setStatus(1);
-        eventDao.updateById(entity4Update);
+        eventForwardLogDao.updateById(entity4Update);
 
-        entity4Query = eventDao.selectById(id);
+        entity4Query = eventForwardLogDao.selectById(id);
         assertEquals(entity4Update.getStatus(), entity4Query.getStatus());
 
 //        delete
-        affected = eventDao.deleteById(id);
+        affected = eventForwardLogDao.deleteById(id);
         assertTrue(affected > 0);
     }
 
-    private EventEntity buildEntity(){
+    private EventForwardLogEntity buildEntity(){
         UUID uuid = UUID.randomUUID();
 
-        EventEntity entity = new EventEntity();
-        entity.setAppCode(String.format("%s - app code", uuid.toString()));
-        entity.setTypeId(1L);
-        entity.setMessage(String.format("%s - message", uuid.toString()));
+        EventForwardLogEntity entity = new EventForwardLogEntity();
+        entity.setId(1L);
+        entity.setText(uuid.toString());
+        entity.setStatus(0);
+
         entity.setStatus(0);
 
         return entity;

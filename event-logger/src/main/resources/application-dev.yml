@@ -1,37 +1,10 @@
 spring:
   datasource:
-    type: com.alibaba.druid.pool.DruidDataSource
     druid:
-      driver-class-name: com.mysql.jdbc.Driver
       url: jdbc:mysql://localhost:3306/test?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8&useSSL=false
       username: root
       password: 1234abcd
-      initial-size: 10
-      max-active: 100
-      min-idle: 10
-      max-wait: 60000
-      pool-prepared-statements: true
-      max-pool-prepared-statement-per-connection-size: 20
-      time-between-eviction-runs-millis: 60000
-      min-evictable-idle-time-millis: 300000
-      #Oracle需要打开注释
-      #validation-query: SELECT 1 FROM DUAL
-      test-while-idle: true
-      test-on-borrow: false
-      test-on-return: false
-      stat-view-servlet:
-        enabled: true
-        url-pattern: /druid/*
-        #login-username: admin
-        #login-password: admin
-      filter:
-        stat:
-          log-slow-sql: true
-          slow-sql-millis: 1000
-          merge-sql: false
-        wall:
-          config:
-            multi-statement-allow: true
+
 # FLYWAY (FlywayProperties)
   flyway:
 #    baseline-description: << Flyway Baseline >> # Description to tag an existing schema with when applying a baseline.
@@ -43,3 +16,7 @@ spring:
 #    init-sqls:  # SQL statements to execute to initialize a connection immediately after obtaining it.
     locations: classpath:db/migration # Locations of migrations scripts. Can contain the special "{vendor}" placeholder to use vendor-specific locations.
 #    schemas:  # Scheme names managed by Flyway (case-sensitive).
+
+  # Kafka servers
+  kafka:
+    bootstrap-servers: 127.0.0.1:9092

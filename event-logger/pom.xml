@@ -13,11 +13,36 @@
 
 	<dependencies>
 		<dependency>
-			<groupId>com.chinaccs.exhibit.ucsp</groupId>
-			<artifactId>event-common</artifactId>
-			<version>1.0.0-SNAPSHOT</version>
+			<groupId>org.springframework.kafka</groupId>
+			<artifactId>spring-kafka</artifactId>
 		</dependency>
-    </dependencies>
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<version>${mysql.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.alibaba</groupId>
+			<artifactId>druid-spring-boot-starter</artifactId>
+			<version>${druid.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.baomidou</groupId>
+			<artifactId>mybatis-plus-boot-starter</artifactId>
+			<version>${mybatisplus.version}</version>
+			<exclusions>
+				<exclusion>
+					<groupId>com.baomidou</groupId>
+					<artifactId>mybatis-plus-generator</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>org.flywaydb</groupId>
+			<artifactId>flyway-core</artifactId>
+			<version>5.2.4</version>
+		</dependency>
+	</dependencies>
 
 	<build>
 		<finalName>${project.artifactId}-${project.version}-boot</finalName>

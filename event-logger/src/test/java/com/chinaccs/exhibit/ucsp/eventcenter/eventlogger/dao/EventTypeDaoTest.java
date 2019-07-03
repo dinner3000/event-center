@@ -64,14 +64,12 @@ public class EventTypeDaoTest {
         entity.setAppCode(String.format("%s - app code", uuid.toString()));
         entity.setLevel(0);
         entity.setStatus(0);
-        entity.setFwNeeded("Y");
+        entity.setFwEnabled(1);
 
         List<Long> targetList = new ArrayList<>();
         targetList.add(1L);
         targetList.add(2L);
         targetList.add(3L);
-
-        entity.setFwConfigIds(JSON.toJSONString(targetList));
 
         return entity;
     }

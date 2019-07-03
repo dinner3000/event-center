@@ -7,6 +7,7 @@ import com.chinaccs.exhibit.ucsp.eventcenter.eventgenerator.service.EventSendSer
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 
@@ -22,20 +23,20 @@ public class EventSendServiceImpl implements EventSendService {
     @Autowired
     private KafkaTemplate<String, String> kafkaTemplate;
 
-    @Autowired
-    private GlobalParams globalParams;
+    @Value("${global-params.mq-topic}")
+    private String mqTopic;
 
     private Logger logger = LoggerFactory.getLogger(getClass());
 
     @Override
-    public void Send() {
+    public void send() {
         EventDTO eventDTO = new EventDTO();
         eventDTO.setId(System.currentTimeMillis());
         eventDTO.setAppCode("app-1");
         eventDTO.setTypeId(1L);
         eventDTO.setMessage("app-1,type-1,message");
 
-        logger.info("send message = {}", JSON.toJSONString(eventDTO));
-        kafkaTemplate.send(globalParams.getMqTopic(), JSON.toJSONString(eventDTO));
+        logger.info("topic: {}, message = {}", mqTopic, JSON.toJSONString(eventDTO));
+        kafkaTemplate.send(mqTopic, JSON.toJSONString(eventDTO));
     }
 }
