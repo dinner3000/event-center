@@ -18,7 +18,6 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-//@ComponentScan(basePackages = "com.chinaccs.exhibit.ucsp.eventcenter.eventgenerator")
 public class MainEntry implements CommandLineRunner {
 
     @Autowired
@@ -53,7 +52,8 @@ public class MainEntry implements CommandLineRunner {
         } else {
             eventDTO.setTypeId(1L);
         }
-        eventDTO.setMessage(String.format("app-1, typeId: %d, message", eventDTO.getTypeId()));
+        eventDTO.setMessage(String.format("%s, typeId: %d, message",
+                eventDTO.getAppCode(), eventDTO.getTypeId()));
         return eventDTO;
     }
 }
