@@ -29,14 +29,8 @@ public class EventSendServiceImpl implements EventSendService {
     private Logger logger = LoggerFactory.getLogger(getClass());
 
     @Override
-    public void send() {
-        EventDTO eventDTO = new EventDTO();
-        eventDTO.setId(System.currentTimeMillis());
-        eventDTO.setAppCode("app-1");
-        eventDTO.setTypeId(1L);
-        eventDTO.setMessage("app-1,type-1,message");
-
-        logger.info("topic: {}, message = {}", mqTopic, JSON.toJSONString(eventDTO));
+    public void send(EventDTO eventDTO) {
+        logger.debug("send => topic: {}, message: {}", mqTopic, JSON.toJSONString(eventDTO));
         kafkaTemplate.send(mqTopic, JSON.toJSONString(eventDTO));
     }
 }

@@ -1,72 +1,10 @@
 spring:
   datasource:
-    type: com.alibaba.druid.pool.DruidDataSource
     druid:
-      driver-class-name: com.mysql.jdbc.Driver
       url: jdbc:mysql://localhost:3306/test?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8&useSSL=false
       username: root
       password: 1234abcd
-      initial-size: 10
-      max-active: 100
-      min-idle: 10
-      max-wait: 60000
-      pool-prepared-statements: true
-      max-pool-prepared-statement-per-connection-size: 20
-      time-between-eviction-runs-millis: 60000
-      min-evictable-idle-time-millis: 300000
-      #Oracle需要打开注释
-      #validation-query: SELECT 1 FROM DUAL
-      test-while-idle: true
-      test-on-borrow: false
-      test-on-return: false
-      stat-view-servlet:
-        enabled: true
-        url-pattern: /druid/*
-        #login-username: admin
-        #login-password: admin
-      filter:
-        stat:
-          log-slow-sql: true
-          slow-sql-millis: 1000
-          merge-sql: false
-        wall:
-          config:
-            multi-statement-allow: true
-# FLYWAY (FlywayProperties)
-  flyway:
-#    baseline-description: << Flyway Baseline >> # Description to tag an existing schema with when applying a baseline.
-#    baseline-on-migrate: true # Whether to automatically call baseline when migrating a non-empty schema.
-#    baseline-version: 1 # Version to tag an existing schema with when executing baseline.
-#    check-location: true # Whether to check that migration scripts location exists.
-#    clean-disabled: false # Whether to disable cleaning of the database.
-#    clean-on-validation-error: false # Whether to automatically call clean when a validation error occurs.
-#    connect-retries: 0 # Maximum number of retries when attempting to connect to the database.
-    enabled: true # Whether to enable flyway.
-    encoding: UTF-8 # Encoding of SQL migrations.
-#    group: false # Whether to group all pending migrations together in the same transaction when applying them.
-#    ignore-future-migrations: true # Whether to ignore future migrations when reading the schema history table.
-#    ignore-ignored-migrations: false # Whether to ignore ignored migrations when reading the schema history table.
-#    ignore-missing-migrations: false # Whether to ignore missing migrations when reading the schema history table.
-#    ignore-pending-migrations: false # Whether to ignore pending migrations when reading the schema history table.
-#    init-sqls:  # SQL statements to execute to initialize a connection immediately after obtaining it.
-#    installed-by:  # Username recorded in the schema history table as having applied the migration.
-    locations: classpath:db/migration # Locations of migrations scripts. Can contain the special "{vendor}" placeholder to use vendor-specific locations.
-#    mixed: false # Whether to allow mixing transactional and non-transactional statements within the same migration.
-#    out-of-order: false # Whether to allow migrations to be run out of order.
-#    password:  # Login password of the database to migrate.
-#    placeholder-prefix: ${ # Prefix of placeholders in migration scripts.
-#    placeholder-replacement: true # Perform placeholder replacement in migration scripts.
-#    placeholder-suffix: } # Suffix of placeholders in migration scripts.
-#    placeholders:  # Placeholders and their replacements to apply to sql migration scripts.
-#    repeatable-sql-migration-prefix: R # File name prefix for repeatable SQL migrations.
-#    schemas:  # Scheme names managed by Flyway (case-sensitive).
-#    skip-default-callbacks: false # Whether to skip default callbacks. If true, only custom callbacks are used.
-#    skip-default-resolvers: false # Whether to skip default resolvers. If true, only custom resolvers are used.
-#    sql-migration-prefix: V # File name prefix for SQL migrations.
-#    sql-migration-separator: __ # File name separator for SQL migrations.
-#    sql-migration-suffixes: .sql # File name suffix for SQL migrations.
-#    table: flyway_schema_history # Name of the schema schema history table that will be used by Flyway.
-#    target:  # Target version up to which migrations should be considered.
-#    url:  # JDBC url of the database to migrate. If not set, the primary configured data source is used.
-#    user:  # Login user of the database to migrate.
-#    validate-on-migrate: true # Whether to automatically call validate when performing a migration.
+
+  # Kafka servers
+  kafka:
+    bootstrap-servers: 127.0.0.1:9092

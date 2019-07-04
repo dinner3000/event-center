@@ -8,6 +8,7 @@
 
 package com.chinaccs.exhibit.ucsp.eventcenter.eventgenerator;
 
+import com.chinaccs.exhibit.ucsp.eventcenter.eventgenerator.dto.EventDTO;
 import com.chinaccs.exhibit.ucsp.eventcenter.eventgenerator.service.EventSendService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -31,14 +32,28 @@ public class MainEntry implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
+
         try {
             logger.info("EventGenerator.run() started.");
             while (true) {
-                Thread.sleep(3000);
-                eventSendService.send();
+                eventSendService.send(buildEventDTO());
+                Thread.sleep(5000);
             }
         } catch (Exception e){
             logger.info("EventGenerator.run() stopped.");
         }
+    }
+
+    private EventDTO buildEventDTO() {
+        EventDTO eventDTO = new EventDTO();
+        eventDTO.setId(System.currentTimeMillis());
+        eventDTO.setAppCode("app-1");
+        if (eventDTO.getId() % 2 == 0) {
+            eventDTO.setTypeId(0L);
+        } else {
+            eventDTO.setTypeId(1L);
+        }
+        eventDTO.setMessage(String.format("app-1, typeId: %d, message", eventDTO.getTypeId()));
+        return eventDTO;
     }
 }

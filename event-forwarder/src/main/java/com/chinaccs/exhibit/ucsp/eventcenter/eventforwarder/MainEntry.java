@@ -6,7 +6,7 @@
  * 版权所有，侵权必究！
  */
 
-package com.chinaccs.exhibit.ucsp.eventcenter.eventlogger;
+package com.chinaccs.exhibit.ucsp.eventcenter.eventforwarder;
 
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -19,11 +19,8 @@ public class MainEntry implements CommandLineRunner {
 		SpringApplication.run(MainEntry.class, args);
 	}
 
-//	@Autowired
-//    EventMQTopicListenService eventListenService;
+	@Override
+	public void run(String... args) throws Exception {
 
-    @Override
-    public void run(String... args) throws Exception {
-//        eventListenService.onMessage();
-    }
+	}
 }
