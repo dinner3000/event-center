@@ -1,8 +1,6 @@
 package com.chinaccs.exhibit.ucsp.eventcenter.eventlogger.service;
 
-import com.chinaccs.exhibit.ucsp.eventcenter.eventlogger.dto.ForwardNoticeDTO;
-import com.chinaccs.exhibit.ucsp.eventcenter.eventlogger.entity.EventEntity;
-import org.apache.kafka.clients.consumer.ConsumerRecord;
+import com.chinaccs.exhibit.ucsp.eventcenter.eventdata.dto.ForwardNoticeDTO;
 
 /**
  * 事件 存储事件信息，每个事件作为一条记录

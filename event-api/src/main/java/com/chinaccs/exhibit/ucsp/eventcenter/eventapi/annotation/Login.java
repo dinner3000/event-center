@@ -8,8 +8,6 @@
 
 package com.chinaccs.exhibit.ucsp.eventcenter.eventapi.annotation;
 
-import java.lang.annotation.*;
-
 /**
  * 登录效验
  *

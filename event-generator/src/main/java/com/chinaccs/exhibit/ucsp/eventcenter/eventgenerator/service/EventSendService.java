@@ -1,6 +1,6 @@
 package com.chinaccs.exhibit.ucsp.eventcenter.eventgenerator.service;
 
-import com.chinaccs.exhibit.ucsp.eventcenter.eventgenerator.dto.EventDTO;
+import com.chinaccs.exhibit.ucsp.eventcenter.eventdata.dto.EventDTO;
 
 /**
  * 事件 存储事件信息，每个事件作为一条记录

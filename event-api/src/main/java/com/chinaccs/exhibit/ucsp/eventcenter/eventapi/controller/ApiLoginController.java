@@ -9,16 +9,15 @@
 package com.chinaccs.exhibit.ucsp.eventcenter.eventapi.controller;
 
 
-import com.chinaccs.exhibit.ucsp.eventcenter.eventapi.service.TokenService;
-import com.chinaccs.exhibit.ucsp.eventcenter.eventapi.form.LoginForm;
-import com.chinaccs.exhibit.ucsp.eventcenter.eventapi.annotation.Login;
 import com.chinaccs.exhibit.ucsp.eventcenter.common.utils.R;
 import com.chinaccs.exhibit.ucsp.eventcenter.common.validator.ValidatorUtils;
+import com.chinaccs.exhibit.ucsp.eventcenter.eventapi.annotation.Login;
+import com.chinaccs.exhibit.ucsp.eventcenter.eventapi.form.LoginForm;
+import com.chinaccs.exhibit.ucsp.eventcenter.eventapi.service.TokenService;
 import com.chinaccs.exhibit.ucsp.eventcenter.eventapi.service.UserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
 import springfox.documentation.annotations.ApiIgnore;
 
 import java.util.Map;

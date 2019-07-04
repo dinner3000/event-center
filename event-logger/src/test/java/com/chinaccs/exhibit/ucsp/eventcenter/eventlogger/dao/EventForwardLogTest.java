@@ -1,6 +1,7 @@
 package com.chinaccs.exhibit.ucsp.eventcenter.eventlogger.dao;
 
-import com.chinaccs.exhibit.ucsp.eventcenter.eventlogger.entity.EventForwardLogEntity;
+import com.chinaccs.exhibit.ucsp.eventcenter.eventdata.dao.EventForwardLogDao;
+import com.chinaccs.exhibit.ucsp.eventcenter.eventdata.entity.EventForwardLogEntity;
 import org.apache.commons.lang.SerializationUtils;
 import org.junit.Test;
 import org.junit.runner.RunWith;

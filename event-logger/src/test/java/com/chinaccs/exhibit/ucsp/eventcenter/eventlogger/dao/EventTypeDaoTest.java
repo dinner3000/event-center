@@ -1,7 +1,7 @@
 package com.chinaccs.exhibit.ucsp.eventcenter.eventlogger.dao;
 
-import com.alibaba.fastjson.JSON;
-import com.chinaccs.exhibit.ucsp.eventcenter.eventlogger.entity.EventTypeEntity;
+import com.chinaccs.exhibit.ucsp.eventcenter.eventdata.dao.EventTypeDao;
+import com.chinaccs.exhibit.ucsp.eventcenter.eventdata.entity.EventTypeEntity;
 import org.apache.commons.lang.SerializationUtils;
 import org.junit.Test;
 import org.junit.runner.RunWith;

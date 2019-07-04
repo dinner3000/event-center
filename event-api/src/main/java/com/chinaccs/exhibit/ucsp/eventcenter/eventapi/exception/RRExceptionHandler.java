@@ -8,8 +8,8 @@
 
 package com.chinaccs.exhibit.ucsp.eventcenter.eventapi.exception;
 
-import com.chinaccs.exhibit.ucsp.eventcenter.common.utils.R;
 import com.chinaccs.exhibit.ucsp.eventcenter.common.exception.RRException;
+import com.chinaccs.exhibit.ucsp.eventcenter.common.utils.R;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.dao.DuplicateKeyException;

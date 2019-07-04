@@ -8,7 +8,7 @@
 
 package com.chinaccs.exhibit.ucsp.eventcenter.eventgenerator;
 
-import com.chinaccs.exhibit.ucsp.eventcenter.eventgenerator.dto.EventDTO;
+import com.chinaccs.exhibit.ucsp.eventcenter.eventdata.dto.EventDTO;
 import com.chinaccs.exhibit.ucsp.eventcenter.eventgenerator.service.EventSendService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

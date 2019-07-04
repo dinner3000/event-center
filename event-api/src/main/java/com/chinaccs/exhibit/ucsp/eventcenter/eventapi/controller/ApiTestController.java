@@ -8,9 +8,9 @@
 
 package com.chinaccs.exhibit.ucsp.eventcenter.eventapi.controller;
 
+import com.chinaccs.exhibit.ucsp.eventcenter.common.utils.R;
 import com.chinaccs.exhibit.ucsp.eventcenter.eventapi.annotation.Login;
 import com.chinaccs.exhibit.ucsp.eventcenter.eventapi.annotation.LoginUser;
-import com.chinaccs.exhibit.ucsp.eventcenter.common.utils.R;
 import com.chinaccs.exhibit.ucsp.eventcenter.eventapi.entity.UserEntity;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;

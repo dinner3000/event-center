@@ -15,6 +15,7 @@
     
     <modules>
         <module>event-common</module>
+        <module>event-data</module>
         <module>event-generator</module>
         <module>event-logger</module>
         <module>event-forwarder</module>

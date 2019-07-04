@@ -1,6 +1,6 @@
 package com.chinaccs.exhibit.ucsp.eventcenter.eventforwarder.service;
 
-import com.chinaccs.exhibit.ucsp.eventcenter.eventforwarder.entity.EventForwardLogEntity;
+import com.chinaccs.exhibit.ucsp.eventcenter.eventdata.entity.EventForwardLogEntity;
 
 /**
  * 事件 存储事件信息，每个事件作为一条记录
