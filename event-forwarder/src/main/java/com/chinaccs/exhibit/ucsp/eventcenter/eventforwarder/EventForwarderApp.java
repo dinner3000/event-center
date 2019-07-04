@@ -6,7 +6,7 @@
  * 版权所有，侵权必究！
  */
 
-package com.chinaccs.exhibit.ucsp.eventcenter.eventlogger;
+package com.chinaccs.exhibit.ucsp.eventcenter.eventforwarder;
 
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.CommandLineRunner;
@@ -17,17 +17,14 @@ import org.springframework.context.annotation.ComponentScan;
 @SpringBootApplication
 @ComponentScan("com.chinaccs.exhibit.ucsp.eventcenter")
 @MapperScan("com.chinaccs.exhibit.ucsp.eventcenter.eventdata.dao")
-public class MainEntry implements CommandLineRunner {
+public class EventForwarderApp implements CommandLineRunner {
 
 	public static void main(String[] args) {
-		SpringApplication.run(MainEntry.class, args);
+		SpringApplication.run(EventForwarderApp.class, args);
 	}
 
-//	@Autowired
-//    EventMQTopicListenService eventListenService;
+	@Override
+	public void run(String... args) throws Exception {
 
-    @Override
-    public void run(String... args) throws Exception {
-//        eventListenService.onMessage();
-    }
+	}
 }

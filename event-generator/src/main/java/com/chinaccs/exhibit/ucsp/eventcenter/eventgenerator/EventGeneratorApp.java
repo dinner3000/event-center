@@ -18,7 +18,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class MainEntry implements CommandLineRunner {
+public class EventGeneratorApp implements CommandLineRunner {
 
     @Autowired
     private EventSendService eventSendService;
@@ -26,7 +26,7 @@ public class MainEntry implements CommandLineRunner {
     private Logger logger = LoggerFactory.getLogger(getClass());
 
     public static void main(String[] args) {
-		SpringApplication.run(MainEntry.class, args);
+		SpringApplication.run(EventGeneratorApp.class, args);
 	}
 
     @Override

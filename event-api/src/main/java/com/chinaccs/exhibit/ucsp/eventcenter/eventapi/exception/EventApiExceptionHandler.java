@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
  * @author Mark sunlightcs@gmail.com
  */
 @RestControllerAdvice
-public class RRExceptionHandler {
+public class EventApiExceptionHandler {
 	private Logger logger = LoggerFactory.getLogger(getClass());
 
 	/**

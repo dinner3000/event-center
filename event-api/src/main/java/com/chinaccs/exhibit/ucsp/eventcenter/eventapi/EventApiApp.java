@@ -6,10 +6,9 @@
  * 版权所有，侵权必究！
  */
 
-package com.chinaccs.exhibit.ucsp.eventcenter.eventforwarder;
+package com.chinaccs.exhibit.ucsp.eventcenter.eventapi;
 
 import org.mybatis.spring.annotation.MapperScan;
-import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
@@ -17,14 +16,10 @@ import org.springframework.context.annotation.ComponentScan;
 @SpringBootApplication
 @ComponentScan("com.chinaccs.exhibit.ucsp.eventcenter")
 @MapperScan("com.chinaccs.exhibit.ucsp.eventcenter.eventdata.dao")
-public class MainEntry implements CommandLineRunner {
+public class EventApiApp {
 
 	public static void main(String[] args) {
-		SpringApplication.run(MainEntry.class, args);
+		SpringApplication.run(EventApiApp.class, args);
 	}
 
-	@Override
-	public void run(String... args) throws Exception {
-
-	}
 }
