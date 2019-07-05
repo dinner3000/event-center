@@ -1,9 +1,9 @@
 /**
- * Copyright (c) 2018 人人开源 All rights reserved.
+ * Zhu Jiawei zhujiawei@sunseaaiot.com
  *
- * https://www.renren.io
  *
- * 版权所有，侵权必究！
+ *
+ *
  */
 
 package com.chinaccs.exhibit.ucsp.eventcenter.common.xss;
@@ -70,7 +70,7 @@ public class XssUtils extends Whitelist {
 
     public static void main(String[] args) {
         StringBuilder html = new StringBuilder();
-        html.append("<a href=\"https://www.renren.io\" target=\"_blank\">人人开源</a>");
+        html.append("<a href=\"\" target=\"_blank\">人人开源</a>");
 
         System.out.println(filter(html.toString()));
     }

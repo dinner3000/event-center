@@ -1,9 +1,9 @@
 /**
- * Copyright (c) 2018 人人开源 All rights reserved.
+ * Zhu Jiawei zhujiawei@sunseaaiot.com
  *
- * https://www.renren.io
  *
- * 版权所有，侵权必究！
+ *
+ *
  */
 
 package com.chinaccs.exhibit.ucsp.eventcenter.eventdata.core.service.impl;

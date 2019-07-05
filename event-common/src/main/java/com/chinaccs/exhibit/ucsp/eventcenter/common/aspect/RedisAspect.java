@@ -1,9 +1,9 @@
 /**
- * Copyright (c) 2018 人人开源 All rights reserved.
+ * Zhu Jiawei zhujiawei@sunseaaiot.com
  *
- * https://www.renren.io
  *
- * 版权所有，侵权必究！
+ *
+ *
  */
 
 package com.chinaccs.exhibit.ucsp.eventcenter.common.aspect;
@@ -30,7 +30,7 @@ public class RedisAspect {
     /**
      * 是否开启redis缓存  true开启   false关闭
      */
-    @Value("${renren.redis.open: false}")
+    @Value("${cache.redis.open: false}")
     private boolean open;
 
     @Around("execution(* com.chinaccs.exhibit.ucsp.eventcenter.common.redis.RedisUtils.*(..))")
