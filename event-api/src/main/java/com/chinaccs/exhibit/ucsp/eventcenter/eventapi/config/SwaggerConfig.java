@@ -36,7 +36,7 @@ public class SwaggerConfig {
             //加了ApiOperation注解的类，才生成接口文档
             .apis(RequestHandlerSelectors.withMethodAnnotation(ApiOperation.class))
             //包下的类，才生成接口文档
-            .apis(RequestHandlerSelectors.basePackage("io.renren.controller"))
+            .apis(RequestHandlerSelectors.basePackage("com.chinaccs.exhibit.ucsp.eventcenter.eventapi.controller"))
             .paths(PathSelectors.any())
             .build()
             .securitySchemes(security());
@@ -44,9 +44,9 @@ public class SwaggerConfig {
 
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
-            .title("人人开源")
-            .description("renren-api文档")
-            .termsOfServiceUrl("https://www.renren.io")
+            .title("事件中心API")
+            .description("事件中心API文档")
+            .termsOfServiceUrl("https://not.specified.com")
             .version("4.0.0")
             .build();
     }

@@ -8,7 +8,7 @@
 
 package com.chinaccs.exhibit.ucsp.eventcenter.common.validator;
 
-import com.chinaccs.exhibit.ucsp.eventcenter.common.exception.RRException;
+import com.chinaccs.exhibit.ucsp.eventcenter.common.exception.EventCenterException;
 import org.apache.commons.lang.StringUtils;
 
 /**
@@ -20,13 +20,13 @@ public abstract class Assert {
 
     public static void isBlank(String str, String message) {
         if (StringUtils.isBlank(str)) {
-            throw new RRException(message);
+            throw new EventCenterException(message);
         }
     }
 
     public static void isNull(Object object, String message) {
         if (object == null) {
-            throw new RRException(message);
+            throw new EventCenterException(message);
         }
     }
 }
