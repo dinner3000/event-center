@@ -14,7 +14,7 @@ import com.chinaccs.exhibit.ucsp.eventcenter.common.utils.MessageUtils;
 /**
  * 自定义异常
  *
- * @author Mark sunlightcs@gmail.com
+ * @author Zhu Jiawei zhujiawei@sunseaaiot.com
  */
 public class EventCenterException extends RuntimeException {
 	private static final long serialVersionUID = 1L;

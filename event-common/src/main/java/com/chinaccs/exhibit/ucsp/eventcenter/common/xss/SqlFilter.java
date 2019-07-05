@@ -14,7 +14,7 @@ import org.apache.commons.lang3.StringUtils;
 
 /**
  * SQL过滤
- * @author Mark sunlightcs@gmail.com
+ * @author Zhu Jiawei zhujiawei@sunseaaiot.com
  */
 public class SqlFilter {
 

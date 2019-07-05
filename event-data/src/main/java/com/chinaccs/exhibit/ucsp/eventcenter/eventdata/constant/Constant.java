@@ -11,7 +11,7 @@ package com.chinaccs.exhibit.ucsp.eventcenter.eventdata.constant;
 /**
  * 常量
  *
- * @author Mark sunlightcs@gmail.com
+ * @author Zhu Jiawei zhujiawei@sunseaaiot.com
  */
 public interface Constant {
     /**

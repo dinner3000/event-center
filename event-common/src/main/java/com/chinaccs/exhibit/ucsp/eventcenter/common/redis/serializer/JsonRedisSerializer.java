@@ -19,7 +19,7 @@ import org.springframework.data.redis.serializer.SerializationException;
 /**
  * Redis序列化
  *
- * @author Mark sunlightcs@gmail.com
+ * @author Zhu Jiawei zhujiawei@sunseaaiot.com
  */
 public class JsonRedisSerializer<T> implements RedisSerializer<T> {
     private static ParserConfig defaultRedisConfig = new ParserConfig();

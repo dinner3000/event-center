@@ -15,7 +15,7 @@ import java.io.StringWriter;
 /**
  * Exception工具类
  *
- * @author Mark sunlightcs@gmail.com
+ * @author Zhu Jiawei zhujiawei@sunseaaiot.com
  */
 public class ExceptionUtils {
 

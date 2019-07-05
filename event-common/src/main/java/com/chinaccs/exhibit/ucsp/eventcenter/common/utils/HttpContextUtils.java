@@ -22,7 +22,7 @@ import java.util.Map;
 /**
  * Http
  *
- * @author Mark sunlightcs@gmail.com
+ * @author Zhu Jiawei zhujiawei@sunseaaiot.com
  */
 public class HttpContextUtils {
 

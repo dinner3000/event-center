@@ -14,7 +14,7 @@ import org.springframework.context.i18n.LocaleContextHolder;
 /**
  * 国际化
  *
- * @author Mark sunlightcs@gmail.com
+ * @author Zhu Jiawei zhujiawei@sunseaaiot.com
  * @since 1.0.0
  */
 public class MessageUtils {

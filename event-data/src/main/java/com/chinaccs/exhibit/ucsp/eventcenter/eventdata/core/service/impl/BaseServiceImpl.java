@@ -33,7 +33,7 @@ import java.util.Map;
 /**
  * 基础服务类，所有Service都要继承
  *
- * @author Mark sunlightcs@gmail.com
+ * @author Zhu Jiawei zhujiawei@sunseaaiot.com
  */
 public abstract class BaseServiceImpl<M extends BaseMapper<T>, T>  implements BaseService<T> {
     @Autowired

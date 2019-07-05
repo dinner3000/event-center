@@ -9,7 +9,7 @@
 package com.chinaccs.exhibit.ucsp.eventcenter.common.redis;
 
 /**
- * @author Mark sunlightcs@gmail.com
+ * @author Zhu Jiawei zhujiawei@sunseaaiot.com
  * @since 1.0.0
  */
 public class RedisKeys {
