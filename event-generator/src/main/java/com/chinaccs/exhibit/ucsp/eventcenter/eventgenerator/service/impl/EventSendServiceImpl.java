@@ -1,7 +1,7 @@
 package com.chinaccs.exhibit.ucsp.eventcenter.eventgenerator.service.impl;
 
 import com.alibaba.fastjson.JSON;
-import com.chinaccs.exhibit.ucsp.eventcenter.eventdata.dto.EventDTO;
+import com.chinaccs.exhibit.ucsp.eventcenter.eventdata.dto.IncomingEventDTO;
 import com.chinaccs.exhibit.ucsp.eventcenter.eventgenerator.service.EventSendService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -28,8 +28,8 @@ public class EventSendServiceImpl implements EventSendService {
     private Logger logger = LoggerFactory.getLogger(getClass());
 
     @Override
-    public void send(EventDTO eventDTO) {
-        logger.debug("send => topic: {}, message: {}", mqTopic, JSON.toJSONString(eventDTO));
-        kafkaTemplate.send(mqTopic, JSON.toJSONString(eventDTO));
+    public void send(IncomingEventDTO incomingEventDTO) {
+        logger.debug("send => topic: {}, message: {}", mqTopic, JSON.toJSONString(incomingEventDTO));
+        kafkaTemplate.send(mqTopic, JSON.toJSONString(incomingEventDTO));
     }
 }

@@ -1,0 +1,46 @@
+/**
+ * Copyright (c) 2018 人人开源 All rights reserved.
+ *
+ * https://www.renren.io
+ *
+ * 版权所有，侵权必究！
+ */
+
+package com.chinaccs.exhibit.ucsp.eventcenter.eventdata.constant;
+
+/**
+ * 常量
+ *
+ * @author Mark sunlightcs@gmail.com
+ */
+public interface Constant {
+    /**
+     *  升序
+     */
+    String ASC = "asc";
+    /**
+     * 降序
+     */
+    String DESC = "desc";
+    /**
+     * 创建时间字段名
+     */
+    String ID = "id";
+
+    /**
+     * 当前页码
+     */
+    String PAGE = "page";
+    /**
+     * 每页显示记录数
+     */
+    String LIMIT = "limit";
+    /**
+     * 排序字段
+     */
+    String ORDER_FIELD = "orderField";
+    /**
+     * 排序方式
+     */
+    String ORDER = "order";
+}

@@ -8,7 +8,7 @@
 
 package com.chinaccs.exhibit.ucsp.eventcenter.eventgenerator;
 
-import com.chinaccs.exhibit.ucsp.eventcenter.eventdata.dto.EventDTO;
+import com.chinaccs.exhibit.ucsp.eventcenter.eventdata.dto.IncomingEventDTO;
 import com.chinaccs.exhibit.ucsp.eventcenter.eventgenerator.service.EventSendService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -43,17 +43,17 @@ public class EventGeneratorApp implements CommandLineRunner {
         }
     }
 
-    private EventDTO buildEventDTO() {
-        EventDTO eventDTO = new EventDTO();
-        eventDTO.setId(System.currentTimeMillis());
-        eventDTO.setAppCode("app-1");
-        if (eventDTO.getId() % 2 == 0) {
-            eventDTO.setTypeId(0L);
+    private IncomingEventDTO buildEventDTO() {
+        IncomingEventDTO incomingEventDTO = new IncomingEventDTO();
+        incomingEventDTO.setId(System.currentTimeMillis());
+        incomingEventDTO.setAppCode("app-1");
+        if (incomingEventDTO.getId() % 2 == 0) {
+            incomingEventDTO.setTypeId(0L);
         } else {
-            eventDTO.setTypeId(1L);
+            incomingEventDTO.setTypeId(1L);
         }
-        eventDTO.setMessage(String.format("%s, typeId: %d, message",
-                eventDTO.getAppCode(), eventDTO.getTypeId()));
-        return eventDTO;
+        incomingEventDTO.setMessage(String.format("%s, typeId: %d, message",
+                incomingEventDTO.getAppCode(), incomingEventDTO.getTypeId()));
+        return incomingEventDTO;
     }
 }

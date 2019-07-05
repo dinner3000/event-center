@@ -9,6 +9,6 @@ import com.chinaccs.exhibit.ucsp.eventcenter.eventdata.entity.EventForwardLogEnt
  * @author Gary.Z zhujiawei@sunseaaiot.com
  * @since 1.0.0 2019-07-01
  */
-public interface EventForwardLogRecordService extends IService<EventForwardLogEntity> {
+public interface EventForwardLogService extends IService<EventForwardLogEntity> {
 
 }

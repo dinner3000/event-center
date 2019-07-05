@@ -1,15 +1,15 @@
 package com.chinaccs.exhibit.ucsp.eventcenter.eventlogger.service.impl;
 
 import com.alibaba.fastjson.JSON;
-import com.chinaccs.exhibit.ucsp.eventcenter.eventdata.dto.EventDTO;
+import com.chinaccs.exhibit.ucsp.eventcenter.eventdata.dto.IncomingEventDTO;
 import com.chinaccs.exhibit.ucsp.eventcenter.eventdata.dto.ForwardNoticeDTO;
 import com.chinaccs.exhibit.ucsp.eventcenter.eventdata.entity.EventEntity;
 import com.chinaccs.exhibit.ucsp.eventcenter.eventdata.entity.EventTypeEntity;
-import com.chinaccs.exhibit.ucsp.eventcenter.eventdata.service.EventRecordService;
-import com.chinaccs.exhibit.ucsp.eventcenter.eventdata.service.EventTypeRecordService;
+import com.chinaccs.exhibit.ucsp.eventcenter.eventdata.service.EventService;
+import com.chinaccs.exhibit.ucsp.eventcenter.eventdata.service.EventTypeService;
+import com.chinaccs.exhibit.ucsp.eventcenter.eventdata.utils.ConvertUtils;
 import com.chinaccs.exhibit.ucsp.eventcenter.eventlogger.service.EventMQTopicListenService;
 import com.chinaccs.exhibit.ucsp.eventcenter.eventlogger.service.ForwardTaskMQEnqueueService;
-import com.chinaccs.exhibit.ucsp.eventcenter.eventlogger.utils.ConvertUtils;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -32,10 +32,10 @@ import java.util.Optional;
 public class EventMQTopicListenServiceImpl implements EventMQTopicListenService {
 
     @Autowired
-    private EventRecordService eventRecordService;
+    private EventService eventService;
 
     @Autowired
-    private EventTypeRecordService eventTypeRecordService;
+    private EventTypeService eventTypeService;
 
     @Autowired
     private ForwardTaskMQEnqueueService forwardTaskMQEnqueueService;
@@ -52,26 +52,26 @@ public class EventMQTopicListenServiceImpl implements EventMQTopicListenService 
             Object message = kafkaMessage.get();
             logger.debug("receive => event: {}", message);
 
-            EventDTO eventDTO = JSON.parseObject(message.toString(), EventDTO.class);
-            EventEntity eventEntity = ConvertUtils.sourceToTarget(eventDTO, EventEntity.class);
+            IncomingEventDTO incomingEventDTO = JSON.parseObject(message.toString(), IncomingEventDTO.class);
+            EventEntity eventEntity = ConvertUtils.sourceToTarget(incomingEventDTO, EventEntity.class);
             eventEntity.setId(null);
 
             logger.debug("save event to db");
-            eventRecordService.save(eventEntity);
+            eventService.insert(eventEntity);
 
             ack.acknowledge();
 
             EventTypeEntity typeEntity = null;
             do {
-                if(eventDTO.getTypeId() == null || eventDTO.getTypeId() <= 0){
+                if(incomingEventDTO.getTypeId() == null || incomingEventDTO.getTypeId() <= 0){
                     logger.debug("empty type id, skip");
                     break;
                 }
 
                 logger.debug("try get event type info");
-                typeEntity = eventTypeRecordService.getById(eventEntity.getTypeId());
+                typeEntity = eventTypeService.selectById(eventEntity.getTypeId());
                 if (typeEntity == null) {
-                    logger.debug("event type id not exist: {}, skip", eventDTO.getTypeId());
+                    logger.debug("event type id not exist: {}, skip", incomingEventDTO.getTypeId());
                     logger.debug("possibly: 1. event type not created, 2. wrong type id");
                     break;
                 }
@@ -83,7 +83,7 @@ public class EventMQTopicListenServiceImpl implements EventMQTopicListenService 
                 eventEntity.setStatus(0);
 
                 logger.debug("update event to db");
-                eventRecordService.updateById(eventEntity);
+                eventService.updateById(eventEntity);
 
                 logger.debug("send forward message");
                 ForwardNoticeDTO forwardNoticeDTO = new ForwardNoticeDTO(eventEntity, typeEntity);

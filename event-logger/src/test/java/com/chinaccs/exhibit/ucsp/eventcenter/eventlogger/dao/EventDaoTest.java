@@ -2,7 +2,7 @@ package com.chinaccs.exhibit.ucsp.eventcenter.eventlogger.dao;
 
 import com.chinaccs.exhibit.ucsp.eventcenter.eventdata.dao.EventDao;
 import com.chinaccs.exhibit.ucsp.eventcenter.eventdata.entity.EventEntity;
-import org.apache.commons.lang.SerializationUtils;
+import org.apache.commons.lang3.SerializationUtils;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;

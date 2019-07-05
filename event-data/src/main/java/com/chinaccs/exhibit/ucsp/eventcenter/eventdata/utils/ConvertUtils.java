@@ -6,7 +6,7 @@
  * 版权所有，侵权必究！
  */
 
-package com.chinaccs.exhibit.ucsp.eventcenter.eventlogger.utils;
+package com.chinaccs.exhibit.ucsp.eventcenter.eventdata.utils;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

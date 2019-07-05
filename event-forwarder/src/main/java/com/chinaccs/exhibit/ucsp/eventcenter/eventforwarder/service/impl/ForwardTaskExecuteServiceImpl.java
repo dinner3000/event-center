@@ -1,7 +1,7 @@
 package com.chinaccs.exhibit.ucsp.eventcenter.eventforwarder.service.impl;
 
 import com.chinaccs.exhibit.ucsp.eventcenter.eventdata.entity.EventForwardLogEntity;
-import com.chinaccs.exhibit.ucsp.eventcenter.eventdata.service.EventForwardLogRecordService;
+import com.chinaccs.exhibit.ucsp.eventcenter.eventdata.service.EventForwardLogService;
 import com.chinaccs.exhibit.ucsp.eventcenter.eventforwarder.constant.EventForwardStatus;
 import com.chinaccs.exhibit.ucsp.eventcenter.eventforwarder.service.ForwardTaskExecuteService;
 import org.slf4j.Logger;
@@ -17,7 +17,7 @@ public class ForwardTaskExecuteServiceImpl implements ForwardTaskExecuteService 
     private Logger logger = LoggerFactory.getLogger(getClass());
 
     @Autowired
-    private EventForwardLogRecordService eventForwardLogRecordService;
+    private EventForwardLogService eventForwardLogService;
 
     @Override
     public void forward(EventForwardLogEntity eventForwardLogEntity) {
@@ -43,7 +43,7 @@ public class ForwardTaskExecuteServiceImpl implements ForwardTaskExecuteService 
         }
 
         logger.debug("update forward task to db");
-        eventForwardLogRecordService.updateById(eventForwardLogEntity);
+        eventForwardLogService.updateById(eventForwardLogEntity);
 
     }
 }

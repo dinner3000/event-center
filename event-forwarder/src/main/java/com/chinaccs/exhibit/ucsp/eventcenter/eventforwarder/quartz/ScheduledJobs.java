@@ -2,7 +2,7 @@ package com.chinaccs.exhibit.ucsp.eventcenter.eventforwarder.quartz;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.chinaccs.exhibit.ucsp.eventcenter.eventdata.entity.EventForwardLogEntity;
-import com.chinaccs.exhibit.ucsp.eventcenter.eventdata.service.EventForwardLogRecordService;
+import com.chinaccs.exhibit.ucsp.eventcenter.eventdata.service.EventForwardLogService;
 import com.chinaccs.exhibit.ucsp.eventcenter.eventforwarder.constant.EventForwardStatus;
 import com.chinaccs.exhibit.ucsp.eventcenter.eventforwarder.service.ForwardTaskExecuteService;
 import org.quartz.DisallowConcurrentExecution;
@@ -23,7 +23,7 @@ public class ScheduledJobs {
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
     @Autowired
-    private EventForwardLogRecordService eventForwardLogRecordService;
+    private EventForwardLogService eventForwardLogService;
 
     @Autowired
     private ForwardTaskExecuteService forwardTaskExecuteService;
@@ -45,7 +45,7 @@ public class ScheduledJobs {
         // order by fw_time
         queryWrapper.orderByAsc("fw_time");
 
-        List<EventForwardLogEntity> taskList = eventForwardLogRecordService.list(queryWrapper);
+        List<EventForwardLogEntity> taskList = eventForwardLogService.list(queryWrapper);
         if (taskList.size() < 1){
             return;
         }

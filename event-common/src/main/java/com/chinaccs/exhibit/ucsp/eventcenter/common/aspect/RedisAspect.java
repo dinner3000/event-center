@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2016-2019 人人开源 All rights reserved.
+ * Copyright (c) 2018 人人开源 All rights reserved.
  *
  * https://www.renren.io
  *
@@ -8,6 +8,7 @@
 
 package com.chinaccs.exhibit.ucsp.eventcenter.common.aspect;
 
+import com.chinaccs.exhibit.ucsp.eventcenter.common.exception.ErrorCode;
 import com.chinaccs.exhibit.ucsp.eventcenter.common.exception.EventCenterException;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
@@ -20,7 +21,7 @@ import org.springframework.stereotype.Component;
 /**
  * Redis切面处理类
  *
- * @author Zhu Jiawei zhujiawei@sunseaaiot.com
+ * @author Mark sunlightcs@gmail.com
  */
 @Aspect
 @Component
@@ -29,10 +30,10 @@ public class RedisAspect {
     /**
      * 是否开启redis缓存  true开启   false关闭
      */
-    @Value("${cache.redis.open: false}")
+    @Value("${renren.redis.open: false}")
     private boolean open;
 
-    @Around("execution(* com.chinaccs.exhibit.ucsp.eventcenter.common.utils.RedisUtils.*(..))")
+    @Around("execution(* com.chinaccs.exhibit.ucsp.eventcenter.common.redis.RedisUtils.*(..))")
     public Object around(ProceedingJoinPoint point) throws Throwable {
         Object result = null;
         if(open){
@@ -40,7 +41,7 @@ public class RedisAspect {
                 result = point.proceed();
             }catch (Exception e){
                 logger.error("redis error", e);
-                throw new EventCenterException("Redis服务异常");
+                throw new EventCenterException(ErrorCode.REDIS_ERROR);
             }
         }
         return result;

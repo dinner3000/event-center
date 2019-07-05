@@ -1,6 +1,7 @@
 package com.chinaccs.exhibit.ucsp.eventcenter.eventdata.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.chinaccs.exhibit.ucsp.eventcenter.eventdata.core.service.BaseService;
 import com.chinaccs.exhibit.ucsp.eventcenter.eventdata.entity.EventEntity;
 
 /**
@@ -9,5 +10,5 @@ import com.chinaccs.exhibit.ucsp.eventcenter.eventdata.entity.EventEntity;
  * @author Gary.Z zhujiawei@sunseaaiot.com
  * @since 1.0.0 2019-07-01
  */
-public interface EventRecordService extends IService<EventEntity> {
+public interface EventService extends BaseService<EventEntity> {
 }

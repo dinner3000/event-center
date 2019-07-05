@@ -21,11 +21,11 @@ import org.springframework.web.bind.annotation.RestController;
  * @author Zhu Jiawei zhujiawei@sunseaaiot.com
  */
 @RestController
-@RequestMapping("/test")
+@RequestMapping("/stat")
 @Api(tags="测试接口")
-public class ApiTestController {
+public class EventStatApiController {
 
-    @GetMapping("test")
+    @GetMapping("/")
     @ApiOperation("测试")
     public Result<String> test(){
         return new Result<String>().ok("success");

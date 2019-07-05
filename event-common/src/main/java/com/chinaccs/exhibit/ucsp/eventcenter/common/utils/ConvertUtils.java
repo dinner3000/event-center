@@ -6,7 +6,7 @@
  * 版权所有，侵权必究！
  */
 
-package com.chinaccs.exhibit.ucsp.eventcenter.eventforwarder.utils;
+package com.chinaccs.exhibit.ucsp.eventcenter.common.utils;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,7 +19,7 @@ import java.util.List;
 /**
  * 转换工具类
  *
- * @author Zhu Jiawei zhujiawei@sunseaaiot.com
+ * @author Mark sunlightcs@gmail.com
  */
 public class ConvertUtils {
     private static Logger logger = LoggerFactory.getLogger(ConvertUtils.class);

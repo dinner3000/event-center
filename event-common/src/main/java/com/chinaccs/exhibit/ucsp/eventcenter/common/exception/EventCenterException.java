@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2016-2019 人人开源 All rights reserved.
+ * Copyright (c) 2018 人人开源 All rights reserved.
  *
  * https://www.renren.io
  *
@@ -8,37 +8,52 @@
 
 package com.chinaccs.exhibit.ucsp.eventcenter.common.exception;
 
+
+import com.chinaccs.exhibit.ucsp.eventcenter.common.utils.MessageUtils;
+
 /**
  * 自定义异常
  *
- * @author Zhu Jiawei zhujiawei@sunseaaiot.com
+ * @author Mark sunlightcs@gmail.com
  */
 public class EventCenterException extends RuntimeException {
 	private static final long serialVersionUID = 1L;
-	
-    private String msg;
-    private int code = 500;
-    
-    public EventCenterException(String msg) {
+
+    private int code;
+	private String msg;
+
+	public EventCenterException(int code) {
+		this.code = code;
+		this.msg = MessageUtils.getMessage(code);
+	}
+
+	public EventCenterException(int code, String... params) {
+		this.code = code;
+		this.msg = MessageUtils.getMessage(code, params);
+	}
+
+	public EventCenterException(int code, Throwable e) {
+		super(e);
+		this.code = code;
+		this.msg = MessageUtils.getMessage(code);
+	}
+
+	public EventCenterException(int code, Throwable e, String... params) {
+		super(e);
+		this.code = code;
+		this.msg = MessageUtils.getMessage(code, params);
+	}
+
+	public EventCenterException(String msg) {
 		super(msg);
+		this.code = ErrorCode.INTERNAL_SERVER_ERROR;
 		this.msg = msg;
 	}
-	
+
 	public EventCenterException(String msg, Throwable e) {
 		super(msg, e);
+		this.code = ErrorCode.INTERNAL_SERVER_ERROR;
 		this.msg = msg;
-	}
-	
-	public EventCenterException(String msg, int code) {
-		super(msg);
-		this.msg = msg;
-		this.code = code;
-	}
-	
-	public EventCenterException(String msg, int code, Throwable e) {
-		super(msg, e);
-		this.msg = msg;
-		this.code = code;
 	}
 
 	public String getMsg() {
@@ -56,6 +71,5 @@ public class EventCenterException extends RuntimeException {
 	public void setCode(int code) {
 		this.code = code;
 	}
-	
-	
+
 }
