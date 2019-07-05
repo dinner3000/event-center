@@ -11,7 +11,7 @@ package com.chinaccs.exhibit.ucsp.eventcenter.common.validator.group;
 /**
  * 新增数据 Group
  *
- * @author Mark sunlightcs@gmail.com
+ * @author Zhu Jiawei zhujiawei@sunseaaiot.com
  */
 public interface AddGroup {
 }

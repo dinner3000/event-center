@@ -14,7 +14,7 @@ import org.apache.commons.lang.StringUtils;
 /**
  * 数据校验
  *
- * @author Mark sunlightcs@gmail.com
+ * @author Zhu Jiawei zhujiawei@sunseaaiot.com
  */
 public abstract class Assert {
 

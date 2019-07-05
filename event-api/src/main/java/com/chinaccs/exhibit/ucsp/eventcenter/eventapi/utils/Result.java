@@ -17,7 +17,7 @@ import java.io.Serializable;
 /**
  * 响应数据
  *
- * @author Mark sunlightcs@gmail.com
+ * @author Zhu Jiawei zhujiawei@sunseaaiot.com
  * @since 1.0.0
  */
 @ApiModel(value = "响应")

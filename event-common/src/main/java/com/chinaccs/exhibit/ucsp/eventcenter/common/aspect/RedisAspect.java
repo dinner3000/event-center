@@ -20,7 +20,7 @@ import org.springframework.stereotype.Component;
 /**
  * Redis切面处理类
  *
- * @author Mark sunlightcs@gmail.com
+ * @author Zhu Jiawei zhujiawei@sunseaaiot.com
  */
 @Aspect
 @Component

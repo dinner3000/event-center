@@ -18,7 +18,7 @@ import javax.servlet.DispatcherType;
 /**
  * Filter配置
  *
- * @author Mark sunlightcs@gmail.com
+ * @author Zhu Jiawei zhujiawei@sunseaaiot.com
  */
 @Configuration
 public class FilterConfig {

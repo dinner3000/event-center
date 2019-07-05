@@ -14,7 +14,7 @@ package com.chinaccs.exhibit.ucsp.eventcenter.eventapi.exception;
  * 如：10001（10代表系统模块，001代表业务代码）
  * </p>
  *
- * @author Mark sunlightcs@gmail.com
+ * @author Zhu Jiawei zhujiawei@sunseaaiot.com
  * @since 1.0.0
  */
 public interface ErrorCode {
