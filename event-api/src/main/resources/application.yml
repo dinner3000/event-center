@@ -18,6 +18,9 @@ spring:
       max-file-size: 100MB
       max-request-size: 100MB
       enabled: true
+  jackson:
+    serialization:
+      FAIL_ON_EMPTY_BEANS: false
   redis:
     database: 0
     host: localhost

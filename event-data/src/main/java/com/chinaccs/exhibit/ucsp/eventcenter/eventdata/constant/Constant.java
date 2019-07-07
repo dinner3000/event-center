@@ -43,4 +43,15 @@ public interface Constant {
      * 排序方式
      */
     String ORDER = "order";
+
+    String LEVEL = "level";
+
+    String TYPE = "type";
+
+    String APP_CODE = "appCode";
+
+    String START_TIME = "startTime";
+
+    String END_TIME = "endTime";
+
 }

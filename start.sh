@@ -1,6 +1,8 @@
-#!/bin/sh -xe
+#!/bin/bash -xe
 
 cd kafka_2.12-2.2.0
+
+rm -rf /tmp/kafka-logs
 
 nohup ./bin/zookeeper-server-start.sh config/zookeeper.properties > zookeeper_runlog 2>&1 &
 
