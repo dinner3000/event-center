@@ -7,11 +7,8 @@ package com.chinaccs.exhibit.ucsp.eventcenter.eventapi.controller;
 import com.chinaccs.exhibit.ucsp.eventcenter.eventapi.utils.Result;
 import com.chinaccs.exhibit.ucsp.eventcenter.eventdata.constant.Constant;
 import com.chinaccs.exhibit.ucsp.eventcenter.eventdata.dto.EventDTO;
-import com.chinaccs.exhibit.ucsp.eventcenter.eventdata.dto.IncomingEventDTO;
-import com.chinaccs.exhibit.ucsp.eventcenter.eventdata.entity.EventEntity;
 import com.chinaccs.exhibit.ucsp.eventcenter.eventdata.page.PageData;
 import com.chinaccs.exhibit.ucsp.eventcenter.eventdata.service.EventService;
-import com.chinaccs.exhibit.ucsp.eventcenter.eventdata.utils.ConvertUtils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -30,17 +27,17 @@ import java.util.Map;
  */
 @RestController
 @RequestMapping("/query")
-@Api(tags = "测试接口")
+@Api(tags = "事件查询接口")
 public class EventQueryApiController {
 
     @Autowired
     private EventService eventService;
 
     @GetMapping("/page")
-    @ApiOperation("分页列表")
+    @ApiOperation("事件分页列表")
     @ApiImplicitParams({
             @ApiImplicitParam(name = Constant.LEVEL, value = "事件级别", paramType = "query", dataType = "int"),
-            @ApiImplicitParam(name = Constant.TYPE, value = "事件类型", paramType = "query", dataType = "int"),
+            @ApiImplicitParam(name = Constant.TYPE_ID, value = "事件类型", paramType = "query", dataType = "int"),
             @ApiImplicitParam(name = Constant.APP_CODE, value = "来源", paramType = "query", dataType = "String"),
             @ApiImplicitParam(name = Constant.START_TIME, value = "起始时间", paramType = "query", dataType = "Date"),
             @ApiImplicitParam(name = Constant.END_TIME, value = "结束时间", paramType = "query", dataType = "Date"),
@@ -55,10 +52,10 @@ public class EventQueryApiController {
     }
 
     @GetMapping("/list")
-    @ApiOperation("列表")
+    @ApiOperation("事件列表")
     @ApiImplicitParams({
             @ApiImplicitParam(name = Constant.LEVEL, value = "事件级别", paramType = "query", dataType = "int"),
-            @ApiImplicitParam(name = Constant.TYPE, value = "事件类型", paramType = "query", dataType = "int"),
+            @ApiImplicitParam(name = Constant.TYPE_ID, value = "事件类型", paramType = "query", dataType = "int"),
             @ApiImplicitParam(name = Constant.APP_CODE, value = "来源", paramType = "query", dataType = "String"),
             @ApiImplicitParam(name = Constant.START_TIME, value = "起始时间", paramType = "query", dataType = "Date"),
             @ApiImplicitParam(name = Constant.END_TIME, value = "结束时间", paramType = "query", dataType = "Date")
@@ -69,13 +66,13 @@ public class EventQueryApiController {
     }
 
     @GetMapping("/{id:\\d+}")
-    @ApiOperation("列表")
+    @ApiOperation("事件单个查询")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "id", value = "事件id", paramType = "query", required = true, dataType = "long"),
+            @ApiImplicitParam(name = "id", value = "事件id", paramType = "path", required = true, dataType = "long"),
             @ApiImplicitParam(name = "detailLevel", value = "数据详细程度", paramType = "query", dataType = "int")
     })
     public Result<EventDTO> getById(
-            @PathVariable Long id,
+            @PathVariable("id") Long id,
             @RequestParam(required = false, defaultValue = "0") Integer detailLevel) {
 
         EventDTO dto = eventService.get(id);

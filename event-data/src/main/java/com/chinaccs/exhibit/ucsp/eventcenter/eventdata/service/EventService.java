@@ -6,6 +6,8 @@ import com.chinaccs.exhibit.ucsp.eventcenter.eventdata.core.service.CrudService;
 import com.chinaccs.exhibit.ucsp.eventcenter.eventdata.dto.EventDTO;
 import com.chinaccs.exhibit.ucsp.eventcenter.eventdata.entity.EventEntity;
 
+import java.util.Map;
+
 /**
  * 事件 存储事件信息，每个事件作为一条记录
  *
@@ -13,4 +15,8 @@ import com.chinaccs.exhibit.ucsp.eventcenter.eventdata.entity.EventEntity;
  * @since 1.0.0 2019-07-01
  */
 public interface EventService extends CrudService<EventEntity, EventDTO> {
+    Map<String, Object> statGroupByLevel();
+    Map<String, Object> statGroupByType();
+    Map<String, Object> statGroupByAppCode();
+//    Map<String, Object> statGroupByFWStatus();
 }

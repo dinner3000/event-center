@@ -20,6 +20,8 @@ public class EventDTO implements Serializable {
 
 	private Long typeId;
 
+	private Integer level;
+
 	private String message;
 
 	private String appCode;

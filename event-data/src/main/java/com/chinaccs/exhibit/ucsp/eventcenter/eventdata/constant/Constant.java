@@ -46,7 +46,7 @@ public interface Constant {
 
     String LEVEL = "level";
 
-    String TYPE = "type";
+    String TYPE_ID = "typeId";
 
     String APP_CODE = "appCode";
 

@@ -3,4 +3,16 @@
 
 <mapper namespace="com.chinaccs.exhibit.ucsp.eventcenter.eventdata.dao.EventDao">
 
+    <select id="statGroupByLevel" resultType="map">
+      select level, count(*) as count from event GROUP BY level ORDER BY level ;
+    </select>
+    <select id="statGroupByType" resultType="map">
+      select type_id, count(*) as count from event GROUP BY type_id ORDER BY type_id;
+    </select>
+    <select id="statGroupByAppCode" resultType="map">
+      select app_code, count(*) as count from event GROUP BY app_code ORDER BY app_code ;
+    </select>
+
+
+
 </mapper>

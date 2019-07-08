@@ -54,7 +54,14 @@ public class EventMQTopicListenServiceImpl implements EventMQTopicListenService 
 
             IncomingEventDTO incomingEventDTO = JSON.parseObject(message.toString(), IncomingEventDTO.class);
             EventEntity eventEntity = ConvertUtils.sourceToTarget(incomingEventDTO, EventEntity.class);
+
             eventEntity.setId(null);
+            eventEntity.setStatus(0);
+
+            eventEntity.setLevel(0);
+            eventEntity.setTypeId(0L);
+            eventEntity.setTypeName("无");
+            eventEntity.setLogTime(new Date());
 
             logger.debug("save event to db");
             eventService.insert(eventEntity);
@@ -79,8 +86,6 @@ public class EventMQTopicListenServiceImpl implements EventMQTopicListenService 
                 logger.debug("fill event type info to event entity");
                 eventEntity.setLevel(typeEntity.getLevel());
                 eventEntity.setTypeName(typeEntity.getName());
-                eventEntity.setLogTime(new Date());
-                eventEntity.setStatus(0);
 
                 logger.debug("update event to db");
                 eventService.updateById(eventEntity);

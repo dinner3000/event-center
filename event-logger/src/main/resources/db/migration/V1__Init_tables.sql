@@ -49,5 +49,3 @@ CREATE TABLE IF NOT EXISTS event_forward_log(
 ALTER TABLE event_forward_log ADD INDEX idx_status(status,retry,fw_time);
 
 
-INSERT INTO `test`.`event_type` (`id`, `name`, `desc`, `app_code`, `level`, `fw_enabled`, `fw_url`, `fw_type`, `fw_targets`, `fw_text_tpl`, `status`)
-VALUES ('1', '测试', '测试', 'app-1', '3', '1', 'http://127.0.0.1/api/send_sms', 'SMS', '[\"13520573407\"]', '测试模版', '1');

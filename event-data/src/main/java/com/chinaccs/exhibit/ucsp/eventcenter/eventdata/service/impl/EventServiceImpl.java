@@ -2,9 +2,7 @@ package com.chinaccs.exhibit.ucsp.eventcenter.eventdata.service.impl;
 
 import cn.hutool.core.convert.Convert;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.chinaccs.exhibit.ucsp.eventcenter.eventdata.constant.Constant;
-import com.chinaccs.exhibit.ucsp.eventcenter.eventdata.core.service.impl.BaseServiceImpl;
 import com.chinaccs.exhibit.ucsp.eventcenter.eventdata.core.service.impl.CrudServiceImpl;
 import com.chinaccs.exhibit.ucsp.eventcenter.eventdata.dao.EventDao;
 import com.chinaccs.exhibit.ucsp.eventcenter.eventdata.dto.EventDTO;
@@ -33,18 +31,38 @@ public class EventServiceImpl extends CrudServiceImpl<EventDao, EventEntity, Eve
         Integer level = Convert.toInt(params.get(Constant.LEVEL), null);
         queryWrapper.eq(level != null, Constant.LEVEL, level);
 
-        Integer type = Convert.toInt(params.get(Constant.TYPE), null);
-        queryWrapper.eq(type != null, Constant.TYPE, type);
+        Integer type = Convert.toInt(params.get(Constant.TYPE_ID), null);
+        queryWrapper.eq(type != null, "type_id", type);
 
         String appCode = Convert.toStr(params.get(Constant.APP_CODE), null);
         queryWrapper.eq(!StringUtils.isEmpty(appCode), "app_code", appCode);
 
         Date startTime = Convert.toDate(params.get(Constant.START_TIME), null);
-        queryWrapper.gt(startTime != null, "occur_time", startTime);
+        queryWrapper.ge(startTime != null, "occur_time", startTime);
 
         Date endTime = Convert.toDate(params.get(Constant.END_TIME), null);
-        queryWrapper.lt(endTime != null, "occur_time", startTime);
+        queryWrapper.le(endTime != null, "occur_time", endTime);
 
         return queryWrapper;
     }
+
+    @Override
+    public Map<String, Object> statGroupByLevel() {
+        return this.baseDao.statGroupByLevel();
+    }
+
+    @Override
+    public Map<String, Object> statGroupByType() {
+        return this.baseDao.statGroupByType();
+    }
+
+    @Override
+    public Map<String, Object> statGroupByAppCode() {
+        return this.baseDao.statGroupByAppCode();
+    }
+
+//    @Override
+//    public Map<String, Object> statGroupByFWStatus() {
+//        return null;
+//    }
 }
