@@ -1,7 +1,11 @@
-FROM java:8
-EXPOSE 8081
+FROM openjdk:8-jre
+#EXPOSE 8081
 
-VOLUME /tmp
-ADD renren-api.jar /app.jar
-RUN bash -c 'touch /app.jar'
-ENTRYPOINT ["java","-jar","/app.jar"]
+# Add Maven dependencies (not shaded into the artifact; Docker-cached)
+ADD target/lib           /usr/share/webapp/event-logger/lib
+
+# Add the service itself
+ARG JAR_FILE
+ADD target/${JAR_FILE} /usr/share/webapp/event-logger/event-logger.jar
+
+ENTRYPOINT ["/usr/bin/java", "-jar", "/usr/share/webapp/event-logger/event-logger.jar"]

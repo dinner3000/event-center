@@ -66,20 +66,24 @@
 			</plugin>
 			<plugin>
 				<groupId>com.spotify</groupId>
-				<artifactId>docker-maven-plugin</artifactId>
-				<version>0.4.14</version>
+				<artifactId>dockerfile-maven-plugin</artifactId>
+				<version>1.4.10</version>
+				<executions>
+					<execution>
+						<id>default</id>
+						<goals>
+							<goal>build</goal>
+<!--							<goal>push</goal>-->
+						</goals>
+					</execution>
+				</executions>
 				<configuration>
-					<imageName>ucsp/event-api</imageName>
-					<dockerDirectory>${project.basedir}</dockerDirectory>
-					<resources>
-						<resource>
-							<targetPath>/</targetPath>
-							<directory>${project.build.directory}</directory>
-							<include>${project.build.finalName}.jar</include>
-						</resource>
-					</resources>
+					<repository>spotify/foobar</repository>
+					<tag>${project.version}</tag>
+					<buildArgs>
+						<JAR_FILE>${project.build.finalName}.jar</JAR_FILE>
+					</buildArgs>
 				</configuration>
-				<!-- 运行命令 mvn clean package docker:build 打包并生成docker镜像 -->
 			</plugin>
 		</plugins>
 	</build>
