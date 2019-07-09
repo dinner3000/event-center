@@ -38,23 +38,23 @@ public class EventStatApiController {
 
     @GetMapping("/byLevel")
     @ApiOperation("按级别统计数量")
-    public Result<Map<String, Object>> byLevel() {
-        Map<String, Object> data = eventService.statGroupByLevel();
-        return new Result<Map<String, Object>>().ok(data);
+    public Result<List<Map<String, Object>>> byLevel() {
+        List<Map<String, Object>> data = eventService.statGroupByLevel();
+        return new Result<List<Map<String, Object>>>().ok(data);
     }
 
     @GetMapping("/byType")
     @ApiOperation("按类型统计数量")
-    public Result<Map<String, Object>> byType() {
-        Map<String, Object> data = eventService.statGroupByLevel();
-        return new Result<Map<String, Object>>().ok(data);
+    public Result<List<Map<String, Object>>> byType() {
+        List<Map<String, Object>> data = eventService.statGroupByType();
+        return new Result<List<Map<String, Object>>>().ok(data);
     }
 
     @GetMapping("/byAppCode")
     @ApiOperation("按系统来源统计数量")
-    public Result<Map<String, Object>> byAppCode() {
-        Map<String, Object> data = eventService.statGroupByLevel();
-        return new Result<Map<String, Object>>().ok(data);
+    public Result<List<Map<String, Object>>> byAppCode() {
+        List<Map<String, Object>> data = eventService.statGroupByAppCode();
+        return new Result<List<Map<String, Object>>>().ok(data);
     }
 
 //    @GetMapping("/byFWStatus")

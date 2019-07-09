@@ -1,7 +1,6 @@
-FROM java:8
-EXPOSE 8081
+FROM openjdk:8-jre
 
-VOLUME /tmp
-ADD renren-api.jar /app.jar
-RUN bash -c 'touch /app.jar'
-ENTRYPOINT ["java","-jar","/app.jar"]
+ARG JAR_FILE
+COPY target/${JAR_FILE} /webapp/event-forwarder/event-forwarder.jar
+
+ENTRYPOINT ["java", "-jar", "/webapp/event-forwarder/event-forwarder.jar", "--spring.profiles.active=test"]

@@ -31,17 +31,17 @@
 			<artifactId>druid-spring-boot-starter</artifactId>
 			<version>${druid.version}</version>
 		</dependency>
-<!--		<dependency>-->
-<!--			<groupId>com.baomidou</groupId>-->
-<!--			<artifactId>mybatis-plus-boot-starter</artifactId>-->
-<!--			<version>${mybatisplus.version}</version>-->
-<!--			<exclusions>-->
-<!--				<exclusion>-->
-<!--					<groupId>com.baomidou</groupId>-->
-<!--					<artifactId>mybatis-plus-generator</artifactId>-->
-<!--				</exclusion>-->
-<!--			</exclusions>-->
-<!--		</dependency>-->
+		<dependency>
+			<groupId>com.baomidou</groupId>
+			<artifactId>mybatis-plus-boot-starter</artifactId>
+			<version>${mybatisplus.version}</version>
+			<exclusions>
+				<exclusion>
+					<groupId>com.baomidou</groupId>
+					<artifactId>mybatis-plus-generator</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
 		<dependency>
 			<groupId>org.flywaydb</groupId>
 			<artifactId>flyway-core</artifactId>
@@ -64,27 +64,27 @@
 					<skipTests>true</skipTests>
 				</configuration>
 			</plugin>
-			<plugin>
-				<groupId>com.spotify</groupId>
-				<artifactId>dockerfile-maven-plugin</artifactId>
-				<version>1.4.10</version>
-				<executions>
-					<execution>
-						<id>default</id>
-						<goals>
-							<goal>build</goal>
-<!--							<goal>push</goal>-->
-						</goals>
-					</execution>
-				</executions>
-				<configuration>
-					<repository>spotify/foobar</repository>
-					<tag>${project.version}</tag>
-					<buildArgs>
-						<JAR_FILE>${project.build.finalName}.jar</JAR_FILE>
-					</buildArgs>
-				</configuration>
-			</plugin>
+			<!--<plugin>-->
+				<!--<groupId>com.spotify</groupId>-->
+				<!--<artifactId>dockerfile-maven-plugin</artifactId>-->
+				<!--<version>1.4.10</version>-->
+				<!--<executions>-->
+					<!--<execution>-->
+						<!--<id>default</id>-->
+						<!--<goals>-->
+							<!--<goal>build</goal>-->
+							<!--<goal>push</goal>-->
+						<!--</goals>-->
+					<!--</execution>-->
+				<!--</executions>-->
+				<!--<configuration>-->
+					<!--<repository>spotify/foobar</repository>-->
+					<!--<tag>${project.version}</tag>-->
+					<!--<buildArgs>-->
+						<!--<JAR_FILE>${project.build.finalName}.jar</JAR_FILE>-->
+					<!--</buildArgs>-->
+				<!--</configuration>-->
+			<!--</plugin>-->
 		</plugins>
 	</build>
 </project>

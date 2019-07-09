@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.chinaccs.exhibit.ucsp.eventcenter.eventdata.entity.EventEntity;
 import org.apache.ibatis.annotations.Mapper;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -14,8 +15,8 @@ import java.util.Map;
  */
 @Mapper
 public interface EventDao extends BaseMapper<EventEntity> {
-    Map<String, Object> statGroupByLevel();
-    Map<String, Object> statGroupByType();
-    Map<String, Object> statGroupByAppCode();
+    List<Map<String, Object>> statGroupByLevel();
+    List<Map<String, Object>> statGroupByType();
+    List<Map<String, Object>> statGroupByAppCode();
 //    Map<String, Object> statGroupByFWStatus();
 }

@@ -12,6 +12,8 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -47,19 +49,27 @@ public class EventServiceImpl extends CrudServiceImpl<EventDao, EventEntity, Eve
     }
 
     @Override
-    public Map<String, Object> statGroupByLevel() {
+    public List<Map<String, Object>> statGroupByLevel() {
         return this.baseDao.statGroupByLevel();
     }
 
     @Override
-    public Map<String, Object> statGroupByType() {
+    public List<Map<String, Object>> statGroupByType() {
         return this.baseDao.statGroupByType();
     }
 
     @Override
-    public Map<String, Object> statGroupByAppCode() {
+    public List<Map<String, Object>> statGroupByAppCode() {
         return this.baseDao.statGroupByAppCode();
     }
+
+//    private Map<String, Object> convertToResult(List<Map<String, Object>> statItemList){
+//        Map<String, Object> result = new HashMap<>();
+//        for (Map<String, Object> statItem : statItemList) {
+//            result.put(Convert.toStr(statItem.get("label")), statItem.get("count"));
+//        }
+//        return result;
+//    }
 
 //    @Override
 //    public Map<String, Object> statGroupByFWStatus() {
