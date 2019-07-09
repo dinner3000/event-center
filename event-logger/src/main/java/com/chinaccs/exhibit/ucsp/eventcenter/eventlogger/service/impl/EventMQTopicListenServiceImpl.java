@@ -59,7 +59,7 @@ public class EventMQTopicListenServiceImpl implements EventMQTopicListenService 
             eventEntity.setStatus(0);
 
             eventEntity.setLevel(0);
-            eventEntity.setTypeId(0L);
+            // eventEntity.setTypeId(0L);
             eventEntity.setTypeName("无");
             eventEntity.setLogTime(new Date());
 
@@ -76,7 +76,7 @@ public class EventMQTopicListenServiceImpl implements EventMQTopicListenService 
                 }
 
                 logger.debug("try get event type info");
-                typeEntity = eventTypeService.selectById(eventEntity.getTypeId());
+                typeEntity = eventTypeService.selectById(incomingEventDTO.getTypeId());
                 if (typeEntity == null) {
                     logger.debug("event type id not exist: {}, skip", incomingEventDTO.getTypeId());
                     logger.debug("possibly: 1. event type not created, 2. wrong type id");
