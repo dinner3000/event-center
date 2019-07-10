@@ -18,6 +18,8 @@ public class EventDTO implements Serializable {
 
 	private Long id;
 
+	private String traceId;
+
 	private Long typeId;
 
 	private Integer level;

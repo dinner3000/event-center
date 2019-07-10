@@ -1,9 +1,10 @@
 
 CREATE TABLE IF NOT EXISTS event(
   `id` BIGINT NOT NULL AUTO_INCREMENT  COMMENT 'ID' ,
+  `trace_id` VARCHAR(64) COMMENT '追踪ID' ,
+  `app_code` VARCHAR(64) COMMENT '源应用系统代码' ,
   `type_id` BIGINT COMMENT '类型ID' ,
   `message` VARCHAR(1024) COMMENT '内容' ,
-  `app_code` VARCHAR(64) COMMENT '源应用系统代码' ,
   `status` INT COMMENT '状态' ,
   `type_name` varchar(64) DEFAULT NULL,
   `level` int(1) DEFAULT NULL,
@@ -13,6 +14,7 @@ CREATE TABLE IF NOT EXISTS event(
   PRIMARY KEY (id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT = '事件 存储事件信息，每个事件作为一条记录';
 
+ALTER TABLE event ADD INDEX idx_trace_id(trace_id, app_code);
 ALTER TABLE event ADD INDEX idx_search_1(app_code,type_id,occur_time);
 ALTER TABLE event ADD INDEX idx_search_2(occur_time,app_code,type_id);
 

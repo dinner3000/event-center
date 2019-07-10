@@ -56,6 +56,7 @@ public class EventMQTopicListenServiceImpl implements EventMQTopicListenService 
             EventEntity eventEntity = ConvertUtils.sourceToTarget(incomingEventDTO, EventEntity.class);
 
             eventEntity.setId(null);
+            eventEntity.setTraceId(incomingEventDTO.getId());
             eventEntity.setStatus(0);
 
             eventEntity.setLevel(0);

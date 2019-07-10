@@ -13,7 +13,7 @@ spring:
   flyway:
 #    baseline-description: << Flyway Baseline >> # Description to tag an existing schema with when applying a baseline.
     baseline-on-migrate: true # Whether to automatically call baseline when migrating a non-empty schema.
-#    baseline-version: 1 # Version to tag an existing schema with when executing baseline.
+    baseline-version: 1 # Version to tag an existing schema with when executing baseline.
     enabled: true # Whether to enable flyway.
     encoding: UTF-8 # Encoding of SQL migrations.
 #    group: false # Whether to group all pending migrations together in the same transaction when applying them.

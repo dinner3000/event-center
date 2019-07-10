@@ -8,6 +8,7 @@
 
 package com.chinaccs.exhibit.ucsp.eventcenter.eventgenerator;
 
+import cn.hutool.core.convert.Convert;
 import com.chinaccs.exhibit.ucsp.eventcenter.eventdata.dto.IncomingEventDTO;
 import com.chinaccs.exhibit.ucsp.eventcenter.eventgenerator.service.EventSendService;
 import org.slf4j.Logger;
@@ -45,9 +46,10 @@ public class EventGeneratorApp implements CommandLineRunner {
 
     private IncomingEventDTO buildEventDTO() {
         IncomingEventDTO incomingEventDTO = new IncomingEventDTO();
-        incomingEventDTO.setId(System.currentTimeMillis());
+        Long id = System.currentTimeMillis();
+        incomingEventDTO.setId(Convert.toStr(id));
         incomingEventDTO.setAppCode("app-1");
-        if (incomingEventDTO.getId() % 2 == 0) {
+        if (id % 2 == 0) {
             incomingEventDTO.setTypeId(0L);
         } else {
             incomingEventDTO.setTypeId(1L);

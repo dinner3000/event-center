@@ -26,6 +26,8 @@ public class EventEntity implements Serializable {
 	 */
 	@TableId(type = IdType.AUTO)
 	private Long id;
+
+	private String traceId;
     /**
      * 类型
      */
