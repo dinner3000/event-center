@@ -1,7 +1,7 @@
 package com.chinaccs.exhibit.ucsp.eventcenter.eventlogger.dao;
 
-import com.chinaccs.exhibit.ucsp.eventcenter.eventdata.dao.EventTypeDao;
-import com.chinaccs.exhibit.ucsp.eventcenter.eventdata.entity.EventTypeEntity;
+import com.chinaccs.exhibit.ucsp.eventcenter.eventdata.dao.EventForwardConfigDao;
+import com.chinaccs.exhibit.ucsp.eventcenter.eventdata.entity.EventForwardConfigEntity;
 import org.apache.commons.lang3.SerializationUtils;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -17,19 +17,19 @@ import static org.junit.Assert.*;
 
 @SpringBootTest
 @RunWith(SpringRunner.class)
-public class EventTypeDaoTest {
+public class EventForwardConfigDaoTest {
 
     @Autowired
-    EventTypeDao eventTypeDao;
+    EventForwardConfigDao eventForwardConfigDao;
 
 
     @Test
     public void test() {
 //        Init a entity for test
-        EventTypeEntity entity4Insert = buildEntity();
+        EventForwardConfigEntity entity4Insert = buildEntity();
 
 //        insert
-        int affected = eventTypeDao.insert(entity4Insert);
+        int affected = eventForwardConfigDao.insert(entity4Insert);
         assertTrue(affected > 0);
 
         Long id = entity4Insert.getId();
@@ -37,28 +37,28 @@ public class EventTypeDaoTest {
         assertTrue(id > 0);
 
 //        query
-        EventTypeEntity entity4Query = eventTypeDao.selectById(id);
+        EventForwardConfigEntity entity4Query = eventForwardConfigDao.selectById(id);
         assertEquals(entity4Insert.getId(), entity4Query.getId());
         assertEquals(entity4Insert.getName(), entity4Query.getName());
         assertEquals(entity4Insert.getStatus(), entity4Query.getStatus());
 
 //        update
-        EventTypeEntity entity4Update = (EventTypeEntity) SerializationUtils.clone(entity4Query);
+        EventForwardConfigEntity entity4Update = (EventForwardConfigEntity) SerializationUtils.clone(entity4Query);
         entity4Update.setStatus(1);
-        eventTypeDao.updateById(entity4Update);
+        eventForwardConfigDao.updateById(entity4Update);
 
-        entity4Query = eventTypeDao.selectById(id);
+        entity4Query = eventForwardConfigDao.selectById(id);
         assertEquals(entity4Update.getStatus(), entity4Query.getStatus());
 
 //        delete
-        affected = eventTypeDao.deleteById(id);
+        affected = eventForwardConfigDao.deleteById(id);
         assertTrue(affected > 0);
     }
 
-    private EventTypeEntity buildEntity(){
+    private EventForwardConfigEntity buildEntity(){
         UUID uuid = UUID.randomUUID();
 
-        EventTypeEntity entity = new EventTypeEntity();
+        EventForwardConfigEntity entity = new EventForwardConfigEntity();
         entity.setName(uuid.toString());
         entity.setDesc(String.format("%s - desc", uuid.toString()));
         entity.setAppCode(String.format("%s - app code", uuid.toString()));

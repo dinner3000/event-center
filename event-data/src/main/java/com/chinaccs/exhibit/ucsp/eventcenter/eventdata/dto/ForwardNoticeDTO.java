@@ -1,7 +1,7 @@
 package com.chinaccs.exhibit.ucsp.eventcenter.eventdata.dto;
 
 import com.chinaccs.exhibit.ucsp.eventcenter.eventdata.entity.EventEntity;
-import com.chinaccs.exhibit.ucsp.eventcenter.eventdata.entity.EventTypeEntity;
+import com.chinaccs.exhibit.ucsp.eventcenter.eventdata.entity.EventForwardConfigEntity;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -19,9 +19,9 @@ public class ForwardNoticeDTO implements Serializable {
 
     private EventEntity eventEntity;
 
-	private EventTypeEntity typeEntity;
+	private EventForwardConfigEntity typeEntity;
 
-    public ForwardNoticeDTO(EventEntity eventEntity, EventTypeEntity typeEntity){
+    public ForwardNoticeDTO(EventEntity eventEntity, EventForwardConfigEntity typeEntity){
         this.eventEntity = eventEntity;
         this.typeEntity = typeEntity;
     }

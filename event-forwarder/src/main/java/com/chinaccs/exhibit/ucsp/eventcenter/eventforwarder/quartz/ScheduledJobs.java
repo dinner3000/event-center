@@ -35,13 +35,13 @@ public class ScheduledJobs {
 
     @Scheduled(cron = "0 */1 * * * *")
     public void eventForwardTaskAutoRetryJob(){
-        logger.info("scheduled job for retry forward event, exec in every 1 min ... ");
+        logger.info("scheduled job for retries forward event, exec in every 1 min ... ");
 
         QueryWrapper<EventForwardLogEntity> queryWrapper = new QueryWrapper<>();
         // failed to call forward api last time
         queryWrapper.eq("status", EventForwardStatus.FAILURE.getValue());
         // failed times < 2
-        queryWrapper.le("retry", 2);
+        queryWrapper.le("retries", 2);
         // order by fw_time
         queryWrapper.orderByAsc("fw_time");
 

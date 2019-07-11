@@ -25,7 +25,7 @@ public class ForwardTaskExecuteServiceImpl implements ForwardTaskExecuteService 
         eventForwardLogEntity.setFwTime(new Date());
         try {
             logger.debug("forward to external api => url: {}, targets: {}",
-                    eventForwardLogEntity.getFwUrl(), eventForwardLogEntity.getFwTargets());
+                    eventForwardLogEntity.getTplText(), eventForwardLogEntity.getTargets());
             logger.debug("add real logic here");
 
             if (eventForwardLogEntity.getId() % 2 != 0) {
@@ -38,7 +38,7 @@ public class ForwardTaskExecuteServiceImpl implements ForwardTaskExecuteService 
             logger.error("Event forward failure: {}", e.getMessage());
 
             eventForwardLogEntity.setStatus(EventForwardStatus.FAILURE.getValue());
-            eventForwardLogEntity.setRetry(eventForwardLogEntity.getRetry() + 1);
+            eventForwardLogEntity.setRetries(eventForwardLogEntity.getRetries() + 1);
             eventForwardLogEntity.setFwResult(e.getMessage());
         }
 

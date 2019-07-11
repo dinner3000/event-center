@@ -4,9 +4,9 @@ import com.alibaba.fastjson.JSON;
 import com.chinaccs.exhibit.ucsp.eventcenter.eventdata.dto.IncomingEventDTO;
 import com.chinaccs.exhibit.ucsp.eventcenter.eventdata.dto.ForwardNoticeDTO;
 import com.chinaccs.exhibit.ucsp.eventcenter.eventdata.entity.EventEntity;
-import com.chinaccs.exhibit.ucsp.eventcenter.eventdata.entity.EventTypeEntity;
+import com.chinaccs.exhibit.ucsp.eventcenter.eventdata.entity.EventForwardConfigEntity;
 import com.chinaccs.exhibit.ucsp.eventcenter.eventdata.service.EventService;
-import com.chinaccs.exhibit.ucsp.eventcenter.eventdata.service.EventTypeService;
+import com.chinaccs.exhibit.ucsp.eventcenter.eventdata.service.EventForwardConfigService;
 import com.chinaccs.exhibit.ucsp.eventcenter.eventdata.utils.ConvertUtils;
 import com.chinaccs.exhibit.ucsp.eventcenter.eventlogger.service.EventMQTopicListenService;
 import com.chinaccs.exhibit.ucsp.eventcenter.eventlogger.service.ForwardTaskMQEnqueueService;
@@ -35,7 +35,7 @@ public class EventMQTopicListenServiceImpl implements EventMQTopicListenService 
     private EventService eventService;
 
     @Autowired
-    private EventTypeService eventTypeService;
+    private EventForwardConfigService eventForwardConfigService;
 
     @Autowired
     private ForwardTaskMQEnqueueService forwardTaskMQEnqueueService;
@@ -60,8 +60,7 @@ public class EventMQTopicListenServiceImpl implements EventMQTopicListenService 
             eventEntity.setStatus(0);
 
             eventEntity.setLevel(0);
-            // eventEntity.setTypeId(0L);
-            eventEntity.setTypeName("无");
+            // eventEntity.setConfigId(0L);
             eventEntity.setLogTime(new Date());
 
             logger.debug("save event to db");
@@ -69,7 +68,7 @@ public class EventMQTopicListenServiceImpl implements EventMQTopicListenService 
 
             ack.acknowledge();
 
-            EventTypeEntity typeEntity = null;
+            EventForwardConfigEntity typeEntity = null;
             do {
                 if(incomingEventDTO.getTypeId() == null || incomingEventDTO.getTypeId() <= 0){
                     logger.debug("empty type id, skip");
@@ -77,7 +76,7 @@ public class EventMQTopicListenServiceImpl implements EventMQTopicListenService 
                 }
 
                 logger.debug("try get event type info");
-                typeEntity = eventTypeService.selectById(incomingEventDTO.getTypeId());
+                typeEntity = eventForwardConfigService.selectById(incomingEventDTO.getTypeId());
                 if (typeEntity == null) {
                     logger.debug("event type id not exist: {}, skip", incomingEventDTO.getTypeId());
                     logger.debug("possibly: 1. event type not created, 2. wrong type id");
@@ -86,7 +85,6 @@ public class EventMQTopicListenServiceImpl implements EventMQTopicListenService 
 
                 logger.debug("fill event type info to event entity");
                 eventEntity.setLevel(typeEntity.getLevel());
-                eventEntity.setTypeName(typeEntity.getName());
 
                 logger.debug("update event to db");
                 eventService.updateById(eventEntity);

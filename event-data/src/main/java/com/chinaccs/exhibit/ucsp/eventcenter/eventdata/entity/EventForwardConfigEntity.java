@@ -17,47 +17,31 @@ import java.io.Serializable;
  */
 @Data
 @EqualsAndHashCode(callSuper=false)
-@TableName("event_type")
-public class EventTypeEntity implements Serializable{
+@TableName("event_forward_config")
+public class EventForwardConfigEntity implements Serializable{
 	private static final long serialVersionUID = 1L;
 
-    /**
-     * id
-     */
     @TableId(type = IdType.AUTO)
     private Long id;
-    /**
-     * 名称
-     */
+
 	private String name;
-    /**
-     * 说明
-     */
+
 	@TableField("`desc`")
 	private String desc;
-	/**
-	 * 源应用系统代码
-	 */
-	private String appCode;
-    /**
-     * 级别
-     */
-	private Integer level;
-    /**
-     * 是否需要推送 Y/N
-     */
-	private Integer fwEnabled;
 
-	private String fwUrl;
+	private String appCode;
+
+	private Integer level;
+
+	private Integer fwEnabled;
 
 	private String fwType;
 
 	private String fwTargets;
 
-	private String fwTextTpl;
+	private String fwTplText;
 
-	/**
-     * 状态
-     */
+	private String fwTplId;
+
 	private Integer status;
 }

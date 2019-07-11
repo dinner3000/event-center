@@ -21,26 +21,22 @@ import java.util.Date;
 public class EventForwardLogEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-    /**
-     * id
-     */
     @TableId(type = IdType.INPUT)
     private Long id;
-    /**
-     * 名称
-     */
-	private Long typeId;
 
+	private Long configId;
 
-	private String fwUrl;
+	private String targets;
 
-	private String fwTargets;
+	private String tplText;
+
+	private String tplParams;
 
 	private String text;
 
 	private Integer status;
 
-	private Integer retry;
+	private Integer retries;
 
 	private Date fwTime;
 

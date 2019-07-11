@@ -4,7 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.chinaccs.exhibit.ucsp.eventcenter.eventdata.dto.ForwardNoticeDTO;
 import com.chinaccs.exhibit.ucsp.eventcenter.eventdata.entity.EventEntity;
 import com.chinaccs.exhibit.ucsp.eventcenter.eventdata.entity.EventForwardLogEntity;
-import com.chinaccs.exhibit.ucsp.eventcenter.eventdata.entity.EventTypeEntity;
+import com.chinaccs.exhibit.ucsp.eventcenter.eventdata.entity.EventForwardConfigEntity;
 import com.chinaccs.exhibit.ucsp.eventcenter.eventdata.service.EventForwardLogService;
 import com.chinaccs.exhibit.ucsp.eventcenter.eventforwarder.constant.EventForwardStatus;
 import com.chinaccs.exhibit.ucsp.eventcenter.eventforwarder.service.ForwardTaskExecuteService;
@@ -51,7 +51,7 @@ public class ForwardTaskMQTopicListenServiceImpl implements ForwardTaskMQTopicLi
             do {
                 ForwardNoticeDTO forwardNoticeDTO = JSON.parseObject(message.toString(), ForwardNoticeDTO.class);
                 EventEntity eventEntity = forwardNoticeDTO.getEventEntity();
-                EventTypeEntity eventTypeEntity = forwardNoticeDTO.getTypeEntity();
+                EventForwardConfigEntity eventForwardConfigEntity = forwardNoticeDTO.getTypeEntity();
 
                 if(eventEntity.getId() == null || eventEntity.getId() <= 0){
                     logger.debug("empty event id, skip");
@@ -63,25 +63,17 @@ public class ForwardTaskMQTopicListenServiceImpl implements ForwardTaskMQTopicLi
                     break;
                 }
 
-                if(eventTypeEntity.getFwTargets() == null || StringUtils.isEmpty(eventTypeEntity.getFwTargets())){
-                    logger.debug("empty fwTargets, skip");
-                    break;
-                }
-
-                if(eventTypeEntity.getFwUrl() == null || StringUtils.isEmpty(eventTypeEntity.getFwUrl())){
-                    logger.debug("empty fwUrl, skip");
+                if(eventForwardConfigEntity.getFwTargets() == null || StringUtils.isEmpty(eventForwardConfigEntity.getFwTargets())){
+                    logger.debug("empty targets, skip");
                     break;
                 }
 
                 EventForwardLogEntity eventForwardLogEntity = new EventForwardLogEntity();
                 eventForwardLogEntity.setId(eventEntity.getId());
-                eventForwardLogEntity.setTypeId(eventEntity.getTypeId());
-                eventForwardLogEntity.setFwUrl(eventTypeEntity.getFwUrl());
-                eventForwardLogEntity.setFwTargets(eventTypeEntity.getFwTargets());
+                eventForwardLogEntity.setConfigId(eventEntity.getTypeId());
+                eventForwardLogEntity.setTargets(eventForwardConfigEntity.getFwTargets());
                 eventForwardLogEntity.setText(eventEntity.getMessage());
-//            eventForwardLogEntity.setFwTime(null);
-//            eventForwardLogEntity.setFwResult(null);
-                eventForwardLogEntity.setRetry(0);
+                eventForwardLogEntity.setRetries(0);
                 eventForwardLogEntity.setStatus(EventForwardStatus.INITIAL.getValue());
 
                 logger.debug("save forward task to db");

@@ -21,37 +21,27 @@ import java.util.Date;
 public class EventEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	/**
-	 * id
-	 */
 	@TableId(type = IdType.AUTO)
 	private Long id;
 
 	private String traceId;
-    /**
-     * 类型
-     */
-	private Long typeId;
-    /**
-     * 内容
-     */
-	private String message;
-    /**
-     * 源应用系统代码
-     */
-	private String appCode;
-    /**
-     * 状态
-     */
-	private Integer status;
 
-	private String typeName;
+    private String appCode;
 
-	private Integer level;
+    private Long typeId;
 
-	private Date occurTime;
+    private Integer level;
 
-	private Date logTime;
+    private String title;
 
-	private String geoInfo;
+    private String message;
+
+    private Integer status;
+
+    private Date occurTime;
+
+    private Date resolveTime;
+
+    private Date logTime;
+
 }

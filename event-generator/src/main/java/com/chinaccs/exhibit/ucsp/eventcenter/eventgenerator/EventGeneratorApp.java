@@ -54,7 +54,7 @@ public class EventGeneratorApp implements CommandLineRunner {
         } else {
             incomingEventDTO.setTypeId(1L);
         }
-        incomingEventDTO.setMessage(String.format("%s, typeId: %d, message",
+        incomingEventDTO.setMessage(String.format("%s, configId: %d, message",
                 incomingEventDTO.getAppCode(), incomingEventDTO.getTypeId()));
         return incomingEventDTO;
     }
