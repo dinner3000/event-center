@@ -56,12 +56,12 @@ public class EventMQTopicListenServiceImpl implements EventMQTopicListenService 
             EventEntity eventEntity = ConvertUtils.sourceToTarget(incomingEventDTO, EventEntity.class);
 
             eventEntity.setId(null);
-            eventEntity.setTraceId(incomingEventDTO.getId());
-            eventEntity.setStatus(0);
-
-            eventEntity.setLevel(0);
-            // eventEntity.setConfigId(0L);
             eventEntity.setLogTime(new Date());
+            if (incomingEventDTO.getStatus() == null) {
+                eventEntity.setStatus(0);
+            }
+
+            // eventEntity.setConfigId(0L);
 
             logger.debug("save event to db");
             eventService.insert(eventEntity);
@@ -83,13 +83,7 @@ public class EventMQTopicListenServiceImpl implements EventMQTopicListenService 
                     break;
                 }
 
-                logger.debug("fill event type info to event entity");
-                eventEntity.setLevel(typeEntity.getLevel());
-
-                logger.debug("update event to db");
-                eventService.updateById(eventEntity);
-
-                logger.debug("send forward message");
+                logger.debug("send forward signal");
                 ForwardNoticeDTO forwardNoticeDTO = new ForwardNoticeDTO(eventEntity, typeEntity);
                 forwardTaskMQEnqueueService.notify(forwardNoticeDTO);
 

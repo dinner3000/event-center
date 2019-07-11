@@ -36,12 +36,12 @@ public class EventEntity implements Serializable {
 
     private String message;
 
-    private Integer status;
-
     private Date occurTime;
 
     private Date resolveTime;
 
     private Date logTime;
+
+    private Integer status;
 
 }

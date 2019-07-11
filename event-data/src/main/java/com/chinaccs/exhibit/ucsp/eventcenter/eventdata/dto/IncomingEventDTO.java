@@ -18,6 +18,8 @@ public class IncomingEventDTO implements Serializable {
 
 	private String id;
 
+	private String appCode;
+
 	private Long typeId;
 
 	private Integer level;
@@ -25,8 +27,6 @@ public class IncomingEventDTO implements Serializable {
 	private String title;
 
 	private String message;
-
-	private String appCode;
 
 	private Date occurTime;
 

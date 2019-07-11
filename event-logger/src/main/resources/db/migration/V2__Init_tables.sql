@@ -48,4 +48,4 @@ CREATE TABLE IF NOT EXISTS event_forward_log(
   PRIMARY KEY (id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT = '事件推送记录';
 
-ALTER TABLE event_forward_log ADD INDEX idx_status(status,retry,fw_time);
+ALTER TABLE event_forward_log ADD INDEX idx_status(status,retries,fw_time);
