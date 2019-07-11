@@ -20,11 +20,15 @@ public class IncomingEventDTO implements Serializable {
 
 	private Long typeId;
 
+	private Integer level;
+
+	private String title;
+
 	private String message;
 
 	private String appCode;
 
 	private Date occurTime;
 
-	private String geoInfo;
+	private Integer status;
 }

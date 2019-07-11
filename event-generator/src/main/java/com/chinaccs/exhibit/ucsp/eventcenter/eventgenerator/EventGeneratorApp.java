@@ -18,6 +18,8 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import java.util.Date;
+
 @SpringBootApplication
 public class EventGeneratorApp implements CommandLineRunner {
 
@@ -46,16 +48,25 @@ public class EventGeneratorApp implements CommandLineRunner {
 
     private IncomingEventDTO buildEventDTO() {
         IncomingEventDTO incomingEventDTO = new IncomingEventDTO();
+
         Long id = System.currentTimeMillis();
         incomingEventDTO.setId(Convert.toStr(id));
+
         incomingEventDTO.setAppCode("app-1");
-        if (id % 2 == 0) {
-            incomingEventDTO.setTypeId(0L);
-        } else {
-            incomingEventDTO.setTypeId(1L);
-        }
+
+        int level = Convert.toInt(id % 3);
+        incomingEventDTO.setLevel(level);
+
+        long typeId = id % 2;
+        incomingEventDTO.setTypeId(typeId);
+
+        incomingEventDTO.setTitle("test title");
+
         incomingEventDTO.setMessage(String.format("%s, configId: %d, message",
                 incomingEventDTO.getAppCode(), incomingEventDTO.getTypeId()));
+
+        incomingEventDTO.setOccurTime(new Date());
+
         return incomingEventDTO;
     }
 }

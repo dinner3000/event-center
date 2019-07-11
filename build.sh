@@ -1,7 +1,5 @@
 #!/bin/bash -ex
 
-
-
 JAR_SUFFIX="boot.jar"
 
 #APP_LIST="event-api event-logger event-forwarder"
@@ -11,8 +9,7 @@ VERSION="1.0.0-SNAPSHOT"
 
 IMAGE_PROJ="ucsp"
 
-mvn clean package
-
+mvn clean install
 
 for APP in ${APP_LIST}; do
 	cd ${APP}
