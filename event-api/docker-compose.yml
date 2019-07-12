@@ -41,14 +41,3 @@ services:
       - db
       - kafka
 
-  forwarder:
-    image: ucsp/event-forwarder:latest
-    depends_on:
-      - db
-      - kafka
-
-  generator:
-    image: ucsp/event-generator:latest
-    depends_on:
-      - kafka
-
