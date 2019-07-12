@@ -38,9 +38,10 @@ CREATE TABLE IF NOT EXISTS event_forward_config(
 CREATE TABLE IF NOT EXISTS event_forward_log(
   `id` BIGINT NOT NULL COMMENT '事件ID',
   `config_id` BIGINT COMMENT '推送设置ID',
-  `fw_targets` VARCHAR(3072) COMMENT '推送目标列表 JSON数组',
-  `fw_tpl_text` VARCHAR(3072) COMMENT '内容',
-  `fw_tpl_params` VARCHAR(3072) COMMENT '参数列表 JSON数组',
+  `targets` VARCHAR(3072) COMMENT '推送目标列表 JSON数组',
+  `tpl_text` VARCHAR(2048) COMMENT '内容',
+  `tpl_params` VARCHAR(1024) COMMENT '参数列表 JSON数组',
+  `text` VARCHAR(3072) COMMENT '参数列表 JSON数组',
   `status` INT(1) COMMENT '状态',
   `retries` INT(1) COMMENT '重试次数',
   `fw_time` datetime DEFAULT NULL,
