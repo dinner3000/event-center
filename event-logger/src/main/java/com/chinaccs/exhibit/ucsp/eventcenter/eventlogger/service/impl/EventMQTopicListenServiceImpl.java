@@ -68,7 +68,7 @@ public class EventMQTopicListenServiceImpl implements EventMQTopicListenService 
 
             ack.acknowledge();
 
-            EventForwardConfigEntity typeEntity = null;
+            EventForwardConfigEntity configEntity = null;
             do {
                 if(incomingEventDTO.getTypeId() == null || incomingEventDTO.getTypeId() <= 0){
                     logger.debug("empty type id, skip");
@@ -76,16 +76,20 @@ public class EventMQTopicListenServiceImpl implements EventMQTopicListenService 
                 }
 
                 logger.debug("try get event type info");
-                typeEntity = eventForwardConfigService.selectById(incomingEventDTO.getTypeId());
-                if (typeEntity == null) {
+                configEntity = eventForwardConfigService.selectById(incomingEventDTO.getTypeId());
+                if (configEntity == null) {
                     logger.debug("event type id not exist: {}, skip", incomingEventDTO.getTypeId());
                     logger.debug("possibly: 1. event type not created, 2. wrong type id");
                     break;
                 }
 
-                logger.debug("send forward signal");
-                ForwardNoticeDTO forwardNoticeDTO = new ForwardNoticeDTO(eventEntity, typeEntity);
-                forwardTaskMQEnqueueService.notify(forwardNoticeDTO);
+                if(configEntity.getFwEnabled() > 0) {
+                    logger.debug("forward enabled, send forward signal");
+                    ForwardNoticeDTO forwardNoticeDTO = new ForwardNoticeDTO(eventEntity, configEntity);
+                    forwardTaskMQEnqueueService.notify(forwardNoticeDTO);
+                } else {
+                    logger.debug("forward disabled, ignore");
+                }
 
                 logger.debug("====================================================================");
             } while (false);
