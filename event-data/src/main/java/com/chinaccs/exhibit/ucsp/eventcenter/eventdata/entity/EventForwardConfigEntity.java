@@ -31,6 +31,8 @@ public class EventForwardConfigEntity implements Serializable{
 
 	private String appCode;
 
+	private Long typeId;
+
 	private Integer level;
 
 	private Integer fwEnabled;

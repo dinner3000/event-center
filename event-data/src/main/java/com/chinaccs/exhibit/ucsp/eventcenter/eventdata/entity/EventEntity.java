@@ -44,4 +44,6 @@ public class EventEntity implements Serializable {
 
     private Integer status;
 
+    private Integer overtime;
+
 }

@@ -52,4 +52,7 @@ public class EventDTO implements Serializable {
     @ApiModelProperty(value = "记录时间")
     private Date logTime;
 
+    @ApiModelProperty(value = "记录时间")
+    private Integer overtime;
+
 }

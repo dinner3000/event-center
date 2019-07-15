@@ -1,13 +1,18 @@
 package com.chinaccs.exhibit.ucsp.eventcenter.eventdata.service.impl;
 
+import cn.hutool.core.convert.Convert;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.chinaccs.exhibit.ucsp.eventcenter.eventdata.constant.Constant;
 import com.chinaccs.exhibit.ucsp.eventcenter.eventdata.core.service.impl.CrudServiceImpl;
 import com.chinaccs.exhibit.ucsp.eventcenter.eventdata.dao.EventForwardConfigDao;
 import com.chinaccs.exhibit.ucsp.eventcenter.eventdata.dto.EventForwardConfigDTO;
+import com.chinaccs.exhibit.ucsp.eventcenter.eventdata.entity.EventEntity;
 import com.chinaccs.exhibit.ucsp.eventcenter.eventdata.entity.EventForwardConfigEntity;
 import com.chinaccs.exhibit.ucsp.eventcenter.eventdata.service.EventForwardConfigService;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.Map;
 
 /**
@@ -21,6 +26,17 @@ public class EventForwardConfigServiceImpl extends CrudServiceImpl<EventForwardC
 
     @Override
     public QueryWrapper<EventForwardConfigEntity> getWrapper(Map<String, Object> params) {
-        return null;
+        QueryWrapper<EventForwardConfigEntity> queryWrapper = new QueryWrapper<>();
+
+        Integer level = Convert.toInt(params.get(Constant.LEVEL), null);
+        queryWrapper.eq(level != null, Constant.LEVEL, level);
+
+        Integer type = Convert.toInt(params.get(Constant.TYPE_ID), null);
+        queryWrapper.eq(type != null, "type_id", type);
+
+        String appCode = Convert.toStr(params.get(Constant.APP_CODE), null);
+        queryWrapper.eq(!StringUtils.isEmpty(appCode), "app_code", appCode);
+
+        return queryWrapper;
     }
 }

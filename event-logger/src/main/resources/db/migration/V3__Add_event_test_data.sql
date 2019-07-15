@@ -1,6 +1,6 @@
 INSERT INTO `test`.`event_forward_config`
-(`id`, `name`, `desc`, `app_code`, `level`, `fw_enabled`, `fw_type`, `fw_targets`, `fw_tpl_text`, `status`)
-VALUES ('1', '标题', '说明', 'app-1', '3', '1', 'SMS', '[\"13520573407\"]', '测试模版', '1');
+(`id`, `name`, `desc`, `app_code`, `type_id`, `level`, `fw_enabled`, `fw_type`, `fw_targets`, `fw_tpl_text`, `status`)
+VALUES ('1', '标题', '说明', 'app-1', '1', '3', '1', 'SMS', '[\"13520573407\"]', '测试模版', '1');
 
 
 INSERT INTO test.event (type_id, message, app_code, status, level, occur_time, log_time) VALUES (1, 'app-1, configId: 1, message', 'app-1', 0, 3, '2019-07-01 11:07:14', '2019-07-01 11:07:14');

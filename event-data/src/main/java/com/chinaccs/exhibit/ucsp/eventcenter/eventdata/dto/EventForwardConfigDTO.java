@@ -30,6 +30,9 @@ public class EventForwardConfigDTO implements Serializable {
 	@ApiModelProperty(value = "是否启用")
 	private String appCode;
 
+	@ApiModelProperty(value = "事件类型")
+	private Long typeId;
+
 	@ApiModelProperty(value = "事件等级")
 	private Integer level;
 
