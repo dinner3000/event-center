@@ -57,7 +57,7 @@ public class EventEnumApiController {
     private Map<String, Object> buildDropDownListItem(String label, Object val){
         Map<String, Object> item = new HashMap<>();
         item.put(Constant.LABEL_NAME, label);
-        item.put(Constant.VALUE_NAME, val);
+        item.put(Constant.CODE_NAME, val);
 
         return item;
     }
@@ -83,14 +83,14 @@ public class EventEnumApiController {
     @ApiOperation("应用系统列表")
     public Result<List<Map<String, Object>>> getEventLevelList() {
 
-        return new Result<List<Map<String, Object>>>().ok(EventLevel.toUIDropListItemDTOList());
+        return new Result<List<Map<String, Object>>>().ok(EventLevel.toPropertyMapList());
     }
 
     @GetMapping("/event_status_list")
     @ApiOperation("应用系统列表")
     public Result<List<Map<String, Object>>> getEventStatusList() {
 
-        return new Result<List<Map<String, Object>>>().ok(EventStatus.toUIDropListItemDTOList());
+        return new Result<List<Map<String, Object>>>().ok(EventStatus.toPropertyMapList());
     }
 
 }

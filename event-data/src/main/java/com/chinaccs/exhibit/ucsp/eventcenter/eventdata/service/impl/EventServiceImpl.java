@@ -3,6 +3,7 @@ package com.chinaccs.exhibit.ucsp.eventcenter.eventdata.service.impl;
 import cn.hutool.core.convert.Convert;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.chinaccs.exhibit.ucsp.eventcenter.eventdata.constant.Constant;
+import com.chinaccs.exhibit.ucsp.eventcenter.eventdata.constant.EventLevel;
 import com.chinaccs.exhibit.ucsp.eventcenter.eventdata.core.service.impl.CrudServiceImpl;
 import com.chinaccs.exhibit.ucsp.eventcenter.eventdata.dao.EventDao;
 import com.chinaccs.exhibit.ucsp.eventcenter.eventdata.dto.EventDTO;
@@ -50,17 +51,29 @@ public class EventServiceImpl extends CrudServiceImpl<EventDao, EventEntity, Eve
 
     @Override
     public List<Map<String, Object>> statGroupByLevel() {
-        return this.baseDao.statGroupByLevel();
+        List<Map<String, Object>> list = this.baseDao.statGroupByLevel();
+        for (Map<String, Object> item : list){
+            item.put("label", EventLevel.parse(Convert.toInt(item.get("code"))).getName());
+        }
+        return list;
     }
 
     @Override
     public List<Map<String, Object>> statGroupByType() {
-        return this.baseDao.statGroupByType();
+        List<Map<String, Object>> list = this.baseDao.statGroupByType();
+        for (Map<String, Object> item : list){
+            item.put("label", String.format("事件类型%s", item.get("code")));
+        }
+        return list;
     }
 
     @Override
     public List<Map<String, Object>> statGroupByAppCode() {
-        return this.baseDao.statGroupByAppCode();
+        List<Map<String, Object>> list = this.baseDao.statGroupByAppCode();
+        for (Map<String, Object> item : list){
+            item.put("label", item.get("code"));
+        }
+        return list;
     }
 
 //    private Map<String, Object> convertToResult(List<Map<String, Object>> statItemList){

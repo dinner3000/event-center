@@ -4,13 +4,13 @@
 <mapper namespace="com.chinaccs.exhibit.ucsp.eventcenter.eventdata.dao.EventDao">
 
     <select id="statGroupByLevel" resultType="java.util.HashMap">
-      select level AS label, count(*) as value from event GROUP BY level ORDER BY level ;
+      select level AS code, count(*) as count from event GROUP BY level ORDER BY level ;
     </select>
     <select id="statGroupByType" resultType="java.util.HashMap">
-      select type_id AS label, count(*) as value from event GROUP BY type_id ORDER BY type_id;
+      select type_id AS code, count(*) as count from event GROUP BY type_id ORDER BY type_id;
     </select>
     <select id="statGroupByAppCode" resultType="java.util.HashMap">
-      select app_code AS label, count(*) as value from event GROUP BY app_code ORDER BY app_code ;
+      select app_code AS code, count(*) as count from event GROUP BY app_code ORDER BY app_code ;
     </select>
 
 

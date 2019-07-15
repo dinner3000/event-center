@@ -56,6 +56,10 @@ public interface Constant {
 
     String LABEL_NAME = "label";
 
+    String CODE_NAME = "code";
+
     String VALUE_NAME = "value";
+
+    String COUNT_NAME = "count";
 
 }
