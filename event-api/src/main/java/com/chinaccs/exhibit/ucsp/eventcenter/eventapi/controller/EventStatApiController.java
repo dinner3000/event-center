@@ -36,21 +36,21 @@ public class EventStatApiController {
     @Autowired
     private EventService eventService;
 
-    @GetMapping("/byLevel")
+    @GetMapping("/by_level")
     @ApiOperation("按级别统计数量")
     public Result<List<Map<String, Object>>> byLevel() {
         List<Map<String, Object>> data = eventService.statGroupByLevel();
         return new Result<List<Map<String, Object>>>().ok(data);
     }
 
-    @GetMapping("/byType")
+    @GetMapping("/by_type")
     @ApiOperation("按类型统计数量")
     public Result<List<Map<String, Object>>> byType() {
         List<Map<String, Object>> data = eventService.statGroupByType();
         return new Result<List<Map<String, Object>>>().ok(data);
     }
 
-    @GetMapping("/byAppCode")
+    @GetMapping("/by_app_code")
     @ApiOperation("按系统来源统计数量")
     public Result<List<Map<String, Object>>> byAppCode() {
         List<Map<String, Object>> data = eventService.statGroupByAppCode();

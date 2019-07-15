@@ -54,4 +54,8 @@ public interface Constant {
 
     String END_TIME = "endTime";
 
+    String LABEL_NAME = "label";
+
+    String VALUE_NAME = "value";
+
 }
