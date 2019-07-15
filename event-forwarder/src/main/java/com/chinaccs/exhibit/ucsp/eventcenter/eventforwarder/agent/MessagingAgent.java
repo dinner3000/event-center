@@ -1,7 +1,7 @@
 package com.chinaccs.exhibit.ucsp.eventcenter.eventforwarder.agent;
 
-import com.chinaccs.exhibit.ucsp.eventcenter.eventdata.dto.EventForwardLogDTO;
+import com.chinaccs.exhibit.ucsp.eventcenter.eventdata.entity.EventForwardLogEntity;
 
 public interface MessagingAgent {
-    void invoke(EventForwardLogDTO forwardLogDTO);
+    void invoke(EventForwardLogEntity forwardLogEntity);
 }
