@@ -8,3 +8,8 @@ spring:
   # Kafka servers
   kafka:
     bootstrap-servers: 127.0.0.1:9092
+
+external-api:
+  sms:
+    app-id: 123
+    app-key: 345
