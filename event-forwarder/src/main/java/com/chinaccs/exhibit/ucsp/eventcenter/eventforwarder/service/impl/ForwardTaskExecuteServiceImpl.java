@@ -2,11 +2,13 @@ package com.chinaccs.exhibit.ucsp.eventcenter.eventforwarder.service.impl;
 
 import com.chinaccs.exhibit.ucsp.eventcenter.eventdata.entity.EventForwardLogEntity;
 import com.chinaccs.exhibit.ucsp.eventcenter.eventdata.service.EventForwardLogService;
+import com.chinaccs.exhibit.ucsp.eventcenter.eventforwarder.agent.MessagingAgent;
 import com.chinaccs.exhibit.ucsp.eventcenter.eventforwarder.constant.EventForwardStatus;
 import com.chinaccs.exhibit.ucsp.eventcenter.eventforwarder.service.ForwardTaskExecuteService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
@@ -19,6 +21,10 @@ public class ForwardTaskExecuteServiceImpl implements ForwardTaskExecuteService 
     @Autowired
     private EventForwardLogService eventForwardLogService;
 
+    @Autowired
+    @Qualifier("com.chinaccs.exhibit.ucsp.eventcenter.eventforwarder.agent.impl.SMSMessagingAgent")
+    private MessagingAgent smsMessagingAgent;
+
     @Override
     public void forward(EventForwardLogEntity eventForwardLogEntity) {
 
@@ -26,7 +32,7 @@ public class ForwardTaskExecuteServiceImpl implements ForwardTaskExecuteService 
         try {
             logger.debug("forward to external api => url: {}, targets: {}",
                 eventForwardLogEntity.getTplText(), eventForwardLogEntity.getTargets());
-            logger.debug("add real logic here");
+            smsMessagingAgent.invoke(eventForwardLogEntity);
 
             if (eventForwardLogEntity.getId() % 2 != 0) {
                 throw new RuntimeException("Simulate forward failure");
