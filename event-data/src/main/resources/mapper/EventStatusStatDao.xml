@@ -3,5 +3,13 @@
 
 <mapper namespace="com.chinaccs.exhibit.ucsp.eventcenter.eventdata.dao.EventStatusStatDao">
 
-
+    <select id="statResolvePerformance">
+        <![CDATA[
+        insert into event_status_stat (`status`, `overtime`, `count`, `stat_time`, `time_span`)
+        select IFNULL(curr_status, #{status}) as status, IFNULL(overtime, #{overtime}) as overtime, count(*) as count,
+        #{statTime} as stat_time, #{timeSpan} as time_span
+        from event_status_log
+        where log_time >= #{startTime} and log_time <= #{endTime} and curr_status = #{status} and overtime = #{overtime};
+        ]]>
+    </select>
 </mapper>

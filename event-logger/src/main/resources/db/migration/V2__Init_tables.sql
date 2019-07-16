@@ -21,6 +21,7 @@ ALTER TABLE event ADD INDEX idx_search_2(occur_time,app_code,type_id);
 
 CREATE TABLE IF NOT EXISTS event_status_log(
   `id` BIGINT NOT NULL AUTO_INCREMENT  COMMENT 'ID' ,
+  `event_id` BIGINT COMMENT '事件ID',
   `prev_status` INT(1) COMMENT '原状态',
   `curr_status` INT(1) COMMENT '当前状态',
   `overtime` INT(1) DEFAULT NULL COMMENT '是否超时',
@@ -29,13 +30,15 @@ CREATE TABLE IF NOT EXISTS event_status_log(
   PRIMARY KEY (id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT = '事件状态变更记录';
 
-ALTER TABLE event_status_log ADD INDEX idx_1(log_time, curr_status, overtime);
+ALTER TABLE event_status_log ADD INDEX idx_1(event_id);
+ALTER TABLE event_status_log ADD INDEX idx_2(log_time, curr_status, overtime);
 
 
 CREATE TABLE IF NOT EXISTS event_status_stat(
   `id` BIGINT NOT NULL AUTO_INCREMENT COMMENT 'ID' ,
   `status` INT(1) COMMENT '状态',
   `overtime` INT(1) DEFAULT NULL COMMENT '是否超时',
+  `count` INT DEFAULT NULL COMMENT '统计数量',
   `stat_time` datetime DEFAULT NULL COMMENT '统计时间',
   `time_span` INT(2) DEFAULT NULL COMMENT '时间范围/间隔（分钟）',
   PRIMARY KEY (id)

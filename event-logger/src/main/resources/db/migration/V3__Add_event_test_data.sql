@@ -23,3 +23,22 @@ INSERT INTO test.event (trace_id, type_id, title, message, app_code, status, lev
 INSERT INTO test.event (trace_id, type_id, title, message, app_code, status, level, occur_time, log_time) VALUES ('app-1-18', 0, 'title', 'app-1, configId: 0, message', 'app-1', 0, 0, '2019-07-17 11:07:14', '2019-07-17 11:07:14');
 INSERT INTO test.event (trace_id, type_id, title, message, app_code, status, level, occur_time, log_time) VALUES ('app-1-19', 1, 'title', 'app-1, configId: 1, message', 'app-1', 0, 3, '2019-07-18 11:07:14', '2019-07-18 10:59:44');
 INSERT INTO test.event (trace_id, type_id, title, message, app_code, status, level, occur_time, log_time) VALUES ('app-1-20', 0, 'title', 'app-1, configId: 0, message', 'app-1', 0, 0, '2019-07-19 11:07:14', '2019-07-19 11:07:14');
+
+INSERT INTO `test`.`event_status_log` (`event_id`, `prev_status`, `curr_status`, `overtime`, `log_time`, `owner`) VALUES ('1', '0', '1', '0', '2019-07-16 10:00:00', 'A');
+INSERT INTO `test`.`event_status_log` (`event_id`, `prev_status`, `curr_status`, `overtime`, `log_time`, `owner`) VALUES ('1', '1', '2', '0', '2019-07-16 10:05:00', 'A');
+INSERT INTO `test`.`event_status_log` (`event_id`, `prev_status`, `curr_status`, `overtime`, `log_time`, `owner`) VALUES ('1', '2', '3', '0', '2019-07-16 10:10:00', 'A');
+INSERT INTO `test`.`event_status_log` (`event_id`, `prev_status`, `curr_status`, `overtime`, `log_time`, `owner`) VALUES ('2', '0', '1', '0', '2019-07-16 10:01:00', 'B');
+INSERT INTO `test`.`event_status_log` (`event_id`, `prev_status`, `curr_status`, `overtime`, `log_time`, `owner`) VALUES ('2', '1', '2', '0', '2019-07-16 10:06:00', 'B');
+INSERT INTO `test`.`event_status_log` (`event_id`, `prev_status`, `curr_status`, `overtime`, `log_time`, `owner`) VALUES ('2', '2', '3', '0', '2019-07-16 10:11:00', 'B');
+INSERT INTO `test`.`event_status_log` (`event_id`, `prev_status`, `curr_status`, `overtime`, `log_time`, `owner`) VALUES ('3', '0', '1', '0', '2019-07-16 10:02:00', 'A');
+INSERT INTO `test`.`event_status_log` (`event_id`, `prev_status`, `curr_status`, `overtime`, `log_time`, `owner`) VALUES ('3', '1', '2', '0', '2019-07-16 10:07:00', 'A');
+INSERT INTO `test`.`event_status_log` (`event_id`, `prev_status`, `curr_status`, `overtime`, `log_time`, `owner`) VALUES ('3', '2', '3', '0', '2019-07-16 10:12:00', 'A');
+INSERT INTO `test`.`event_status_log` (`event_id`, `prev_status`, `curr_status`, `overtime`, `log_time`, `owner`) VALUES ('4', '0', '1', '0', '2019-07-16 10:03:00', 'B');
+INSERT INTO `test`.`event_status_log` (`event_id`, `prev_status`, `curr_status`, `overtime`, `log_time`, `owner`) VALUES ('4', '1', '2', '0', '2019-07-16 10:08:00', 'B');
+INSERT INTO `test`.`event_status_log` (`event_id`, `prev_status`, `curr_status`, `overtime`, `log_time`, `owner`) VALUES ('4', '2', '3', '0', '2019-07-16 10:13:00', 'B');
+INSERT INTO `test`.`event_status_log` (`event_id`, `prev_status`, `curr_status`, `overtime`, `log_time`, `owner`) VALUES ('5', '0', '1', '1', '2019-07-16 10:02:00', 'A');
+INSERT INTO `test`.`event_status_log` (`event_id`, `prev_status`, `curr_status`, `overtime`, `log_time`, `owner`) VALUES ('5', '1', '2', '1', '2019-07-16 10:07:00', 'A');
+INSERT INTO `test`.`event_status_log` (`event_id`, `prev_status`, `curr_status`, `overtime`, `log_time`, `owner`) VALUES ('5', '2', '3', '1', '2019-07-16 10:12:00', 'A');
+INSERT INTO `test`.`event_status_log` (`event_id`, `prev_status`, `curr_status`, `overtime`, `log_time`, `owner`) VALUES ('6', '0', '1', '1', '2019-07-16 10:03:00', 'B');
+INSERT INTO `test`.`event_status_log` (`event_id`, `prev_status`, `curr_status`, `overtime`, `log_time`, `owner`) VALUES ('6', '1', '2', '1', '2019-07-16 10:08:00', 'B');
+INSERT INTO `test`.`event_status_log` (`event_id`, `prev_status`, `curr_status`, `overtime`, `log_time`, `owner`) VALUES ('6', '2', '3', '1', '2019-07-16 10:13:00', 'B');
