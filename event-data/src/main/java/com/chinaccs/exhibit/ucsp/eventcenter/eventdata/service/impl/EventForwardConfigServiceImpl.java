@@ -6,13 +6,12 @@ import com.chinaccs.exhibit.ucsp.eventcenter.eventdata.constant.Constant;
 import com.chinaccs.exhibit.ucsp.eventcenter.eventdata.core.service.impl.CrudServiceImpl;
 import com.chinaccs.exhibit.ucsp.eventcenter.eventdata.dao.EventForwardConfigDao;
 import com.chinaccs.exhibit.ucsp.eventcenter.eventdata.dto.EventForwardConfigDTO;
-import com.chinaccs.exhibit.ucsp.eventcenter.eventdata.entity.EventEntity;
 import com.chinaccs.exhibit.ucsp.eventcenter.eventdata.entity.EventForwardConfigEntity;
 import com.chinaccs.exhibit.ucsp.eventcenter.eventdata.service.EventForwardConfigService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
+import java.io.Serializable;
 import java.util.Map;
 
 /**
@@ -38,5 +37,15 @@ public class EventForwardConfigServiceImpl extends CrudServiceImpl<EventForwardC
         queryWrapper.eq(!StringUtils.isEmpty(appCode), "app_code", appCode);
 
         return queryWrapper;
+    }
+
+    @Override
+    public EventForwardConfigEntity tryGetOneConfig(String appCode, Long typeId, Integer level){
+        QueryWrapper<EventForwardConfigEntity> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("app_code", appCode);
+        queryWrapper.eq("type_id", typeId);
+        queryWrapper.eq("level", level);
+        EventForwardConfigEntity configEntity = this.baseDao.selectOne(queryWrapper);
+        return configEntity;
     }
 }

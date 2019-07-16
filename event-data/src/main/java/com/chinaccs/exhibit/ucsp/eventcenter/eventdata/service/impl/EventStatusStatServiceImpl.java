@@ -1,11 +1,8 @@
 package com.chinaccs.exhibit.ucsp.eventcenter.eventdata.service.impl;
 
 import com.chinaccs.exhibit.ucsp.eventcenter.eventdata.core.service.impl.BaseServiceImpl;
-import com.chinaccs.exhibit.ucsp.eventcenter.eventdata.dao.EventStatusLogDao;
 import com.chinaccs.exhibit.ucsp.eventcenter.eventdata.dao.EventStatusStatDao;
-import com.chinaccs.exhibit.ucsp.eventcenter.eventdata.entity.EventStatusLogEntity;
 import com.chinaccs.exhibit.ucsp.eventcenter.eventdata.entity.EventStatusStatEntity;
-import com.chinaccs.exhibit.ucsp.eventcenter.eventdata.service.EventStatusLogService;
 import com.chinaccs.exhibit.ucsp.eventcenter.eventdata.service.EventStatusStatService;
 import org.springframework.stereotype.Service;
 

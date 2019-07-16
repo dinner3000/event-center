@@ -1,12 +1,15 @@
 package com.chinaccs.exhibit.ucsp.eventcenter.eventlogger.service.impl;
 
 import com.alibaba.fastjson.JSON;
+import com.chinaccs.exhibit.ucsp.eventcenter.eventdata.constant.EventStatus;
 import com.chinaccs.exhibit.ucsp.eventcenter.eventdata.dto.IncomingEventDTO;
 import com.chinaccs.exhibit.ucsp.eventcenter.eventdata.dto.ForwardNoticeDTO;
 import com.chinaccs.exhibit.ucsp.eventcenter.eventdata.entity.EventEntity;
 import com.chinaccs.exhibit.ucsp.eventcenter.eventdata.entity.EventForwardConfigEntity;
+import com.chinaccs.exhibit.ucsp.eventcenter.eventdata.entity.EventStatusLogEntity;
 import com.chinaccs.exhibit.ucsp.eventcenter.eventdata.service.EventService;
 import com.chinaccs.exhibit.ucsp.eventcenter.eventdata.service.EventForwardConfigService;
+import com.chinaccs.exhibit.ucsp.eventcenter.eventdata.service.EventStatusLogService;
 import com.chinaccs.exhibit.ucsp.eventcenter.eventdata.utils.ConvertUtils;
 import com.chinaccs.exhibit.ucsp.eventcenter.eventlogger.service.EventMQTopicListenService;
 import com.chinaccs.exhibit.ucsp.eventcenter.eventlogger.service.ForwardTaskMQEnqueueService;
@@ -18,6 +21,7 @@ import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.kafka.support.Acknowledgment;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
 
 import java.util.Date;
 import java.util.Optional;
@@ -33,6 +37,9 @@ public class EventMQTopicListenServiceImpl implements EventMQTopicListenService 
 
     @Autowired
     private EventService eventService;
+
+    @Autowired
+    private EventStatusLogService statusLogService;
 
     @Autowired
     private EventForwardConfigService eventForwardConfigService;
@@ -53,48 +60,98 @@ public class EventMQTopicListenServiceImpl implements EventMQTopicListenService 
             logger.debug("receive => event: {}", message);
 
             IncomingEventDTO incomingEventDTO = JSON.parseObject(message.toString(), IncomingEventDTO.class);
-            EventEntity eventEntity = ConvertUtils.sourceToTarget(incomingEventDTO, EventEntity.class);
-
-            eventEntity.setId(null);
-            eventEntity.setLogTime(new Date());
-            if (incomingEventDTO.getStatus() == null) {
-                eventEntity.setStatus(0);
+            if (incomingEventDTO.getId() == null){
+                throw new RuntimeException("incoming event do not have valid id");
+            }
+            if (incomingEventDTO.getAppCode() == null){
+                throw new RuntimeException("incoming event do not have valid app code");
             }
 
-            // eventEntity.setConfigId(0L);
+            EventEntity eventEntity = eventService.getByTraceId(incomingEventDTO.getId(), incomingEventDTO.getAppCode());
 
-            logger.debug("save event to db");
-            eventService.insert(eventEntity);
+            if(eventEntity == null){
+                eventEntity = this.saveNewEvent(incomingEventDTO);
+                this.performForwardStage(incomingEventDTO, eventEntity);
+            } else {
+                this.updateEventStatus(incomingEventDTO, eventEntity);
+            }
 
             ack.acknowledge();
-
-            EventForwardConfigEntity configEntity = null;
-            do {
-                if(incomingEventDTO.getTypeId() == null || incomingEventDTO.getTypeId() <= 0){
-                    logger.debug("empty type id, skip");
-                    break;
-                }
-
-                logger.debug("try get event type info");
-                configEntity = eventForwardConfigService.selectById(incomingEventDTO.getTypeId());
-                if (configEntity == null) {
-                    logger.debug("event type id not exist: {}, skip", incomingEventDTO.getTypeId());
-                    logger.debug("possibly: 1. event type not created, 2. wrong type id");
-                    break;
-                }
-
-                if(configEntity.getFwEnabled() > 0) {
-                    logger.debug("forward enabled, send forward signal");
-                    ForwardNoticeDTO forwardNoticeDTO = new ForwardNoticeDTO(eventEntity, configEntity);
-                    forwardTaskMQEnqueueService.notify(forwardNoticeDTO);
-                } else {
-                    logger.debug("forward disabled, ignore");
-                }
-
-                logger.debug("====================================================================");
-            } while (false);
-
         }
+    }
+
+    private EventEntity saveNewEvent(IncomingEventDTO incomingEventDTO){
+        EventEntity eventEntity = ConvertUtils.sourceToTarget(incomingEventDTO, EventEntity.class);
+
+        eventEntity.setTraceId(incomingEventDTO.getId());
+        eventEntity.setId(null);
+        eventEntity.setLogTime(new Date());
+        eventEntity.setStatus(0);
+
+        logger.debug("save event to db");
+        eventService.insert(eventEntity);
+
+        return eventEntity;
+    }
+
+    private void updateEventStatus(IncomingEventDTO incomingEventDTO, EventEntity eventEntity){
+        if (incomingEventDTO.getStatus() == null){
+            throw new RuntimeException("incoming event status is empty");
+        }
+        if (!EventStatus.isValidCode(incomingEventDTO.getStatus())){
+            throw new RuntimeException(String.format(
+                    "incoming event do not have valid status: %s", incomingEventDTO.getStatus()));
+        }
+        if (StringUtils.isEmpty(incomingEventDTO.getOwner())){
+            throw new RuntimeException("incoming event do not have valid owner");
+        }
+
+        eventEntity.setStatus(incomingEventDTO.getStatus());
+        if(incomingEventDTO.getStatus() == EventStatus.RESOLVED.getCode()){
+            eventEntity.setResolveTime(new Date());
+        }
+        eventService.updateById(eventEntity);
+
+        EventStatusLogEntity statusLogEntity = new EventStatusLogEntity();
+        statusLogEntity.setId(null);
+        statusLogEntity.setLogTime(new Date());
+        statusLogEntity.setCurrStatus(incomingEventDTO.getStatus());
+        statusLogEntity.setPrevStatus(eventEntity.getStatus());
+        statusLogEntity.setOwner(incomingEventDTO.getOwner());
+        statusLogEntity.setOvertime(incomingEventDTO.getOvertime() == null ? 0 : incomingEventDTO.getOvertime());
+        statusLogService.insert(statusLogEntity);
+    }
+
+    private void performForwardStage(IncomingEventDTO incomingEventDTO, EventEntity eventEntity) throws Exception {
+        EventForwardConfigEntity configEntity;
+        do {
+            if(incomingEventDTO.getTypeId() == null || incomingEventDTO.getTypeId() <= 0){
+                logger.debug("empty type id, skip");
+                break;
+            }
+
+            logger.debug("try get event type info");
+            configEntity = eventForwardConfigService.tryGetOneConfig(
+                    incomingEventDTO.getAppCode(), incomingEventDTO.getTypeId(), incomingEventDTO.getLevel());
+            if (configEntity == null) {
+                logger.debug("event type id not exist: {}, skip", incomingEventDTO.getTypeId());
+                logger.debug("possibly: 1. event type not created, 2. wrong type id");
+                break;
+            }
+
+            if(configEntity.getFwEnabled() <= 0) {
+                logger.debug("forward disabled, ignore");
+                break;
+            }
+
+            logger.debug("forward enabled, send forward signal");
+            ForwardNoticeDTO forwardNoticeDTO = new ForwardNoticeDTO(eventEntity, configEntity);
+            forwardTaskMQEnqueueService.notify(forwardNoticeDTO);
+
+            logger.debug("====================================================================");
+
+        } while (false);
+
     }
 
 }

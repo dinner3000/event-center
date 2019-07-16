@@ -1,7 +1,5 @@
 package com.chinaccs.exhibit.ucsp.eventcenter.eventdata.service;
 
-import com.baomidou.mybatisplus.extension.service.IService;
-import com.chinaccs.exhibit.ucsp.eventcenter.eventdata.core.service.BaseService;
 import com.chinaccs.exhibit.ucsp.eventcenter.eventdata.core.service.CrudService;
 import com.chinaccs.exhibit.ucsp.eventcenter.eventdata.dto.EventDTO;
 import com.chinaccs.exhibit.ucsp.eventcenter.eventdata.entity.EventEntity;
@@ -19,5 +17,7 @@ public interface EventService extends CrudService<EventEntity, EventDTO> {
     List<Map<String, Object>> statGroupByLevel();
     List<Map<String, Object>> statGroupByType();
     List<Map<String, Object>> statGroupByAppCode();
+
+    EventEntity getByTraceId(String traceId, String appCode);
 //    Map<String, Object> statGroupByFWStatus();
 }

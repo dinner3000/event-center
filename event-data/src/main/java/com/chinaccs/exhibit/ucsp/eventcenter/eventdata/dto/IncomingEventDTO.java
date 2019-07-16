@@ -31,4 +31,8 @@ public class IncomingEventDTO implements Serializable {
 	private Date occurTime;
 
 	private Integer status;
+
+    private String owner;
+
+	private Integer overtime;
 }

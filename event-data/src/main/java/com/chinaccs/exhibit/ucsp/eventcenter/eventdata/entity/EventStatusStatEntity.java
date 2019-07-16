@@ -17,19 +17,19 @@ import java.util.Date;
  */
 @Data
 @EqualsAndHashCode(callSuper=false)
-@TableName("event")
+@TableName("event_status_stat")
 public class EventStatusStatEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@TableId(type = IdType.AUTO)
 	private Long id;
 
-    private Integer prevStatus;
+    private Integer status;
 
-    private Integer currStatus;
+    private Integer overtime;
 
-    private Date logTime;
+    private Date statTime;
 
-    private String owner;
+    private Integer timeSpan;
 
 }

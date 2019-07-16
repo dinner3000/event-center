@@ -17,19 +17,21 @@ import java.util.Date;
  */
 @Data
 @EqualsAndHashCode(callSuper=false)
-@TableName("event")
+@TableName("event_status_log")
 public class EventStatusLogEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@TableId(type = IdType.AUTO)
 	private Long id;
 
-    private Integer status;
+    private Integer prevStatus;
+
+    private Integer currStatus;
 
     private Integer overtime;
 
-    private Date statTime;
+    private Date logTime;
 
-    private Integer timeSpan;
+    private String owner;
 
 }

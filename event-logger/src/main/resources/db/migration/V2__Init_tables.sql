@@ -14,7 +14,7 @@ CREATE TABLE IF NOT EXISTS event(
   PRIMARY KEY (id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT = '事件 存储事件信息，每个事件作为一条记录';
 
-ALTER TABLE event ADD INDEX idx_trace_id(trace_id, app_code);
+ALTER TABLE event ADD UNIQUE idx_trace_id(trace_id, app_code);
 ALTER TABLE event ADD INDEX idx_search_1(app_code,type_id,occur_time);
 ALTER TABLE event ADD INDEX idx_search_2(occur_time,app_code,type_id);
 

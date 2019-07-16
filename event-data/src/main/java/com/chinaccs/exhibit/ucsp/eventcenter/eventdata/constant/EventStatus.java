@@ -47,6 +47,10 @@ public enum EventStatus {
         }
     }
 
+    public static boolean isValidCode(Integer code){
+        return map.containsKey(code);
+    }
+
     public static EventStatus parse(Integer code) {
         if(map.containsKey(code)){
             return map.get(code);

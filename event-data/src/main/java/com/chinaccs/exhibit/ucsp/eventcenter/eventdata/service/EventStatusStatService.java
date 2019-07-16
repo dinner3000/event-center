@@ -1,7 +1,6 @@
 package com.chinaccs.exhibit.ucsp.eventcenter.eventdata.service;
 
 import com.chinaccs.exhibit.ucsp.eventcenter.eventdata.core.service.BaseService;
-import com.chinaccs.exhibit.ucsp.eventcenter.eventdata.entity.EventStatusLogEntity;
 import com.chinaccs.exhibit.ucsp.eventcenter.eventdata.entity.EventStatusStatEntity;
 
 /**

@@ -1,6 +1,5 @@
 package com.chinaccs.exhibit.ucsp.eventcenter.eventdata.service;
 
-import com.chinaccs.exhibit.ucsp.eventcenter.eventdata.core.service.BaseService;
 import com.chinaccs.exhibit.ucsp.eventcenter.eventdata.core.service.CrudService;
 import com.chinaccs.exhibit.ucsp.eventcenter.eventdata.dto.EventForwardConfigDTO;
 import com.chinaccs.exhibit.ucsp.eventcenter.eventdata.entity.EventForwardConfigEntity;
@@ -13,4 +12,5 @@ import com.chinaccs.exhibit.ucsp.eventcenter.eventdata.entity.EventForwardConfig
  */
 public interface EventForwardConfigService extends CrudService<EventForwardConfigEntity, EventForwardConfigDTO> {
 
+    EventForwardConfigEntity tryGetOneConfig(String appCode, Long typeId, Integer level);
 }

@@ -13,7 +13,6 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -76,16 +75,16 @@ public class EventServiceImpl extends CrudServiceImpl<EventDao, EventEntity, Eve
         return list;
     }
 
-//    private Map<String, Object> convertToResult(List<Map<String, Object>> statItemList){
-//        Map<String, Object> result = new HashMap<>();
-//        for (Map<String, Object> statItem : statItemList) {
-//            result.put(Convert.toStr(statItem.get("label")), statItem.get("count"));
-//        }
-//        return result;
-//    }
+    @Override
+    public EventEntity getByTraceId(String traceId, String appCode){
 
-//    @Override
-//    public Map<String, Object> statGroupByFWStatus() {
-//        return null;
-//    }
+        QueryWrapper<EventEntity> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("trace_id", traceId);
+        queryWrapper.eq("app_code", appCode);
+
+        EventEntity entity = this.baseDao.selectOne(queryWrapper);
+
+        return entity;
+    }
+
 }
