@@ -28,6 +28,8 @@ public class EventStatusStatEntity implements Serializable {
 
     private Integer overtime;
 
+    private Integer count;
+
     private Date statTime;
 
     private Integer timeSpan;

@@ -1,5 +1,6 @@
 package com.chinaccs.exhibit.ucsp.eventcenter.eventdata.service.impl;
 
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.chinaccs.exhibit.ucsp.eventcenter.eventdata.core.service.impl.BaseServiceImpl;
 import com.chinaccs.exhibit.ucsp.eventcenter.eventdata.dao.EventStatusStatDao;
 import com.chinaccs.exhibit.ucsp.eventcenter.eventdata.entity.EventStatusStatEntity;
@@ -17,7 +18,7 @@ import java.util.Date;
  * @since 1.0.0 2019-07-01
  */
 @Service
-public class EventStatusStatServiceImpl extends BaseServiceImpl<EventStatusStatDao, EventStatusStatEntity> implements EventStatusStatService {
+public class EventStatusStatServiceImpl extends ServiceImpl<EventStatusStatDao, EventStatusStatEntity> implements EventStatusStatService {
 
     @Autowired
     private EventStatusStatDao statusStatDao;
@@ -54,4 +55,5 @@ public class EventStatusStatServiceImpl extends BaseServiceImpl<EventStatusStatD
         }
 
     }
+
 }
