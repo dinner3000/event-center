@@ -1,9 +1,9 @@
 
 CREATE TABLE IF NOT EXISTS event(
-  `id` BIGINT NOT NULL AUTO_INCREMENT  COMMENT 'ID' ,
-  `trace_id` VARCHAR(64) COMMENT '追踪ID' ,
-  `app_code` VARCHAR(64) COMMENT '源应用系统代码' ,
-  `type_id` BIGINT COMMENT '类型ID' ,
+  `id` BIGINT NOT NULL AUTO_INCREMENT  COMMENT 'ID',
+  `trace_id` VARCHAR(64) COMMENT '追踪ID',
+  `app_code` VARCHAR(64) COMMENT '源应用系统代码',
+  `type_id` BIGINT COMMENT '类型ID',
   `level` int(1) DEFAULT NULL COMMENT '级别',
   `title` VARCHAR(64) COMMENT '标题' ,
   `message` VARCHAR(1024) COMMENT '内容' ,
@@ -11,13 +11,37 @@ CREATE TABLE IF NOT EXISTS event(
   `occur_time` datetime DEFAULT NULL COMMENT '发生时间',
   `resolve_time` datetime DEFAULT NULL COMMENT '解决时间',
   `log_time` datetime DEFAULT NULL COMMENT '记录时间',
-  `overtime` INT(1) COMMENT '处理超时',
   PRIMARY KEY (id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT = '事件 存储事件信息，每个事件作为一条记录';
 
 ALTER TABLE event ADD INDEX idx_trace_id(trace_id, app_code);
 ALTER TABLE event ADD INDEX idx_search_1(app_code,type_id,occur_time);
 ALTER TABLE event ADD INDEX idx_search_2(occur_time,app_code,type_id);
+
+
+CREATE TABLE IF NOT EXISTS event_status_log(
+  `id` BIGINT NOT NULL AUTO_INCREMENT  COMMENT 'ID' ,
+  `prev_status` INT(1) COMMENT '原状态',
+  `curr_status` INT(1) COMMENT '当前状态',
+  `overtime` INT(1) DEFAULT NULL COMMENT '是否超时',
+  `log_time` datetime DEFAULT NULL COMMENT '记录时间',
+  `owner` VARCHAR(64) DEFAULT NULL COMMENT '负责人',
+  PRIMARY KEY (id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT = '事件状态变更记录';
+
+ALTER TABLE event_status_log ADD INDEX idx_1(log_time, curr_status, overtime);
+
+
+CREATE TABLE IF NOT EXISTS event_status_stat(
+  `id` BIGINT NOT NULL AUTO_INCREMENT COMMENT 'ID' ,
+  `status` INT(1) COMMENT '状态',
+  `overtime` INT(1) DEFAULT NULL COMMENT '是否超时',
+  `stat_time` datetime DEFAULT NULL COMMENT '统计时间',
+  `time_span` INT(2) DEFAULT NULL COMMENT '时间范围/间隔（分钟）',
+  PRIMARY KEY (id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT = '事件状态变更记录';
+
+ALTER TABLE event_status_stat ADD INDEX idx_1(stat_time, status, overtime, time_span);
 
 
 CREATE TABLE IF NOT EXISTS event_forward_config(

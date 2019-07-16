@@ -18,30 +18,18 @@ import java.util.Date;
 @Data
 @EqualsAndHashCode(callSuper=false)
 @TableName("event")
-public class EventEntity implements Serializable {
+public class EventStatusLogEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@TableId(type = IdType.AUTO)
 	private Long id;
 
-	private String traceId;
-
-    private String appCode;
-
-    private Long typeId;
-
-    private Integer level;
-
-    private String title;
-
-    private String message;
-
-    private Date occurTime;
-
-    private Date resolveTime;
-
-    private Date logTime;
-
     private Integer status;
+
+    private Integer overtime;
+
+    private Date statTime;
+
+    private Integer timeSpan;
 
 }
