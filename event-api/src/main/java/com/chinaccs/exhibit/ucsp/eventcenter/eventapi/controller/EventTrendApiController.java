@@ -37,16 +37,16 @@ public class EventTrendApiController {
     @GetMapping("/resolve/performance")
     @ApiOperation("统计事件处理时效")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "startTime", value = "起始时间", paramType = "path", required = true, dataType = "date"),
-            @ApiImplicitParam(name = "endTime", value = "结束时间", paramType = "path", required = true, dataType = "date"),
-            @ApiImplicitParam(name = "interval", value = "时间间隔", paramType = "path", required = true, dataType = "int"),
+            @ApiImplicitParam(name = "startTime", value = "起始时间", paramType = "query", required = true, dataType = "date"),
+            @ApiImplicitParam(name = "endTime", value = "结束时间", paramType = "query", required = true, dataType = "date"),
+            @ApiImplicitParam(name = "interval", value = "时间间隔", paramType = "query", required = true, dataType = "int"),
             @ApiImplicitParam(name = "stages", value = "统计环节（数组）", paramType = "query", dataType = "int", allowMultiple = true)
     })
     public Result<Map<String, Object>> resolvePerformance(
             @RequestParam Date startTime,
             @RequestParam Date endTime,
             @RequestParam Integer interval,
-            @RequestParam Integer[] stages
+            @RequestParam String stages
     ) {
 
         Map<String, Object> data = new HashMap<>();
@@ -56,20 +56,19 @@ public class EventTrendApiController {
         return new Result<Map<String, Object>>().ok(data);
     }
 
-    private List<Map<String, Object>> getValueList(Date startTime, Date endTime, Integer interval){
+    private List<Map<String, Object>> getValueList(Date startTime, Date endTime, Integer interval) {
         List<Map<String, Object>> list = new ArrayList<>();
 
         Random random = new Random(System.currentTimeMillis());
 
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-        List<String> timeList = new ArrayList<>();
 
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(startTime);
         do {
             list.add(CollectionUtils.buildLabelValueItem(random.nextInt(100), sdf.format(calendar.getTime())));
             calendar.add(Calendar.MINUTE, interval);
-        }while (calendar.before(endTime));
+        } while (calendar.getTime().before(endTime));
 
         return list;
     }
