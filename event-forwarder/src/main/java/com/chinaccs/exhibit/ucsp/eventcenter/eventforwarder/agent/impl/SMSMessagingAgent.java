@@ -5,7 +5,9 @@ import com.chinaccs.exhibit.ucsp.eventcenter.eventforwarder.agent.MessagingAgent
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 
+@Component
 public class SMSMessagingAgent implements MessagingAgent {
 
     @Value("${external-api.sms.app-id}")
