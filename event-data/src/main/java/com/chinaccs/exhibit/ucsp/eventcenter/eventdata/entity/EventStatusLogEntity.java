@@ -24,6 +24,8 @@ public class EventStatusLogEntity implements Serializable {
 	@TableId(type = IdType.AUTO)
 	private Long id;
 
+    private Long eventId;
+
     private Integer prevStatus;
 
     private Integer currStatus;

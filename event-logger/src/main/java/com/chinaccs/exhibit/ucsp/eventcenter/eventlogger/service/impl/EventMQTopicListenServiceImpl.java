@@ -120,6 +120,7 @@ public class EventMQTopicListenServiceImpl implements EventMQTopicListenService 
 
         EventStatusLogEntity statusLogEntity = new EventStatusLogEntity();
         statusLogEntity.setId(null);
+        statusLogEntity.setEventId(eventEntity.getId());
         statusLogEntity.setLogTime(new Date());
         statusLogEntity.setCurrStatus(incomingEventDTO.getStatus());
         statusLogEntity.setPrevStatus(eventEntity.getStatus());
