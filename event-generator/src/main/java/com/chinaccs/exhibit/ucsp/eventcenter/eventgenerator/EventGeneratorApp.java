@@ -8,25 +8,24 @@
 
 package com.chinaccs.exhibit.ucsp.eventcenter.eventgenerator;
 
-import cn.hutool.core.convert.Convert;
-import com.chinaccs.exhibit.ucsp.eventcenter.eventdata.dto.IncomingEventDTO;
-import com.chinaccs.exhibit.ucsp.eventcenter.eventgenerator.service.EventSendService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import com.chinaccs.exhibit.ucsp.eventcenter.eventgenerator.quartz.EventGeneratorJob;
+import org.quartz.JobDetail;
+import org.quartz.Scheduler;
+import org.quartz.Trigger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import java.util.Date;
+import static org.quartz.JobBuilder.newJob;
+import static org.quartz.SimpleScheduleBuilder.simpleSchedule;
+import static org.quartz.TriggerBuilder.newTrigger;
 
 @SpringBootApplication
 public class EventGeneratorApp implements CommandLineRunner {
 
     @Autowired
-    private EventSendService eventSendService;
-
-    private Logger logger = LoggerFactory.getLogger(getClass());
+    private Scheduler scheduler;
 
     public static void main(String[] args) {
 		SpringApplication.run(EventGeneratorApp.class, args);
@@ -35,38 +34,26 @@ public class EventGeneratorApp implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
 
-        try {
-            logger.info("EventGenerator.run() started.");
-            while (true) {
-                eventSendService.send(buildEventDTO());
-                Thread.sleep(5000);
-            }
-        } catch (Exception e){
-            logger.info("EventGenerator.run() stopped.");
-        }
+        Trigger trigger = newTrigger()
+//                .withIdentity("trigger1", "group1") //定义name/group
+                .startNow()
+                .withSchedule(simpleSchedule()
+                        .withIntervalInMinutes(3)
+                        .repeatForever())
+                .build();
+
+        JobDetail job = newJob(EventGeneratorJob.class)
+//                .withIdentity("EventGeneratorJob", "TestJobAGroup")
+//                .usingJobData("appCode", "app-1")
+//                .usingJobData("eventId", System.currentTimeMillis())
+                .build();
+
+        scheduler.scheduleJob(job, trigger);
+
+        scheduler.start();
+
+//        scheduler.shutdown(true);
+
     }
 
-    private IncomingEventDTO buildEventDTO() {
-        IncomingEventDTO incomingEventDTO = new IncomingEventDTO();
-
-        Long id = System.currentTimeMillis();
-        incomingEventDTO.setId(Convert.toStr(id));
-
-        incomingEventDTO.setAppCode("app-1");
-
-        int level = Convert.toInt(id % 3);
-        incomingEventDTO.setLevel(level);
-
-        long typeId = id % 2;
-        incomingEventDTO.setTypeId(typeId);
-
-        incomingEventDTO.setTitle("test title");
-
-        incomingEventDTO.setMessage(String.format("%s, configId: %d, message",
-                incomingEventDTO.getAppCode(), incomingEventDTO.getTypeId()));
-
-        incomingEventDTO.setOccurTime(new Date());
-
-        return incomingEventDTO;
-    }
 }
