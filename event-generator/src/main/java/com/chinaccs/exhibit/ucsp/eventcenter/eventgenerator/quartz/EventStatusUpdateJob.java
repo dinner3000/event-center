@@ -83,6 +83,8 @@ public class EventStatusUpdateJob implements Job {
 
         incomingEventDTO.setOvertime(Convert.toInt(System.currentTimeMillis() % 2));
 
+        incomingEventDTO.setOwner("EventGeneratorApp");
+
         eventSendService.send(incomingEventDTO);
     }
 }
