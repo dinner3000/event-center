@@ -121,7 +121,7 @@ public class EventMQTopicListenServiceImpl implements EventMQTopicListenService 
         statusLogEntity.setOwner(incomingEventDTO.getOwner());
         statusLogEntity.setOvertime(incomingEventDTO.getOvertime() == null ? 0 : incomingEventDTO.getOvertime());
         statusLogService.insert(statusLogEntity);
-        
+
         eventEntity.setStatus(incomingEventDTO.getStatus());
         if(incomingEventDTO.getStatus() == EventStatus.RESOLVED.getCode()){
             eventEntity.setResolveTime(new Date());

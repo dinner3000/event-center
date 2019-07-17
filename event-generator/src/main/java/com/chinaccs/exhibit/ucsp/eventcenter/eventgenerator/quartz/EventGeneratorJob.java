@@ -47,7 +47,7 @@ public class EventGeneratorJob implements Job {
 
         JobDetail job = newJob(EventStatusUpdateJob.class)
                 .usingJobData("appCode", "app-1")
-                .usingJobData("eventId", System.currentTimeMillis())
+                .usingJobData("eventId", eventId)
                 .usingJobData("statusCode", 0)
                 .build();
 
