@@ -6,6 +6,7 @@ package com.chinaccs.exhibit.ucsp.eventcenter.eventapi.controller;
 
 import cn.hutool.core.convert.Convert;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.chinaccs.exhibit.ucsp.eventcenter.common.utils.DateUtils;
 import com.chinaccs.exhibit.ucsp.eventcenter.eventapi.utils.CollectionUtils;
 import com.chinaccs.exhibit.ucsp.eventcenter.eventapi.utils.Result;
 import com.chinaccs.exhibit.ucsp.eventcenter.eventdata.constant.EventStatus;
@@ -41,30 +42,44 @@ public class EventTrendApiController {
     @GetMapping("/resolve/performance")
     @ApiOperation("统计事件处理时效")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "startTime", value = "起始时间", paramType = "query", required = true, dataType = "date"),
-            @ApiImplicitParam(name = "endTime", value = "结束时间", paramType = "query", required = true, dataType = "date"),
-            @ApiImplicitParam(name = "interval", value = "时间间隔", paramType = "query", required = true, dataType = "int"),
-            @ApiImplicitParam(name = "stages", value = "统计环节（数组）", paramType = "query", dataType = "int", allowMultiple = true),
-            @ApiImplicitParam(name = "mock", value = "使用mock", paramType = "query", defaultValue = "0", dataType = "int")
+            @ApiImplicitParam(name = "startTime", value = "起始时间，格式：2019-07-17T12:00:00Z", paramType = "query", required = true, dataType = "string"),
+            @ApiImplicitParam(name = "endTime", value = "结束时间，格式：2019-07-17T13:00:00Z", paramType = "query", required = true, dataType = "string"),
+            @ApiImplicitParam(name = "interval", value = "时间间隔，可选值：1，60，1440", paramType = "query", required = true, dataType = "int"),
+            @ApiImplicitParam(name = "stages", value = "统计环节（数组），可选值，1，2，3", paramType = "query", dataType = "int", allowMultiple = true),
+            @ApiImplicitParam(name = "mock", value = "使用mock，测试期间默认1", paramType = "query", defaultValue = "1", dataType = "int")
     })
     public Result<Map<String, Object>> resolvePerformance(
-            @RequestParam Date startTime,
-            @RequestParam Date endTime,
+            @RequestParam("startTime") String startTimeStr,
+            @RequestParam("endTime") String endTimeStr,
             @RequestParam Integer interval,
             @RequestParam(required = false) String stages,
             @RequestParam(required = false, defaultValue = "true") boolean mock
     ) {
+        // parse and validate stages
+        List<Integer> statusList = null;
+        if (!StringUtils.isEmpty(stages)){
+            List<String> buffer = Arrays.asList(stages.split(","));
+            statusList = buffer.stream().map(i -> Convert.toInt(i)).collect(Collectors.toList());
+            statusList.stream().forEach(i -> {
+                if (EventStatus.parse(i) == null){
+                    throw new RuntimeException(String.format("Invalid stage code: %d", i));
+                }
+            });
+        }
+
+        // validate interval
+        List<Integer> validIntervals = Arrays.asList(1, 60, 1440);
+        if(!validIntervals.contains(interval)){
+            throw new RuntimeException(String.format("Invalid interval: %d", interval));
+        }
 
         Map<String, Object> data = new HashMap<>();
+        Date startTime = DateUtils.parse(startTimeStr, DateUtils.ISO_PATTERN);
+        Date endTime = DateUtils.parse(endTimeStr, DateUtils.ISO_PATTERN);
         if (mock) {
             data.put("正常处理", generateValueList(startTime, endTime, interval));
             data.put("超时处理", generateValueList(startTime, endTime, interval));
         } else {
-            List<Integer> statusList = null;
-            if (!StringUtils.isEmpty(stages)){
-                List<String> buffer = Arrays.asList(stages.split(","));
-                statusList = buffer.stream().map(i -> Convert.toInt(i)).collect(Collectors.toList());
-            }
             data.put("正常处理", getValueList(startTime, endTime, interval, statusList, 0));
             data.put("超时处理", getValueList(startTime, endTime, interval, statusList, 1));
         }

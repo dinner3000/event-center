@@ -3,6 +3,12 @@
 global-params:
   forward-topic: ucsp-forward-topic
 
+external-api:
+  sms:
+    app-id: app-id
+    app-key: app-key
+
+
 spring:
   # 环境 dev|test|prod
   profiles:

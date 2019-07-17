@@ -102,6 +102,12 @@ public class EventMQTopicListenServiceImpl implements EventMQTopicListenService 
             throw new RuntimeException(String.format(
                     "incoming event do not have valid status: %s", incomingEventDTO.getStatus()));
         }
+        if (eventEntity.getStatus() == EventStatus.REJECTED.getCode()){
+            throw new RuntimeException(String.format("Change %s status is not allowed", EventStatus.REJECTED.getName()));
+        }
+        if (eventEntity.getStatus() == EventStatus.RESOLVED.getCode()){
+            throw new RuntimeException(String.format("Change %s status is not allowed", EventStatus.RESOLVED.getName()));
+        }
         if (StringUtils.isEmpty(incomingEventDTO.getOwner())){
             throw new RuntimeException("incoming event do not have valid owner");
         }
@@ -122,34 +128,38 @@ public class EventMQTopicListenServiceImpl implements EventMQTopicListenService 
         statusLogService.insert(statusLogEntity);
     }
 
-    private void performForwardStage(IncomingEventDTO incomingEventDTO, EventEntity eventEntity) throws Exception {
+    private void performForwardStage(IncomingEventDTO incomingEventDTO, EventEntity eventEntity) {
         EventForwardConfigEntity configEntity;
         do {
-            if(incomingEventDTO.getTypeId() == null || incomingEventDTO.getTypeId() <= 0){
-                logger.debug("empty type id, skip");
-                break;
+            try {
+                if (incomingEventDTO.getTypeId() == null || incomingEventDTO.getTypeId() <= 0) {
+                    logger.debug("empty type id, skip");
+                    break;
+                }
+
+                logger.debug("try get event type info");
+                configEntity = eventForwardConfigService.tryGetOneConfig(
+                        incomingEventDTO.getAppCode(), incomingEventDTO.getTypeId(), incomingEventDTO.getLevel());
+                if (configEntity == null) {
+                    logger.debug("event type id not exist: {}, skip", incomingEventDTO.getTypeId());
+                    logger.debug("possibly: 1. event type not created, 2. wrong type id");
+                    break;
+                }
+
+                if (configEntity.getFwEnabled() <= 0) {
+                    logger.debug("forward disabled, ignore");
+                    break;
+                }
+
+                logger.debug("forward enabled, send forward signal");
+                ForwardNoticeDTO forwardNoticeDTO = new ForwardNoticeDTO(eventEntity, configEntity);
+                forwardTaskMQEnqueueService.notify(forwardNoticeDTO);
+
+                logger.debug("====================================================================");
+
+            } catch (Exception e){
+                logger.error("unexpected error in performForwardStage(): {}", e.getMessage());
             }
-
-            logger.debug("try get event type info");
-            configEntity = eventForwardConfigService.tryGetOneConfig(
-                    incomingEventDTO.getAppCode(), incomingEventDTO.getTypeId(), incomingEventDTO.getLevel());
-            if (configEntity == null) {
-                logger.debug("event type id not exist: {}, skip", incomingEventDTO.getTypeId());
-                logger.debug("possibly: 1. event type not created, 2. wrong type id");
-                break;
-            }
-
-            if(configEntity.getFwEnabled() <= 0) {
-                logger.debug("forward disabled, ignore");
-                break;
-            }
-
-            logger.debug("forward enabled, send forward signal");
-            ForwardNoticeDTO forwardNoticeDTO = new ForwardNoticeDTO(eventEntity, configEntity);
-            forwardTaskMQEnqueueService.notify(forwardNoticeDTO);
-
-            logger.debug("====================================================================");
-
         } while (false);
 
     }
