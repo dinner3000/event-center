@@ -15,7 +15,7 @@ import java.util.List;
 
 @Component
 @EnableScheduling
-@DisallowConcurrentExecution
+//@DisallowConcurrentExecution
 public class ScheduledJobs {
 
     private final Logger logger = LoggerFactory.getLogger(getClass());
@@ -24,22 +24,22 @@ public class ScheduledJobs {
     private EventStatusStatService statService;
 
 //    @Scheduled(cron = "*/3 * * * * *")
-    public void sampleJob(){
-        logger.info("scheduled job sample, exec in every 3 secs ... ");
-    }
+//    public void sampleJob(){
+//        logger.info("scheduled job sample, exec in every 3 secs ... ");
+//    }
 
-    @Scheduled(cron = "0 * * * * *")
-    public void resolvePerformanceStatPerMinute(){
-        logger.info("stat for event resolve performance, exec in every 1 min ... ");
+    @Scheduled(cron = "0 */3 * * * *")
+    public void resolvePerformanceStatTriMinutely(){
+        logger.info("stat for event resolve performance, exec in every 3 minutes ... ");
 
-        int interval = 1;
+        int interval = 3;
 
         Date statTime = new Date();
         statService.statResolvePerformance(statTime, interval);
     }
 
     @Scheduled(cron = "0 0 * * * *")
-    public void resolvePerformanceStatPerHour(){
+    public void resolvePerformanceStatHourLy(){
         logger.info("stat for event resolve performance, exec in every 1 hour ... ");
 
         int interval = 60;
@@ -48,8 +48,18 @@ public class ScheduledJobs {
         statService.statResolvePerformance(statTime, interval);
     }
 
-    @Scheduled(cron = "0 0 * * * *")
-    public void resolvePerformanceStatPerDay(){
+    @Scheduled(cron = "0 0 */2 * * *")
+    public void resolvePerformanceStatBiHourLy(){
+        logger.info("stat for event resolve performance, exec in every 2 hours ... ");
+
+        int interval = 60 * 2;
+
+        Date statTime = new Date();
+        statService.statResolvePerformance(statTime, interval);
+    }
+
+    @Scheduled(cron = "0 0 0 * * *")
+    public void resolvePerformanceStatDaily(){
         logger.info("stat for event resolve performance, exec in every 1 day ... ");
 
         int interval = 60 * 24;
