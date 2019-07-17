@@ -112,12 +112,6 @@ public class EventMQTopicListenServiceImpl implements EventMQTopicListenService 
             throw new RuntimeException("incoming event do not have valid owner");
         }
 
-        eventEntity.setStatus(incomingEventDTO.getStatus());
-        if(incomingEventDTO.getStatus() == EventStatus.RESOLVED.getCode()){
-            eventEntity.setResolveTime(new Date());
-        }
-        eventService.updateById(eventEntity);
-
         EventStatusLogEntity statusLogEntity = new EventStatusLogEntity();
         statusLogEntity.setId(null);
         statusLogEntity.setEventId(eventEntity.getId());
@@ -127,6 +121,13 @@ public class EventMQTopicListenServiceImpl implements EventMQTopicListenService 
         statusLogEntity.setOwner(incomingEventDTO.getOwner());
         statusLogEntity.setOvertime(incomingEventDTO.getOvertime() == null ? 0 : incomingEventDTO.getOvertime());
         statusLogService.insert(statusLogEntity);
+        
+        eventEntity.setStatus(incomingEventDTO.getStatus());
+        if(incomingEventDTO.getStatus() == EventStatus.RESOLVED.getCode()){
+            eventEntity.setResolveTime(new Date());
+        }
+        eventService.updateById(eventEntity);
+
     }
 
     private void performForwardStage(IncomingEventDTO incomingEventDTO, EventEntity eventEntity) {
