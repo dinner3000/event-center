@@ -1,6 +1,7 @@
 package com.chinaccs.exhibit.ucsp.eventcenter.eventlogger.service.impl;
 
 import com.alibaba.fastjson.JSON;
+import com.chinaccs.exhibit.ucsp.eventcenter.eventdata.constant.EventLevel;
 import com.chinaccs.exhibit.ucsp.eventcenter.eventdata.constant.EventStatus;
 import com.chinaccs.exhibit.ucsp.eventcenter.eventdata.dto.IncomingEventDTO;
 import com.chinaccs.exhibit.ucsp.eventcenter.eventdata.dto.ForwardNoticeDTO;
@@ -82,6 +83,22 @@ public class EventMQTopicListenServiceImpl implements EventMQTopicListenService 
 
     private EventEntity saveNewEvent(IncomingEventDTO incomingEventDTO){
         EventEntity eventEntity = ConvertUtils.sourceToTarget(incomingEventDTO, EventEntity.class);
+
+        if (eventEntity.getTypeId() == null){
+            throw new RuntimeException("event do not have valid type");
+        }
+        if (eventEntity.getLevel() == null || EventLevel.parse(eventEntity.getLevel()) == null){
+            throw new RuntimeException("event do not have valid level");
+        }
+        if (StringUtils.isEmpty(eventEntity.getTitle())){
+            throw new RuntimeException("event do not have valid title");
+        }
+        if (StringUtils.isEmpty(eventEntity.getMessage())){
+            throw new RuntimeException("event do not have valid message");
+        }
+        if (eventEntity.getOccurTime() == null){
+            throw new RuntimeException("event do not have valid occur time");
+        }
 
         eventEntity.setTraceId(incomingEventDTO.getId());
         eventEntity.setId(null);
