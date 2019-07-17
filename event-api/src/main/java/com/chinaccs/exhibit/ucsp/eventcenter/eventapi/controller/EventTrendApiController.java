@@ -92,12 +92,10 @@ public class EventTrendApiController {
 
         Random random = new Random(System.currentTimeMillis());
 
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(startTime);
         do {
-            list.add(CollectionUtils.buildLabelValueItem(random.nextInt(100), sdf.format(calendar.getTime())));
+            list.add(CollectionUtils.buildLabelValueItem(random.nextInt(100), DateUtils.format(calendar.getTime(), DateUtils.DATE_TIME_PATTERN)));
             calendar.add(Calendar.MINUTE, interval);
         } while (calendar.getTime().before(endTime));
 
@@ -121,10 +119,9 @@ public class EventTrendApiController {
 
         List<EventStatusStatEntity> statusStatEntityList = eventStatusStatService.list(queryWrapper);
 
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
         for (EventStatusStatEntity statusStatEntity : statusStatEntityList){
             list.add(CollectionUtils.buildLabelValueItem(
-                    statusStatEntity.getCount(), sdf.format(statusStatEntity.getStatTime())));
+                    statusStatEntity.getCount(), DateUtils.format(statusStatEntity.getStatTime(), DateUtils.DATE_TIME_PATTERN)));
         }
         return list;
     }
