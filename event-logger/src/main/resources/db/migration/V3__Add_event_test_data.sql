@@ -39,28 +39,31 @@ VALUES
 ('36', '标题', '说明', 'SESP', '4', '3', '1', 'SMS', '[{"name":"李娜","phone":"13312345678"},{"name":"开心","phone":"13312345678"},{"name":"赵琼","phone":"13312345678"},{"name":"陈潇","phone":"13312345678"}]', '测试模版', '1');
 
 
-INSERT INTO `event_app_code` (`name`, `code`) VALUES ('协同支撑平台--业务中台', 'UCSP');
-INSERT INTO `event_app_code` (`name`, `code`) VALUES ('统一物联聚合平台', 'UIOT');
-INSERT INTO `event_app_code` (`name`, `code`) VALUES ('平安会展（包括指挥调度/智能检测/单兵作战）', 'SESP');
-INSERT INTO `event_app_code` (`name`, `code`) VALUES ('会展场馆预订管理系统', 'EBMS');
-INSERT INTO `event_app_code` (`name`, `code`) VALUES ('现场订单管理系统', 'EIMS');
-INSERT INTO `event_app_code` (`name`, `code`) VALUES ('门禁制证系统', 'EPMS');
-INSERT INTO `event_app_code` (`name`, `code`) VALUES ('场馆三维可视化运维系统', 'TDVM');
-INSERT INTO `event_app_code` (`name`, `code`) VALUES ('统一融合平台', 'MIXC');
-INSERT INTO `event_app_code` (`name`, `code`) VALUES ('统一三维智能服务平台', 'TDIS');
-INSERT INTO `event_app_code` (`name`, `code`) VALUES ('CEOC综合可视化系统', 'CEOC');
-INSERT INTO `event_app_code` (`name`, `code`) VALUES ('统一会展大数据平台', 'BIGD');
-INSERT INTO `event_app_code` (`name`, `code`) VALUES ('位置服务平台', 'POSP');
-INSERT INTO `event_app_code` (`name`, `code`) VALUES ('智能资产管理', 'IPMS');
-INSERT INTO `event_app_code` (`name`, `code`) VALUES ('综合服务统一门户', 'USUP');
-INSERT INTO `event_app_code` (`name`, `code`) VALUES ('IBMS系统', 'IBMS');
-INSERT INTO `event_app_code` (`name`, `code`) VALUES ('多屏多端控制系统', 'MMCS');
-INSERT INTO `event_app_code` (`name`, `code`) VALUES ('创新服务平台', 'INOS');
+INSERT INTO `event_app_code` (`id`, `name`, `code`) VALUES (1, '协同支撑平台--业务中台', 'UCSP');
+INSERT INTO `event_app_code` (`id`, `name`, `code`) VALUES (2, '统一物联聚合平台', 'UIOT');
+INSERT INTO `event_app_code` (`id`, `name`, `code`) VALUES (3, '平安会展（包括指挥调度/智能检测/单兵作战）', 'SESP');
+INSERT INTO `event_app_code` (`id`, `name`, `code`) VALUES (4, '会展场馆预订管理系统', 'EBMS');
+INSERT INTO `event_app_code` (`id`, `name`, `code`) VALUES (5, '现场订单管理系统', 'EIMS');
+INSERT INTO `event_app_code` (`id`, `name`, `code`) VALUES (6, '门禁制证系统', 'EPMS');
+INSERT INTO `event_app_code` (`id`, `name`, `code`) VALUES (7, '场馆三维可视化运维系统', 'TDVM');
+INSERT INTO `event_app_code` (`id`, `name`, `code`) VALUES (8, '统一融合平台', 'MIXC');
+INSERT INTO `event_app_code` (`id`, `name`, `code`) VALUES (9, '统一三维智能服务平台', 'TDIS');
+INSERT INTO `event_app_code` (`id`, `name`, `code`) VALUES (10, 'CEOC综合可视化系统', 'CEOC');
+INSERT INTO `event_app_code` (`id`, `name`, `code`) VALUES (11, '统一会展大数据平台', 'BIGD');
+INSERT INTO `event_app_code` (`id`, `name`, `code`) VALUES (12, '位置服务平台', 'POSP');
+INSERT INTO `event_app_code` (`id`, `name`, `code`) VALUES (13, '智能资产管理', 'IPMS');
+INSERT INTO `event_app_code` (`id`, `name`, `code`) VALUES (14, '综合服务统一门户', 'USUP');
+INSERT INTO `event_app_code` (`id`, `name`, `code`) VALUES (15, 'IBMS系统', 'IBMS');
+INSERT INTO `event_app_code` (`id`, `name`, `code`) VALUES (16, '多屏多端控制系统', 'MMCS');
+INSERT INTO `event_app_code` (`id`, `name`, `code`) VALUES (17, '创新服务平台', 'INOS');
 
-INSERT INTO `event_type` (`id`, `name`) VALUES (1, '烟感报警');
-INSERT INTO `event_type` (`id`, `name`) VALUES (2, '设备故障');
-INSERT INTO `event_type` (`id`, `name`) VALUES (3, '人员入侵');
-INSERT INTO `event_type` (`id`, `name`) VALUES (4, '故障');
+INSERT INTO `event_type` (`id`, `name`) VALUES (1, '人员');
+INSERT INTO `event_type` (`id`, `name`) VALUES (2, '车辆');
+INSERT INTO `event_type` (`id`, `name`) VALUES (3, '环境');
+INSERT INTO `event_type` (`id`, `name`) VALUES (4, '物品');
+INSERT INTO `event_type` (`id`, `name`) VALUES (5, '设备');
+INSERT INTO `event_type` (`id`, `name`) VALUES (6, '食品');
+INSERT INTO `event_type` (`id`, `name`) VALUES (7, '生产');
 
 --INSERT INTO test.event (trace_id, type_id, title, message, app_code, status, level, occur_time, log_time) VALUES ('app-1-1', 1, 'title', 'app-1, configId: 1, message', 'app-1', 0, 3, '2019-07-01 11:07:14', '2019-07-01 11:07:14');
 --INSERT INTO test.event (trace_id, type_id, title, message, app_code, status, level, occur_time, log_time) VALUES ('app-1-2', 0, 'title', 'app-1, configId: 0, message', 'app-1', 0, 0, '2019-07-02 11:07:14', '2019-07-02 11:07:14');

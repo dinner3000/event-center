@@ -9,11 +9,12 @@ import java.util.List;
 import java.util.Map;
 
 public enum EventStatus {
-    INIT("待确认", 0),
-    CONFIRMED("已确认", 1),
-    RESOLVING("处理中", 2),
-    RESOLVED("处理完成", 3),
-    REJECTED("驳回", 4)
+    INIT("待确定", 0),
+    CONFIRMED("已确定", 1),
+    PADDING("待处置", 2),
+    RESOLVING("处置中", 3),
+    RESOLVED("处置结束", 4),
+    REJECTED("已驳回", 5)
     ;
 
     @Getter
