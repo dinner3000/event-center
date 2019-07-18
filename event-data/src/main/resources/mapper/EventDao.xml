@@ -39,4 +39,12 @@
         </where>
     </select>
 
+    <select id="selectById" resultType="com.chinaccs.exhibit.ucsp.eventcenter.eventdata.entity.EventEntity">
+        SELECT e.*, a.name as app_name, t.name as type_name
+        FROM test.event as e
+        left join test.event_app_code as a on e.app_code = a.code
+        left join test.event_type as t on e.type_id = t.id
+        where e.id = #{id}
+    </select>
+
 </mapper>

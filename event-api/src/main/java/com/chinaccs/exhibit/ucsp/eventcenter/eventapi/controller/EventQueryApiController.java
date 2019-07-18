@@ -79,7 +79,7 @@ public class EventQueryApiController {
     @ApiOperation("事件单个查询")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "id", value = "事件id", paramType = "path", required = true, dataType = "long"),
-            @ApiImplicitParam(name = "detailLevel", value = "数据详细程度", paramType = "query", dataType = "int")
+            @ApiImplicitParam(name = "detailLevel", value = "数据详细程度", paramType = "query", defaultValue = "0", dataType = "int")
     })
     public Result<EventDTO> getById(
             @PathVariable("id") Long id,
