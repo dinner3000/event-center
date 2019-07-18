@@ -45,7 +45,7 @@ public class EventTrendApiController {
             @ApiImplicitParam(name = "startTime", value = "起始时间，格式：2019-07-17 12:00:00", paramType = "query", required = true, dataType = "string"),
             @ApiImplicitParam(name = "endTime", value = "结束时间，格式：2019-07-17 13:00:00", paramType = "query", required = true, dataType = "string"),
             @ApiImplicitParam(name = "interval", value = "时间间隔，可选值：3，60，120，1440", paramType = "query", required = true, dataType = "int"),
-            @ApiImplicitParam(name = "stages", value = "统计环节（数组），可选值，1，2，3", paramType = "query", dataType = "int", allowMultiple = true),
+            @ApiImplicitParam(name = "stages", value = "统计环节（数组），可选值，1，2，3，4", paramType = "query", dataType = "int", allowMultiple = true),
             @ApiImplicitParam(name = "mock", value = "使用mock，测试期间默认1", paramType = "query", defaultValue = "1", dataType = "int")
     })
     public Result<Map<String, Object>> resolvePerformance(
@@ -76,6 +76,11 @@ public class EventTrendApiController {
         Map<String, Object> data = new HashMap<>();
         Date startTime = DateUtils.parse(startTimeStr, DateUtils.DATE_TIME_PATTERN);
         Date endTime = DateUtils.parse(endTimeStr, DateUtils.DATE_TIME_PATTERN);
+
+        if (startTime.after(endTime)){
+            throw new RuntimeException("start time cannot be later than end time");
+        }
+
         if (mock) {
             data.put("正常处理", generateValueList(startTime, endTime, interval));
             data.put("超时处理", generateValueList(startTime, endTime, interval));
@@ -107,15 +112,13 @@ public class EventTrendApiController {
 
         QueryWrapper<EventStatusStatEntity> queryWrapper = new QueryWrapper<>();
         queryWrapper.select("stat_time, SUM(count) as count");
-        queryWrapper.ge("stat_time", startTime);
-        queryWrapper.le("stat_time", endTime);
-        queryWrapper.eq("time_span", interval);
-        queryWrapper.eq("overtime", overtime);
+        queryWrapper.ge(startTime != null, "stat_time", startTime);
+        queryWrapper.le(endTime != null, "stat_time", endTime);
+        queryWrapper.eq(interval != null, "time_span", interval);
+        queryWrapper.eq(overtime != null, "overtime", overtime);
         queryWrapper.groupBy("stat_time");
 
-        if (statusList != null && statusList.size() > 0){
-            queryWrapper.in("status", statusList);
-        }
+        queryWrapper.in(statusList != null && statusList.size() > 0, "status", statusList);
 
         List<EventStatusStatEntity> statusStatEntityList = eventStatusStatService.list(queryWrapper);
 
