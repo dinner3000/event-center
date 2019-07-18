@@ -66,18 +66,18 @@ public class EventServiceImpl extends CrudServiceImpl<EventDao, EventEntity, Eve
     @Override
     public List<Map<String, Object>> statGroupByType() {
         List<Map<String, Object>> list = this.baseDao.statGroupByType();
-        for (Map<String, Object> item : list){
-            item.put("label", String.format("事件类型%s", item.get("code")));
-        }
+//        for (Map<String, Object> item : list){
+//            item.put("label", String.format("事件类型%s", item.get("code")));
+//        }
         return list;
     }
 
     @Override
     public List<Map<String, Object>> statGroupByAppCode() {
         List<Map<String, Object>> list = this.baseDao.statGroupByAppCode();
-        for (Map<String, Object> item : list){
-            item.put("label", item.get("code"));
-        }
+//        for (Map<String, Object> item : list){
+//            item.put("label", item.get("code"));
+//        }
         return list;
     }
 

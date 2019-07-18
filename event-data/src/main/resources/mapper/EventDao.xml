@@ -7,10 +7,16 @@
       select level AS code, count(*) as count from event GROUP BY level ORDER BY level ;
     </select>
     <select id="statGroupByType" resultType="java.util.HashMap">
-      select type_id AS code, count(*) as count from event GROUP BY type_id ORDER BY type_id;
+        select e.type_id AS code, t.name as label, count(*) as count
+        from event as e
+        left join event_type as t on e.type_id = t.id
+        GROUP BY e.type_id ORDER BY e.type_id;
     </select>
     <select id="statGroupByAppCode" resultType="java.util.HashMap">
-      select app_code AS code, count(*) as count from event GROUP BY app_code ORDER BY app_code ;
+        select e.app_code AS code, a.name as label, count(*) as count
+        from event as e
+        left join event_app_code as a on e.app_code = a.code
+        GROUP BY e.app_code ORDER BY e.app_code ;
     </select>
 
     <select id="selectPage" resultType="com.chinaccs.exhibit.ucsp.eventcenter.eventdata.entity.EventEntity">
