@@ -42,9 +42,9 @@ public class EventTrendApiController {
     @GetMapping("/resolve/performance")
     @ApiOperation("统计事件处理时效")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "startTime", value = "起始时间，格式：2019-07-17T12:00:00Z", paramType = "query", required = true, dataType = "string"),
-            @ApiImplicitParam(name = "endTime", value = "结束时间，格式：2019-07-17T13:00:00Z", paramType = "query", required = true, dataType = "string"),
-            @ApiImplicitParam(name = "interval", value = "时间间隔，可选值：1，60，1440", paramType = "query", required = true, dataType = "int"),
+            @ApiImplicitParam(name = "startTime", value = "起始时间，格式：2019-07-17 12:00:00", paramType = "query", required = true, dataType = "string"),
+            @ApiImplicitParam(name = "endTime", value = "结束时间，格式：2019-07-17 13:00:00", paramType = "query", required = true, dataType = "string"),
+            @ApiImplicitParam(name = "interval", value = "时间间隔，可选值：3，60，120，1440", paramType = "query", required = true, dataType = "int"),
             @ApiImplicitParam(name = "stages", value = "统计环节（数组），可选值，1，2，3", paramType = "query", dataType = "int", allowMultiple = true),
             @ApiImplicitParam(name = "mock", value = "使用mock，测试期间默认1", paramType = "query", defaultValue = "1", dataType = "int")
     })
@@ -68,14 +68,14 @@ public class EventTrendApiController {
         }
 
         // validate interval
-        List<Integer> validIntervals = Arrays.asList(1, 60, 1440);
+        List<Integer> validIntervals = Arrays.asList(3, 60, 120, 1440);
         if(!validIntervals.contains(interval)){
             throw new RuntimeException(String.format("Invalid interval: %d", interval));
         }
 
         Map<String, Object> data = new HashMap<>();
-        Date startTime = DateUtils.parse(startTimeStr, DateUtils.ISO_PATTERN);
-        Date endTime = DateUtils.parse(endTimeStr, DateUtils.ISO_PATTERN);
+        Date startTime = DateUtils.parse(startTimeStr, DateUtils.DATE_TIME_PATTERN);
+        Date endTime = DateUtils.parse(endTimeStr, DateUtils.DATE_TIME_PATTERN);
         if (mock) {
             data.put("正常处理", generateValueList(startTime, endTime, interval));
             data.put("超时处理", generateValueList(startTime, endTime, interval));
