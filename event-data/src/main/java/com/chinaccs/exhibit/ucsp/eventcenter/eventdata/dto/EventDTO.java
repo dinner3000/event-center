@@ -1,5 +1,7 @@
 package com.chinaccs.exhibit.ucsp.eventcenter.eventdata.dto;
 
+import com.alibaba.fastjson.annotation.JSONField;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -27,9 +29,13 @@ public class EventDTO implements Serializable {
 
     @ApiModelProperty(value = "业务系统id")
     private String appCode;
+    @ApiModelProperty(value = "业务系统名称")
+    private String appName;
 
     @ApiModelProperty(value = "事件类型id")
     private Long typeId;
+    @ApiModelProperty(value = "事件类型名称")
+    private String typeName;
 
     @ApiModelProperty(value = "事件等级")
     private Integer level;
@@ -44,12 +50,24 @@ public class EventDTO implements Serializable {
     private Integer status;
 
     @ApiModelProperty(value = "发生时间")
+//    @JSONField(format="yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Date occurTime;
 
     @ApiModelProperty(value = "解决时间")
+//    @JSONField(format="yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Date resolveTime;
 
     @ApiModelProperty(value = "记录时间")
+//    @JSONField(format="yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Date logTime;
+
+    @ApiModelProperty(value = "推送记录")
+    private EventForwardLogDTO forwardLog;
+
+    @ApiModelProperty(value = "推送配置")
+    private EventForwardConfigDTO forwardConfig;
 
 }

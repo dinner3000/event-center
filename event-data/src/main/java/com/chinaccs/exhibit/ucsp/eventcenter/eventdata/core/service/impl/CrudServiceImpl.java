@@ -49,6 +49,11 @@ public abstract class CrudServiceImpl<M extends BaseMapper<T>, T, D> extends Bas
         return ConvertUtils.sourceToTarget(entityList, currentDtoClass());
     }
 
+    @Override
+    public List<T> list(QueryWrapper<T> queryWrapper) {
+        return this.baseDao.selectList(queryWrapper);
+    }
+
     public abstract QueryWrapper<T> getWrapper(Map<String, Object> params);
 
     @Override

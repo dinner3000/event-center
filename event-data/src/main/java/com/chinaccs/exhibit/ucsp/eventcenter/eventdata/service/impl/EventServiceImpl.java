@@ -8,6 +8,7 @@ import com.chinaccs.exhibit.ucsp.eventcenter.eventdata.core.service.impl.CrudSer
 import com.chinaccs.exhibit.ucsp.eventcenter.eventdata.dao.EventDao;
 import com.chinaccs.exhibit.ucsp.eventcenter.eventdata.dto.EventDTO;
 import com.chinaccs.exhibit.ucsp.eventcenter.eventdata.entity.EventEntity;
+import com.chinaccs.exhibit.ucsp.eventcenter.eventdata.page.PageData;
 import com.chinaccs.exhibit.ucsp.eventcenter.eventdata.service.EventService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
@@ -46,6 +47,11 @@ public class EventServiceImpl extends CrudServiceImpl<EventDao, EventEntity, Eve
         queryWrapper.le(endTime != null, "occur_time", endTime);
 
         return queryWrapper;
+    }
+
+    @Override
+    public PageData<EventDTO> page(Map<String, Object> params) {
+        return super.page(params);
     }
 
     @Override

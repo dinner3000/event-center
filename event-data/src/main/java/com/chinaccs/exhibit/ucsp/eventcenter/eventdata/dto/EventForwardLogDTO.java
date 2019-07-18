@@ -1,5 +1,7 @@
 package com.chinaccs.exhibit.ucsp.eventcenter.eventdata.dto;
 
+import com.alibaba.fastjson.annotation.JSONField;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -19,7 +21,7 @@ import java.util.Date;
 public class EventForwardLogDTO implements Serializable {
     private static final long serialVersionUID = 1L;
 
-	@ApiModelProperty(value = "id")
+	@ApiModelProperty(value = "事件id")
 	private Long id;
 
 	@ApiModelProperty(value = "推送配置id")
@@ -44,6 +46,8 @@ public class EventForwardLogDTO implements Serializable {
 	private Integer retries;
 
 	@ApiModelProperty(value = "推送时间")
+//	@JSONField(format="yyyy-MM-dd HH:mm:ss")
+	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
 	private Date fwTime;
 
 	@ApiModelProperty(value = "推送返回结果")

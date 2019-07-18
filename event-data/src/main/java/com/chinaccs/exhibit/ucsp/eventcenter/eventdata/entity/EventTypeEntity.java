@@ -1,7 +1,6 @@
 package com.chinaccs.exhibit.ucsp.eventcenter.eventdata.entity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
@@ -18,35 +17,13 @@ import java.util.Date;
  */
 @Data
 @EqualsAndHashCode(callSuper=false)
-@TableName("event")
-public class EventEntity implements Serializable {
+@TableName("event_type")
+public class EventTypeEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@TableId(type = IdType.AUTO)
 	private Long id;
 
-	private String traceId;
-
-    private String appCode;
-    @TableField(exist = false)
-    private String appName;
-
-    private Long typeId;
-    @TableField(exist = false)
-    private String typeName;
-
-    private Integer level;
-
-    private String title;
-
-    private String message;
-
-    private Date occurTime;
-
-    private Date resolveTime;
-
-    private Date logTime;
-
-    private Integer status;
+	private String name;
 
 }

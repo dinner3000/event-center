@@ -8,9 +8,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.*;
 import java.util.Calendar;
-import java.util.Date;
-import java.util.Random;
 
 import static org.quartz.JobBuilder.newJob;
 import static org.quartz.TriggerBuilder.newTrigger;
@@ -25,13 +24,20 @@ public class EventGeneratorJob implements Job {
 
     private Logger logger = LoggerFactory.getLogger(getClass());
 
+    private static final List<String> appCodeList = new ArrayList<>();
+    static {
+        appCodeList.add("UCSP");
+        appCodeList.add("UIOT");
+        appCodeList.add("SESP");
+    }
+
     @Override
     public void execute(JobExecutionContext jobExecutionContext) throws JobExecutionException {
         logger.debug("EventGeneratorJob.execute - start");
 
         logger.debug("EventGeneratorJob.execute - send new event");
-        String appCode = "app-1";
         Long eventId = System.currentTimeMillis();
+        String appCode = appCodeList.get(Convert.toInt(eventId % 3));
         this.newEvent(eventId, appCode);
 
         Random random = new Random(System.currentTimeMillis());
@@ -46,7 +52,7 @@ public class EventGeneratorJob implements Job {
                 .build();
 
         JobDetail job = newJob(EventStatusUpdateJob.class)
-                .usingJobData("appCode", "app-1")
+                .usingJobData("appCode", appCode)
                 .usingJobData("eventId", eventId)
                 .usingJobData("statusCode", 0)
                 .build();
@@ -71,7 +77,7 @@ public class EventGeneratorJob implements Job {
         int level = Convert.toInt(eventId % 3);
         incomingEventDTO.setLevel(level);
 
-        long typeId = eventId % 2;
+        long typeId = (eventId % 4) + 1;
         incomingEventDTO.setTypeId(typeId);
 
         incomingEventDTO.setTitle("test title");

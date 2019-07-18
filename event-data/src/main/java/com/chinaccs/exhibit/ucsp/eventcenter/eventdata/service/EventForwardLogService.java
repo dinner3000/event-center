@@ -1,6 +1,9 @@
 package com.chinaccs.exhibit.ucsp.eventcenter.eventdata.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.chinaccs.exhibit.ucsp.eventcenter.eventdata.core.service.CrudService;
+import com.chinaccs.exhibit.ucsp.eventcenter.eventdata.core.service.impl.CrudServiceImpl;
+import com.chinaccs.exhibit.ucsp.eventcenter.eventdata.dto.EventForwardLogDTO;
 import com.chinaccs.exhibit.ucsp.eventcenter.eventdata.entity.EventForwardLogEntity;
 
 /**
@@ -9,6 +12,6 @@ import com.chinaccs.exhibit.ucsp.eventcenter.eventdata.entity.EventForwardLogEnt
  * @author Gary.Z zhujiawei@sunseaaiot.com
  * @since 1.0.0 2019-07-01
  */
-public interface EventForwardLogService extends IService<EventForwardLogEntity> {
+public interface EventForwardLogService extends CrudService<EventForwardLogEntity, EventForwardLogDTO> {
 
 }

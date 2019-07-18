@@ -12,6 +12,7 @@ import com.chinaccs.exhibit.ucsp.eventcenter.eventdata.service.EventService;
 import com.chinaccs.exhibit.ucsp.eventcenter.eventdata.service.EventForwardConfigService;
 import com.chinaccs.exhibit.ucsp.eventcenter.eventdata.service.EventStatusLogService;
 import com.chinaccs.exhibit.ucsp.eventcenter.eventdata.utils.ConvertUtils;
+import com.chinaccs.exhibit.ucsp.eventcenter.eventlogger.exception.IncomingEventDataValidationException;
 import com.chinaccs.exhibit.ucsp.eventcenter.eventlogger.service.EventMQTopicListenService;
 import com.chinaccs.exhibit.ucsp.eventcenter.eventlogger.service.ForwardTaskMQEnqueueService;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
@@ -60,44 +61,62 @@ public class EventMQTopicListenServiceImpl implements EventMQTopicListenService 
             Object message = kafkaMessage.get();
             logger.debug("receive => event: {}", message);
 
-            IncomingEventDTO incomingEventDTO = JSON.parseObject(message.toString(), IncomingEventDTO.class);
-            if (incomingEventDTO.getId() == null){
-                throw new RuntimeException("incoming event do not have valid id");
-            }
-            if (incomingEventDTO.getAppCode() == null){
-                throw new RuntimeException("incoming event do not have valid app code");
+            try {
+                IncomingEventDTO incomingEventDTO = JSON.parseObject(message.toString(), IncomingEventDTO.class);
+                if (incomingEventDTO.getId() == null) {
+                    throw new IncomingEventDataValidationException("incoming event do not have valid id");
+                }
+                if (incomingEventDTO.getAppCode() == null) {
+                    throw new IncomingEventDataValidationException("incoming event do not have valid app code");
+                }
+
+                if (!StringUtils.isEmpty(incomingEventDTO.getTitle()) || !StringUtils.isEmpty(incomingEventDTO.getMessage())) {
+                    // treat as new event
+                    EventEntity eventEntity = this.saveNewEvent(incomingEventDTO);
+
+                    this.performForwardStage(incomingEventDTO, eventEntity);
+
+                } else {
+                    // treat as event status update
+                    EventEntity eventEntity = eventService.getByTraceId(incomingEventDTO.getId(), incomingEventDTO.getAppCode());
+
+                    if (eventEntity == null) {
+                        throw new IncomingEventDataValidationException("incoming event do not exist for status update");
+                    }
+
+                    this.updateEventStatus(incomingEventDTO, eventEntity);
+                }
+
+                ack.acknowledge();
+
+            } catch (IncomingEventDataValidationException e) {
+                logger.error(e.getMessage());
+                ack.acknowledge();
+            } catch (Exception e) {
+                throw e;
+            } finally {
             }
 
-            EventEntity eventEntity = eventService.getByTraceId(incomingEventDTO.getId(), incomingEventDTO.getAppCode());
-
-            if(eventEntity == null){
-                eventEntity = this.saveNewEvent(incomingEventDTO);
-                this.performForwardStage(incomingEventDTO, eventEntity);
-            } else {
-                this.updateEventStatus(incomingEventDTO, eventEntity);
-            }
-
-            ack.acknowledge();
         }
     }
 
-    private EventEntity saveNewEvent(IncomingEventDTO incomingEventDTO){
+    private EventEntity saveNewEvent(IncomingEventDTO incomingEventDTO) {
         EventEntity eventEntity = ConvertUtils.sourceToTarget(incomingEventDTO, EventEntity.class);
 
-        if (eventEntity.getTypeId() == null){
-            throw new RuntimeException("event do not have valid type");
+        if (eventEntity.getTypeId() == null) {
+            throw new IncomingEventDataValidationException("event do not have valid type");
         }
-        if (eventEntity.getLevel() == null || EventLevel.parse(eventEntity.getLevel()) == null){
-            throw new RuntimeException("event do not have valid level");
+        if (eventEntity.getLevel() == null || EventLevel.parse(eventEntity.getLevel()) == null) {
+            throw new IncomingEventDataValidationException("event do not have valid level");
         }
-        if (StringUtils.isEmpty(eventEntity.getTitle())){
-            throw new RuntimeException("event do not have valid title");
+        if (StringUtils.isEmpty(eventEntity.getTitle())) {
+            throw new IncomingEventDataValidationException("event do not have valid title");
         }
-        if (StringUtils.isEmpty(eventEntity.getMessage())){
-            throw new RuntimeException("event do not have valid message");
+        if (StringUtils.isEmpty(eventEntity.getMessage())) {
+            throw new IncomingEventDataValidationException("event do not have valid message");
         }
-        if (eventEntity.getOccurTime() == null){
-            throw new RuntimeException("event do not have valid occur time");
+        if (eventEntity.getOccurTime() == null) {
+            throw new IncomingEventDataValidationException("event do not have valid occur time");
         }
 
         eventEntity.setTraceId(incomingEventDTO.getId());
@@ -111,22 +130,22 @@ public class EventMQTopicListenServiceImpl implements EventMQTopicListenService 
         return eventEntity;
     }
 
-    private void updateEventStatus(IncomingEventDTO incomingEventDTO, EventEntity eventEntity){
-        if (incomingEventDTO.getStatus() == null){
+    private void updateEventStatus(IncomingEventDTO incomingEventDTO, EventEntity eventEntity) {
+        if (incomingEventDTO.getStatus() == null) {
             throw new RuntimeException("incoming event status is empty");
         }
-        if (!EventStatus.isValidCode(incomingEventDTO.getStatus())){
-            throw new RuntimeException(String.format(
+        if (!EventStatus.isValidCode(incomingEventDTO.getStatus())) {
+            throw new IncomingEventDataValidationException(String.format(
                     "incoming event do not have valid status: %s", incomingEventDTO.getStatus()));
         }
-        if (eventEntity.getStatus() == EventStatus.REJECTED.getCode()){
-            throw new RuntimeException(String.format("Change %s status is not allowed", EventStatus.REJECTED.getName()));
+        if (eventEntity.getStatus() == EventStatus.REJECTED.getCode()) {
+            throw new IncomingEventDataValidationException(String.format("Change %s status is not allowed", EventStatus.REJECTED.getName()));
         }
-        if (eventEntity.getStatus() == EventStatus.RESOLVED.getCode()){
-            throw new RuntimeException(String.format("Change %s status is not allowed", EventStatus.RESOLVED.getName()));
+        if (eventEntity.getStatus() == EventStatus.RESOLVED.getCode()) {
+            throw new IncomingEventDataValidationException(String.format("Change %s status is not allowed", EventStatus.RESOLVED.getName()));
         }
-        if (StringUtils.isEmpty(incomingEventDTO.getOwner())){
-            throw new RuntimeException("incoming event do not have valid owner");
+        if (StringUtils.isEmpty(incomingEventDTO.getOwner())) {
+            throw new IncomingEventDataValidationException("incoming event do not have valid owner");
         }
 
         EventStatusLogEntity statusLogEntity = new EventStatusLogEntity();
@@ -140,10 +159,13 @@ public class EventMQTopicListenServiceImpl implements EventMQTopicListenService 
         statusLogService.insert(statusLogEntity);
 
         eventEntity.setStatus(incomingEventDTO.getStatus());
-        if(incomingEventDTO.getStatus() == EventStatus.RESOLVED.getCode()){
+        if (incomingEventDTO.getStatus() == EventStatus.RESOLVED.getCode()) {
             eventEntity.setResolveTime(new Date());
         }
-        eventService.updateById(eventEntity);
+        EventEntity eventEntity4Update = new EventEntity();
+        eventEntity4Update.setId(eventEntity.getId());
+        eventEntity4Update.setStatus(eventEntity.getStatus());
+        eventService.updateById(eventEntity4Update);
 
     }
 
@@ -156,12 +178,15 @@ public class EventMQTopicListenServiceImpl implements EventMQTopicListenService 
                     break;
                 }
 
-                logger.debug("try get event type info");
+                logger.debug("try get event forward config");
                 configEntity = eventForwardConfigService.tryGetOneConfig(
                         incomingEventDTO.getAppCode(), incomingEventDTO.getTypeId(), incomingEventDTO.getLevel());
                 if (configEntity == null) {
-                    logger.debug("event type id not exist: {}, skip", incomingEventDTO.getTypeId());
-                    logger.debug("possibly: 1. event type not created, 2. wrong type id");
+                    logger.debug("event forward config not exist: {}/{}/{}, skip",
+                            incomingEventDTO.getAppCode(),
+                            incomingEventDTO.getTypeId(),
+                            incomingEventDTO.getLevel()
+                    );
                     break;
                 }
 
@@ -176,7 +201,7 @@ public class EventMQTopicListenServiceImpl implements EventMQTopicListenService 
 
                 logger.debug("====================================================================");
 
-            } catch (Exception e){
+            } catch (Exception e) {
                 logger.error("unexpected error in performForwardStage(): {}", e.getMessage());
             }
         } while (false);

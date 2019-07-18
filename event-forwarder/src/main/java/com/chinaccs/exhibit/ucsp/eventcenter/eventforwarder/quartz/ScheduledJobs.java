@@ -1,6 +1,7 @@
 package com.chinaccs.exhibit.ucsp.eventcenter.eventforwarder.quartz;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.chinaccs.exhibit.ucsp.eventcenter.eventdata.dao.EventForwardLogDao;
 import com.chinaccs.exhibit.ucsp.eventcenter.eventdata.entity.EventForwardLogEntity;
 import com.chinaccs.exhibit.ucsp.eventcenter.eventdata.service.EventForwardLogService;
 import com.chinaccs.exhibit.ucsp.eventcenter.eventforwarder.constant.EventForwardStatus;
@@ -23,7 +24,7 @@ public class ScheduledJobs {
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
     @Autowired
-    private EventForwardLogService eventForwardLogService;
+    private EventForwardLogDao eventForwardLogDao;
 
     @Autowired
     private ForwardTaskExecuteService forwardTaskExecuteService;
@@ -45,7 +46,7 @@ public class ScheduledJobs {
         // order by fw_time
         queryWrapper.orderByAsc("fw_time");
 
-        List<EventForwardLogEntity> taskList = eventForwardLogService.list(queryWrapper);
+        List<EventForwardLogEntity> taskList = eventForwardLogDao.selectList(queryWrapper);
         if (taskList.size() < 1){
             return;
         }

@@ -7,7 +7,11 @@ package com.chinaccs.exhibit.ucsp.eventcenter.eventapi.controller;
 import com.chinaccs.exhibit.ucsp.eventcenter.eventapi.utils.Result;
 import com.chinaccs.exhibit.ucsp.eventcenter.eventdata.constant.Constant;
 import com.chinaccs.exhibit.ucsp.eventcenter.eventdata.dto.EventDTO;
+import com.chinaccs.exhibit.ucsp.eventcenter.eventdata.dto.EventForwardConfigDTO;
+import com.chinaccs.exhibit.ucsp.eventcenter.eventdata.dto.EventForwardLogDTO;
 import com.chinaccs.exhibit.ucsp.eventcenter.eventdata.page.PageData;
+import com.chinaccs.exhibit.ucsp.eventcenter.eventdata.service.EventForwardConfigService;
+import com.chinaccs.exhibit.ucsp.eventcenter.eventdata.service.EventForwardLogService;
 import com.chinaccs.exhibit.ucsp.eventcenter.eventdata.service.EventService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
@@ -32,6 +36,12 @@ public class EventQueryApiController {
 
     @Autowired
     private EventService eventService;
+
+    @Autowired
+    private EventForwardLogService forwardLogService;
+
+    @Autowired
+    private EventForwardConfigService forwardConfigService;
 
     @GetMapping("/page")
     @ApiOperation("事件分页列表")
@@ -75,9 +85,19 @@ public class EventQueryApiController {
             @PathVariable("id") Long id,
             @RequestParam(required = false, defaultValue = "0") Integer detailLevel) {
 
-        EventDTO dto = eventService.get(id);
+        EventDTO eventDTO = eventService.get(id);
 
-        return new Result<EventDTO>().ok(dto);
+        if (detailLevel > 0) {
+            EventForwardLogDTO forwardLogDTO = forwardLogService.get(id);
+            eventDTO.setForwardLog(forwardLogDTO);
+//            if (forwardLogDTO != null) {
+//                EventForwardConfigDTO forwardConfigDTO = forwardConfigService.get(forwardLogDTO.getConfigId());
+//                eventDTO.setForwardConfig(forwardConfigDTO);
+//            }
+
+        }
+
+        return new Result<EventDTO>().ok(eventDTO);
     }
 
 }

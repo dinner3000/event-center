@@ -1,6 +1,7 @@
 package com.chinaccs.exhibit.ucsp.eventcenter.eventforwarder.service.impl;
 
 import com.alibaba.fastjson.JSON;
+import com.chinaccs.exhibit.ucsp.eventcenter.eventdata.dao.EventForwardLogDao;
 import com.chinaccs.exhibit.ucsp.eventcenter.eventdata.dto.ForwardNoticeDTO;
 import com.chinaccs.exhibit.ucsp.eventcenter.eventdata.entity.EventEntity;
 import com.chinaccs.exhibit.ucsp.eventcenter.eventdata.entity.EventForwardLogEntity;
@@ -31,7 +32,7 @@ import java.util.Optional;
 public class ForwardTaskMQTopicListenServiceImpl implements ForwardTaskMQTopicListenService {
 
     @Autowired
-    private EventForwardLogService eventForwardLogService;
+    private EventForwardLogDao eventForwardLogDao;
 
     @Autowired
     private ForwardTaskExecuteService forwardTaskExecuteService;
@@ -77,7 +78,7 @@ public class ForwardTaskMQTopicListenServiceImpl implements ForwardTaskMQTopicLi
                 eventForwardLogEntity.setStatus(EventForwardStatus.INITIAL.getValue());
 
                 logger.debug("save forward task to db");
-                eventForwardLogService.save(eventForwardLogEntity);
+                eventForwardLogDao.insert(eventForwardLogEntity);
 
                 ack.acknowledge();
 

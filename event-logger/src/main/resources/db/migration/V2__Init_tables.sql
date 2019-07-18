@@ -2,7 +2,7 @@
 CREATE TABLE IF NOT EXISTS event(
   `id` BIGINT NOT NULL AUTO_INCREMENT  COMMENT 'ID',
   `trace_id` VARCHAR(64) COMMENT '追踪ID',
-  `app_code` VARCHAR(64) COMMENT '源应用系统代码',
+  `app_code` VARCHAR(64) COMMENT '应用系统代码',
   `type_id` BIGINT COMMENT '类型ID',
   `level` int(1) DEFAULT NULL COMMENT '级别',
   `title` VARCHAR(64) COMMENT '标题' ,
@@ -79,3 +79,23 @@ CREATE TABLE IF NOT EXISTS event_forward_log(
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT = '事件推送记录';
 
 ALTER TABLE event_forward_log ADD INDEX idx_status(status,retries,fw_time);
+
+CREATE TABLE IF NOT EXISTS event_type(
+  `id` BIGINT NOT NULL AUTO_INCREMENT COMMENT 'ID',
+--  `app_code` BIGINT COMMENT '应用系统代码',
+--  `code` BIGINT COMMENT '类型代码',
+  `name` VARCHAR(64) COMMENT '类型名称',
+  PRIMARY KEY (id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT = '事件类型名称代码';
+
+--ALTER TABLE event_type ADD UNIQUE idx_1(code);
+
+CREATE TABLE IF NOT EXISTS event_app_code(
+  `id` BIGINT NOT NULL AUTO_INCREMENT COMMENT 'ID',
+  `code` VARCHAR(32) COMMENT '应用系统代码',
+  `name` VARCHAR(64) COMMENT '应用系统名称',
+  PRIMARY KEY (id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT = '应用系统名称代码';
+
+ALTER TABLE event_app_code ADD UNIQUE idx_1(code);
+
