@@ -6,6 +6,8 @@ package com.chinaccs.exhibit.ucsp.eventcenter.eventapi.controller;
 
 import cn.hutool.core.convert.Convert;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.chinaccs.exhibit.ucsp.eventcenter.common.exception.ErrorCode;
+import com.chinaccs.exhibit.ucsp.eventcenter.common.exception.EventCenterException;
 import com.chinaccs.exhibit.ucsp.eventcenter.common.utils.DateUtils;
 import com.chinaccs.exhibit.ucsp.eventcenter.eventapi.utils.CollectionUtils;
 import com.chinaccs.exhibit.ucsp.eventcenter.eventapi.utils.Result;
@@ -62,7 +64,7 @@ public class EventTrendApiController {
             statusList = buffer.stream().map(i -> Convert.toInt(i)).collect(Collectors.toList());
             statusList.stream().forEach(i -> {
                 if (EventStatus.parse(i) == null){
-                    throw new RuntimeException(String.format("Invalid stage code: %d", i));
+                    throw new EventCenterException(ErrorCode.PARAMS_GET_ERROR, String.format("Invalid stage code: %d", i));
                 }
             });
         }
@@ -70,7 +72,7 @@ public class EventTrendApiController {
         // validate interval
         List<Integer> validIntervals = Arrays.asList(3, 60, 120, 1440);
         if(!validIntervals.contains(interval)){
-            throw new RuntimeException(String.format("Invalid interval: %d", interval));
+            throw new EventCenterException(ErrorCode.PARAMS_GET_ERROR, String.format("Invalid interval: %d", interval));
         }
 
         Map<String, Object> data = new HashMap<>();
@@ -78,7 +80,7 @@ public class EventTrendApiController {
         Date endTime = DateUtils.parse(endTimeStr, DateUtils.DATE_TIME_PATTERN);
 
         if (startTime.after(endTime)){
-            throw new RuntimeException("start time cannot be later than end time");
+            throw new EventCenterException(ErrorCode.PARAMS_GET_ERROR, "start time cannot be later than end time");
         }
 
         if (mock) {

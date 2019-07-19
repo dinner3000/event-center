@@ -8,12 +8,10 @@
 
 package com.chinaccs.exhibit.ucsp.eventcenter.eventapi.utils;
 
-import com.chinaccs.exhibit.ucsp.eventcenter.eventapi.exception.ErrorCode;
+import com.chinaccs.exhibit.ucsp.eventcenter.common.exception.ErrorCode;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
 
 import java.io.Serializable;
 
@@ -23,7 +21,7 @@ import java.io.Serializable;
  * @author Zhu Jiawei zhujiawei@sunseaaiot.com
  * @since 1.0.0
  */
-//@Data
+@Data
 @ApiModel(value = "响应")
 public class Result<T> implements Serializable {
     private static final long serialVersionUID = 1L;

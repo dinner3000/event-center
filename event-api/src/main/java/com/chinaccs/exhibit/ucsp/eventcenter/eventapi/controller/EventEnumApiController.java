@@ -90,14 +90,14 @@ public class EventEnumApiController {
     }
 
     @GetMapping("/event_level_list")
-    @ApiOperation("应用系统列表")
+    @ApiOperation("事件级别列表")
     public Result<List<Map<String, Object>>> getEventLevelList() {
 
         return new Result<List<Map<String, Object>>>().ok(EventLevel.toPropertyMapList());
     }
 
     @GetMapping("/event_status_list")
-    @ApiOperation("应用系统列表")
+    @ApiOperation("事件状态列表")
     public Result<List<Map<String, Object>>> getEventStatusList() {
 
         return new Result<List<Map<String, Object>>>().ok(EventStatus.toPropertyMapList());

@@ -34,7 +34,7 @@ public class ScheduledJobs {
         logger.info("scheduled job sample, exec in every 3 secs ... ");
     }
 
-    @Scheduled(cron = "0 */1 * * * *")
+    @Scheduled(cron = "0 * * * * *")
     public void eventForwardTaskAutoRetryJob(){
         logger.info("scheduled job for retries forward event, exec in every 1 min ... ");
 

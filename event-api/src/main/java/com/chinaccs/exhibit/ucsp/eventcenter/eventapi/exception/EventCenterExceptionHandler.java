@@ -8,6 +8,7 @@
 
 package com.chinaccs.exhibit.ucsp.eventcenter.eventapi.exception;
 
+import com.chinaccs.exhibit.ucsp.eventcenter.common.exception.ErrorCode;
 import com.chinaccs.exhibit.ucsp.eventcenter.common.exception.EventCenterException;
 import com.chinaccs.exhibit.ucsp.eventcenter.eventapi.utils.Result;
 import org.slf4j.Logger;
