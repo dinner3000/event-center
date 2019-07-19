@@ -4,6 +4,7 @@ import cn.hutool.core.convert.Convert;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.chinaccs.exhibit.ucsp.eventcenter.eventdata.constant.Constant;
 import com.chinaccs.exhibit.ucsp.eventcenter.eventdata.constant.EventLevel;
+import com.chinaccs.exhibit.ucsp.eventcenter.eventdata.constant.EventStatus;
 import com.chinaccs.exhibit.ucsp.eventcenter.eventdata.core.service.impl.CrudServiceImpl;
 import com.chinaccs.exhibit.ucsp.eventcenter.eventdata.dao.EventDao;
 import com.chinaccs.exhibit.ucsp.eventcenter.eventdata.dto.EventDTO;
@@ -78,6 +79,15 @@ public class EventServiceImpl extends CrudServiceImpl<EventDao, EventEntity, Eve
 //        for (Map<String, Object> item : list){
 //            item.put("label", item.get("code"));
 //        }
+        return list;
+    }
+
+    @Override
+    public List<Map<String, Object>> statGroupByStatus() {
+        List<Map<String, Object>> list = this.baseDao.statGroupByStatus();
+        for (Map<String, Object> item : list){
+            item.put("label", EventStatus.parse(Convert.toInt(item.get("code"))).getName());
+        }
         return list;
     }
 

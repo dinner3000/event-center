@@ -17,6 +17,7 @@ public interface EventService extends CrudService<EventEntity, EventDTO> {
     List<Map<String, Object>> statGroupByLevel();
     List<Map<String, Object>> statGroupByType();
     List<Map<String, Object>> statGroupByAppCode();
+    List<Map<String, Object>> statGroupByStatus();
 
     EventEntity getByTraceId(String traceId, String appCode);
 //    Map<String, Object> statGroupByFWStatus();

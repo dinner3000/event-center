@@ -74,7 +74,7 @@ public class EventGeneratorJob implements Job {
 
         incomingEventDTO.setAppCode(appCode);
 
-        int level = Convert.toInt(eventId % 3);
+        int level = Convert.toInt(eventId % 4);
         incomingEventDTO.setLevel(level);
 
         long typeId = (eventId % 4) + 1;

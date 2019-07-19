@@ -12,6 +12,7 @@ import com.chinaccs.exhibit.ucsp.eventcenter.eventapi.utils.Result;
 import com.chinaccs.exhibit.ucsp.eventcenter.eventdata.constant.Constant;
 import com.chinaccs.exhibit.ucsp.eventcenter.eventdata.dto.EventDTO;
 import com.chinaccs.exhibit.ucsp.eventcenter.eventdata.page.PageData;
+import com.chinaccs.exhibit.ucsp.eventcenter.eventdata.service.EventForwardLogService;
 import com.chinaccs.exhibit.ucsp.eventcenter.eventdata.service.EventService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
@@ -36,6 +37,9 @@ public class EventStatApiController {
     @Autowired
     private EventService eventService;
 
+    @Autowired
+    private EventForwardLogService forwardLogService;
+
     @GetMapping("/by_level")
     @ApiOperation("按级别统计数量")
     public Result<List<Map<String, Object>>> byLevel() {
@@ -57,11 +61,11 @@ public class EventStatApiController {
         return new Result<List<Map<String, Object>>>().ok(data);
     }
 
-//    @GetMapping("/byFWStatus")
-//    @ApiOperation("按推送结果数量")
-//    public Result<PageData<EventDTO>> byFWStatus() {
-//        PageData<EventDTO> pageData = eventService.page();
-//        return new Result<PageData<EventDTO>>().ok(pageData);
-//    }
+    @GetMapping("/by_status")
+    @ApiOperation("按事件状态统计数量")
+    public Result<List<Map<String, Object>>> byStatus() {
+        List<Map<String, Object>> pageData = eventService.statGroupByStatus();
+        return new Result<List<Map<String, Object>>>().ok(pageData);
+    }
 
 }

@@ -11,9 +11,9 @@ import java.util.Map;
 public enum EventLevel {
 
     NORMAL("正常", 0),
-    WARN_1("轻度警告", 1),
-    WARN_2("中度警告", 2),
-    WARN_3("重度警告", 3)
+    WARN_1("轻微", 1),
+    WARN_2("中度", 2),
+    WARN_3("重大", 3)
     ;
 
     @Getter

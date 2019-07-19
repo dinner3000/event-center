@@ -18,6 +18,9 @@
         left join event_app_code as a on e.app_code = a.code
         GROUP BY e.app_code ORDER BY e.app_code ;
     </select>
+    <select id="statGroupByStatus" resultType="java.util.HashMap">
+        select status AS code, count(*) as count from event GROUP BY status ORDER BY status ;
+    </select>
 
     <select id="selectPage" resultType="com.chinaccs.exhibit.ucsp.eventcenter.eventdata.entity.EventEntity">
         SELECT e.*, a.name as app_name, t.name as type_name

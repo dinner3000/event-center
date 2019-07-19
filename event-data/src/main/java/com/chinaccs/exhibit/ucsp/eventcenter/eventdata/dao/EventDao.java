@@ -18,5 +18,4 @@ public interface EventDao extends BaseMapper<EventEntity> {
     List<Map<String, Object>> statGroupByLevel();
     List<Map<String, Object>> statGroupByType();
     List<Map<String, Object>> statGroupByAppCode();
-//    Map<String, Object> statGroupByFWStatus();
-}
+    List<Map<String, Object>> statGroupByStatus();}
