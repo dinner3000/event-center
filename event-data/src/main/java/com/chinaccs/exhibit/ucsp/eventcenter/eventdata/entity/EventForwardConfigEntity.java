@@ -32,7 +32,13 @@ public class EventForwardConfigEntity implements Serializable{
 
 	private String appCode;
 
+	@TableField(exist = false)
+	private String appName;
+
 	private Long typeId;
+
+	@TableField(exist = false)
+	private String typeName;
 
 	private Integer level;
 

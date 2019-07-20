@@ -28,10 +28,12 @@ public class EventEntity implements Serializable {
 	private String traceId;
 
     private String appCode;
+
     @TableField(exist = false)
     private String appName;
 
     private Long typeId;
+
     @TableField(exist = false)
     private String typeName;
 
