@@ -8,6 +8,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * 事件类型 
@@ -34,6 +35,8 @@ public class EventForwardConfigEntity implements Serializable{
 	private Long typeId;
 
 	private Integer level;
+
+	private Date createTime;
 
 	private Integer fwEnabled;
 

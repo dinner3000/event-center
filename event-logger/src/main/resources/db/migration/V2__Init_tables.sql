@@ -54,6 +54,7 @@ CREATE TABLE IF NOT EXISTS event_forward_config(
   `app_code` VARCHAR(64) COMMENT '源应用系统代码',
   `type_id` BIGINT COMMENT '类型ID',
   `level` INT(1) COMMENT '级别',
+  `create_time` DATETIME COMMENT '创建时间',
   `fw_enabled` INT(1) COMMENT '是否需要推送',
   `fw_type` VARCHAR(32) COMMENT '推送类型 如：SMS，VOICE',
   `fw_targets` VARCHAR(3072) COMMENT '推送目标列表 JSON数组',
