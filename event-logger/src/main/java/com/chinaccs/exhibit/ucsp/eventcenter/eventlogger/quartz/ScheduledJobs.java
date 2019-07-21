@@ -28,21 +28,11 @@ public class ScheduledJobs {
 //        logger.info("scheduled job sample, exec in every 3 secs ... ");
 //    }
 
-    @Scheduled(cron = "0 */3 * * * *")
+    @Scheduled(cron = "0 */5 * * * *")
     public void resolvePerformanceStatTriMinutely(){
         logger.info("stat for event resolve performance, exec in every 3 minutes ... ");
 
-        int interval = 3;
-
-        Date statTime = new Date();
-        statService.statResolvePerformance(statTime, interval);
-    }
-
-    @Scheduled(cron = "0 0 * * * *")
-    public void resolvePerformanceStatHourLy(){
-        logger.info("stat for event resolve performance, exec in every 1 hour ... ");
-
-        int interval = 60;
+        int interval = 5;
 
         Date statTime = new Date();
         statService.statResolvePerformance(statTime, interval);

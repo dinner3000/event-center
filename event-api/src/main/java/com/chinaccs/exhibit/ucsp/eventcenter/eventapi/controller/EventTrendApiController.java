@@ -46,16 +46,16 @@ public class EventTrendApiController {
     @ApiImplicitParams({
             @ApiImplicitParam(name = "startTime", value = "起始时间，格式：2019-07-17 12:00:00", paramType = "query", required = true, dataType = "string"),
             @ApiImplicitParam(name = "endTime", value = "结束时间，格式：2019-07-17 13:00:00", paramType = "query", required = true, dataType = "string"),
-            @ApiImplicitParam(name = "interval", value = "时间间隔，可选值：3，60，120，1440", paramType = "query", required = true, dataType = "int"),
+            @ApiImplicitParam(name = "interval", value = "时间间隔，可选值：5，120，1440", paramType = "query", required = true, dataType = "int"),
             @ApiImplicitParam(name = "stages", value = "统计环节（数组），可选值，1，2，3，4", paramType = "query", dataType = "int", allowMultiple = true),
-            @ApiImplicitParam(name = "mock", value = "使用mock，测试期间默认1", paramType = "query", defaultValue = "1", dataType = "int")
+            @ApiImplicitParam(name = "mock", value = "使用mock", paramType = "query", defaultValue = "0", dataType = "int")
     })
     public Result<Map<String, Object>> resolvePerformance(
             @RequestParam("startTime") String startTimeStr,
             @RequestParam("endTime") String endTimeStr,
             @RequestParam Integer interval,
             @RequestParam(required = false) String stages,
-            @RequestParam(required = false, defaultValue = "true") boolean mock
+            @RequestParam(required = false, defaultValue = "false") boolean mock
     ) {
         // parse and validate stages
         List<Integer> statusList = null;
@@ -70,7 +70,7 @@ public class EventTrendApiController {
         }
 
         // validate interval
-        List<Integer> validIntervals = Arrays.asList(3, 60, 120, 1440);
+        List<Integer> validIntervals = Arrays.asList(5, 120, 1440);
         if(!validIntervals.contains(interval)){
             throw new EventCenterException(ErrorCode.PARAMS_GET_ERROR, String.format("Invalid interval: %d", interval));
         }
