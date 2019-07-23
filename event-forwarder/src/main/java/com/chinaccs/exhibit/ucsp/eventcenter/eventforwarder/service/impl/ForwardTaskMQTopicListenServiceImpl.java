@@ -1,6 +1,8 @@
 package com.chinaccs.exhibit.ucsp.eventcenter.eventforwarder.service.impl;
 
+import cn.hutool.core.convert.Convert;
 import com.alibaba.fastjson.JSON;
+import com.chinaccs.exhibit.ucsp.eventcenter.eventdata.constant.EventForwardType;
 import com.chinaccs.exhibit.ucsp.eventcenter.eventdata.dao.EventForwardLogDao;
 import com.chinaccs.exhibit.ucsp.eventcenter.eventdata.dto.ForwardNoticeDTO;
 import com.chinaccs.exhibit.ucsp.eventcenter.eventdata.entity.EventEntity;
@@ -20,7 +22,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 /**
  * 事件 存储事件信息，每个事件作为一条记录
@@ -54,36 +59,43 @@ public class ForwardTaskMQTopicListenServiceImpl implements ForwardTaskMQTopicLi
                 EventEntity eventEntity = forwardNoticeDTO.getEventEntity();
                 EventForwardConfigEntity eventForwardConfigEntity = forwardNoticeDTO.getTypeEntity();
 
-                if(eventEntity.getId() == null || eventEntity.getId() <= 0){
-                    logger.debug("empty event id, skip");
-                    break;
-                }
-
-                if(eventEntity.getTypeId() == null || eventEntity.getTypeId() <= 0){
-                    logger.debug("empty type id, skip");
-                    break;
-                }
-
                 if(eventForwardConfigEntity.getFwTargets() == null || StringUtils.isEmpty(eventForwardConfigEntity.getFwTargets())){
                     logger.debug("empty targets, skip");
                     break;
                 }
 
-                EventForwardLogEntity eventForwardLogEntity = new EventForwardLogEntity();
-                eventForwardLogEntity.setId(eventEntity.getId());
-                eventForwardLogEntity.setConfigId(eventEntity.getTypeId());
-                eventForwardLogEntity.setTargets(eventForwardConfigEntity.getFwTargets());
-                eventForwardLogEntity.setText(eventEntity.getMessage());
-                eventForwardLogEntity.setRetries(0);
-                eventForwardLogEntity.setStatus(EventForwardStatus.INITIAL.getValue());
+                List<Integer> typeIdList = null;
+                if (StringUtils.isEmpty(eventForwardConfigEntity.getFwType())) {
+                    logger.debug("empty types, skip");
+                    break;
+                }
 
-                logger.debug("save forward task to db");
-                eventForwardLogDao.insert(eventForwardLogEntity);
+                List<String> buffer = Arrays.asList(eventForwardConfigEntity.getFwType().split(","));
+                typeIdList = buffer.stream().map(i -> Convert.toInt(i)).collect(Collectors.toList());
+                typeIdList.stream().forEach(i -> {
+                    if (EventForwardType.parse(i) == null){
+                        throw new RuntimeException(String.format("Invalid event forward type code: %d", i));
+                    }
+                });
 
-                ack.acknowledge();
+                for(Integer typeId : typeIdList) {
+                    EventForwardLogEntity eventForwardLogEntity = new EventForwardLogEntity();
+                    eventForwardLogEntity.setId(eventEntity.getId());
+                    eventForwardLogEntity.setConfigId(eventForwardConfigEntity.getId());
+                    eventForwardLogEntity.setType(typeId);
+                    eventForwardLogEntity.setTargets(eventForwardConfigEntity.getFwTargets());
+                    eventForwardLogEntity.setText(eventEntity.getMessage());
+                    eventForwardLogEntity.setRetries(0);
+                    eventForwardLogEntity.setStatus(EventForwardStatus.INITIAL.getValue());
 
-                logger.debug("try call forward api");
-                forwardTaskExecuteService.forward(eventForwardLogEntity);
+                    logger.debug("save forward task to db");
+                    eventForwardLogDao.insert(eventForwardLogEntity);
+
+                    ack.acknowledge();
+
+                    logger.debug("try call forward api");
+                    forwardTaskExecuteService.forward(eventForwardLogEntity);
+                }
 
                 logger.debug("====================================================================");
             } while (false);

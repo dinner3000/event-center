@@ -8,21 +8,15 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 @Component
-public class SMSMessagingAgent implements MessagingAgent {
+public class WebMessagingAgent implements MessagingAgent {
 
-    @Value("${external-api.sms.url}")
+    @Value("${external-api.web-msg.url}")
     private String url;
-
-    @Value("${external-api.sms.app-id}")
-    private String appId;
-
-    @Value("${external-api.sms.app-key}")
-    private String addKey;
 
     private Logger logger = LoggerFactory.getLogger(getClass());
 
     @Override
     public void invoke(EventForwardLogEntity forwardLogEntity) {
-        logger.debug("SMSMessagingAgent.invoke()");
+        logger.debug("WebMessagingAgent.invoke()");
     }
 }

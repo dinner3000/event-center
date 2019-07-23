@@ -26,6 +26,8 @@ public class EventForwardLogEntity implements Serializable {
 
 	private Long configId;
 
+	private Integer type;
+
 	private String targets;
 
 	private String tplText;

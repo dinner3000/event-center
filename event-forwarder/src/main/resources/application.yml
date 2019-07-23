@@ -5,9 +5,15 @@ global-params:
 
 external-api:
   sms:
+    url: http://not-defined/
     app-id: app-id
     app-key: app-key
 
+internal-api:
+  app-msg:
+    url: http://not-defined/
+  web-msg:
+    url: http://not-defined/
 
 spring:
   # 环境 dev|test|prod

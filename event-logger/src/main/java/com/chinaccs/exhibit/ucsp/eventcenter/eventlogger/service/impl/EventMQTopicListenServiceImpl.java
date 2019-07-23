@@ -173,11 +173,6 @@ public class EventMQTopicListenServiceImpl implements EventMQTopicListenService 
         EventForwardConfigEntity configEntity;
         do {
             try {
-                if (incomingEventDTO.getTypeId() == null || incomingEventDTO.getTypeId() <= 0) {
-                    logger.debug("empty type id, skip");
-                    break;
-                }
-
                 logger.debug("try get event forward config");
                 configEntity = eventForwardConfigService.tryGetOneConfig(
                         incomingEventDTO.getAppCode(), incomingEventDTO.getTypeId(), incomingEventDTO.getLevel());

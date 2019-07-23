@@ -27,6 +27,9 @@ public class EventForwardLogDTO implements Serializable {
 	@ApiModelProperty(value = "推送配置id")
 	private Long configId;
 
+	@ApiModelProperty(value = "推送类型")
+	private Integer type;
+
 	@ApiModelProperty(value = "推送目标列表")
 	private String targets;
 

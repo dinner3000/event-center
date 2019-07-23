@@ -1,5 +1,6 @@
 package com.chinaccs.exhibit.ucsp.eventcenter.eventforwarder.service.impl;
 
+import com.chinaccs.exhibit.ucsp.eventcenter.eventdata.constant.EventForwardType;
 import com.chinaccs.exhibit.ucsp.eventcenter.eventdata.entity.EventForwardLogEntity;
 import com.chinaccs.exhibit.ucsp.eventcenter.eventdata.service.EventForwardLogService;
 import com.chinaccs.exhibit.ucsp.eventcenter.eventforwarder.agent.MessagingAgent;
@@ -23,14 +24,26 @@ public class ForwardTaskExecuteServiceImpl implements ForwardTaskExecuteService 
     @Autowired
     private MessagingAgent smsMessagingAgent;
 
+    @Autowired
+    private MessagingAgent appMessagingAgent;
+
+    @Autowired
+    private MessagingAgent webMessagingAgent;
+
     @Override
     public void forward(EventForwardLogEntity eventForwardLogEntity) {
 
         eventForwardLogEntity.setFwTime(new Date());
+
         try {
-            logger.debug("forward to external api => url: {}, targets: {}",
-                eventForwardLogEntity.getTplText(), eventForwardLogEntity.getTargets());
-            smsMessagingAgent.invoke(eventForwardLogEntity);
+
+            if (eventForwardLogEntity.getType() == EventForwardType.SMS.getCode()){
+                smsMessagingAgent.invoke(eventForwardLogEntity);
+            } else if (eventForwardLogEntity.getType() == EventForwardType.PORTAL.getCode()){
+                webMessagingAgent.invoke(eventForwardLogEntity);
+            } else if (eventForwardLogEntity.getType() == EventForwardType.APP.getCode()){
+                appMessagingAgent.invoke(eventForwardLogEntity);
+            }
 
             if (eventForwardLogEntity.getId() % 2 != 0) {
                 throw new RuntimeException("Simulate forward failure");
@@ -38,6 +51,7 @@ public class ForwardTaskExecuteServiceImpl implements ForwardTaskExecuteService 
 
             eventForwardLogEntity.setStatus(EventForwardStatus.SUCCESS.getValue());
             eventForwardLogEntity.setFwResult(EventForwardStatus.SUCCESS.toString());
+            
         } catch (Exception e){
             logger.error("Event forward failure: {}", e.getMessage());
 

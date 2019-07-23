@@ -56,7 +56,7 @@ CREATE TABLE IF NOT EXISTS event_forward_config(
   `level` INT(1) COMMENT '级别',
   `create_time` DATETIME COMMENT '创建时间',
   `fw_enabled` INT(1) COMMENT '是否需要推送',
-  `fw_type` VARCHAR(32) COMMENT '推送类型 如：SMS，VOICE',
+  `fw_type` VARCHAR(32) COMMENT '推送类型, 改为支持多种, 如：1,2,3',
   `fw_targets` VARCHAR(3072) COMMENT '推送目标列表 JSON数组',
   `fw_tpl_text` VARCHAR(3072) COMMENT '推送内容模版',
   `fw_tpl_id` BIGINT COMMENT '推送内容模版id(外部)',
@@ -64,10 +64,15 @@ CREATE TABLE IF NOT EXISTS event_forward_config(
   PRIMARY KEY (id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT = '事件推送设置';
 
+ALTER TABLE event_forward_config ADD UNIQUE idx_1(type_id, level, app_code);
+ALTER TABLE event_forward_config ADD INDEX idx_2(app_code, type_id);
+ALTER TABLE event_forward_config ADD INDEX idx_3(level, app_code);
+
 
 CREATE TABLE IF NOT EXISTS event_forward_log(
   `id` BIGINT NOT NULL COMMENT '事件ID',
   `config_id` BIGINT COMMENT '推送设置ID',
+  `type` INT(1) COMMENT '推送类型',
   `targets` VARCHAR(3072) COMMENT '推送目标列表 JSON数组',
   `tpl_text` VARCHAR(2048) COMMENT '内容模板',
   `tpl_params` VARCHAR(1024) COMMENT '模板变量',
