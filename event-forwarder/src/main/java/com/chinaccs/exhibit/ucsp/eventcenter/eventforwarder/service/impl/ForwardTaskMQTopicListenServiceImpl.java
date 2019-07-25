@@ -66,7 +66,7 @@ public class ForwardTaskMQTopicListenServiceImpl implements ForwardTaskMQTopicLi
 
                 List<Integer> typeIdList = null;
                 if (StringUtils.isEmpty(eventForwardConfigEntity.getFwType())) {
-                    logger.debug("empty types, skip");
+                    logger.debug("empty forward types, skip");
                     break;
                 }
 

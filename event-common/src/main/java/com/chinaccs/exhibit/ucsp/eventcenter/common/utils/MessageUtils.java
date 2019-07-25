@@ -11,6 +11,8 @@ package com.chinaccs.exhibit.ucsp.eventcenter.common.utils;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
 
+import java.util.Locale;
+
 /**
  * 国际化
  *
@@ -29,5 +31,6 @@ public class MessageUtils {
 
     public static String getMessage(int code, String... params){
         return messageSource.getMessage(code+"", params, LocaleContextHolder.getLocale());
+//        return messageSource.getMessage(code+"", params, Locale.CHINA);
     }
 }

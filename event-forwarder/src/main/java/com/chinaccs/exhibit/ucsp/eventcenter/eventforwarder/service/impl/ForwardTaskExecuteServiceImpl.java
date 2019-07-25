@@ -51,7 +51,7 @@ public class ForwardTaskExecuteServiceImpl implements ForwardTaskExecuteService 
 
             eventForwardLogEntity.setStatus(EventForwardStatus.SUCCESS.getValue());
             eventForwardLogEntity.setFwResult(EventForwardStatus.SUCCESS.toString());
-            
+
         } catch (Exception e){
             logger.error("Event forward failure: {}", e.getMessage());
 
