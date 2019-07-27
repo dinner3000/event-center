@@ -59,7 +59,7 @@ CREATE TABLE IF NOT EXISTS event_forward_config(
   `fw_type` VARCHAR(32) COMMENT '推送类型, 改为支持多种, 如：1,2,3',
   `fw_targets` VARCHAR(3072) COMMENT '推送目标列表 JSON数组',
   `fw_tpl_text` VARCHAR(3072) COMMENT '推送内容模版',
-  `fw_tpl_id` BIGINT COMMENT '推送内容模版id(外部)',
+  `fw_tpl_id` VARCHAR(1024) COMMENT '推送内容模版id(外部)',
   `status` INT(1) COMMENT '状态',
   PRIMARY KEY (id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT = '事件推送设置';

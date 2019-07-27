@@ -12,6 +12,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.Map;
 
 /**
@@ -47,5 +48,12 @@ public class EventForwardConfigServiceImpl extends CrudServiceImpl<EventForwardC
         queryWrapper.eq("level", level);
         EventForwardConfigEntity configEntity = this.baseDao.selectOne(queryWrapper);
         return configEntity;
+    }
+
+    @Override
+    public void save(EventForwardConfigDTO dto) {
+        dto.setCreateTime(new Date());
+        dto.setStatus(1);
+        super.save(dto);
     }
 }
