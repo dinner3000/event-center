@@ -1,3 +1,8 @@
+# Tomcat
+server:
+  servlet:
+    context-path: /api
+
 spring:
   datasource:
     druid:
