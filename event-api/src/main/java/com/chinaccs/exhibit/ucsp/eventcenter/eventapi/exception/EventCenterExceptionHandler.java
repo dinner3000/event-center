@@ -50,6 +50,9 @@ public class EventCenterExceptionHandler {
 	public Result handleException(Exception ex){
 		logger.error(ex.getMessage(), ex);
 
-		return new Result().error();
+		Result result = new Result();
+		result.error(ex.getMessage());
+
+		return result;
 	}
 }
