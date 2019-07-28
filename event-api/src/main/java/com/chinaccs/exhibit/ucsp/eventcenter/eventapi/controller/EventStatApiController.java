@@ -42,29 +42,41 @@ public class EventStatApiController {
 
     @GetMapping("/by_level")
     @ApiOperation("按级别统计数量")
-    public Result<List<Map<String, Object>>> byLevel() {
-        List<Map<String, Object>> data = eventService.statGroupByLevel();
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "precision", value = "百分比精度", paramType = "query", defaultValue = "2", dataType = "int"),
+    })
+    public Result<List<Map<String, Object>>> byLevel(@RequestParam(name = "precision", required = false, defaultValue = "2") Integer precision) {
+        List<Map<String, Object>> data = eventService.statGroupByLevel(precision);
         return new Result<List<Map<String, Object>>>().ok(data);
     }
 
     @GetMapping("/by_type")
     @ApiOperation("按类型统计数量")
-    public Result<List<Map<String, Object>>> byType() {
-        List<Map<String, Object>> data = eventService.statGroupByType();
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "precision", value = "百分比精度", paramType = "query", defaultValue = "2", dataType = "int"),
+    })
+    public Result<List<Map<String, Object>>> byType(@RequestParam(name = "precision", required = false, defaultValue = "2") Integer precision) {
+        List<Map<String, Object>> data = eventService.statGroupByType(precision);
         return new Result<List<Map<String, Object>>>().ok(data);
     }
 
     @GetMapping("/by_app_code")
     @ApiOperation("按系统来源统计数量")
-    public Result<List<Map<String, Object>>> byAppCode() {
-        List<Map<String, Object>> data = eventService.statGroupByAppCode();
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "precision", value = "百分比精度", paramType = "query", defaultValue = "2", dataType = "int"),
+    })
+    public Result<List<Map<String, Object>>> byAppCode(@RequestParam(name = "precision", required = false, defaultValue = "2") Integer precision) {
+        List<Map<String, Object>> data = eventService.statGroupByAppCode(precision);
         return new Result<List<Map<String, Object>>>().ok(data);
     }
 
     @GetMapping("/by_status")
     @ApiOperation("按事件状态统计数量")
-    public Result<List<Map<String, Object>>> byStatus() {
-        List<Map<String, Object>> pageData = eventService.statGroupByStatus();
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "precision", value = "百分比精度", paramType = "query", defaultValue = "2", dataType = "int"),
+    })
+    public Result<List<Map<String, Object>>> byStatus(@RequestParam(name = "precision", required = false, defaultValue = "2") Integer precision) {
+        List<Map<String, Object>> pageData = eventService.statGroupByStatus(precision);
         return new Result<List<Map<String, Object>>>().ok(pageData);
     }
 

@@ -11,12 +11,14 @@ import com.chinaccs.exhibit.ucsp.eventcenter.eventdata.dto.EventDTO;
 import com.chinaccs.exhibit.ucsp.eventcenter.eventdata.entity.EventEntity;
 import com.chinaccs.exhibit.ucsp.eventcenter.eventdata.page.PageData;
 import com.chinaccs.exhibit.ucsp.eventcenter.eventdata.service.EventService;
+import com.chinaccs.exhibit.ucsp.eventcenter.eventdata.utils.StringUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.function.DoubleUnaryOperator;
 
 /**
  * 事件 存储事件信息，每个事件作为一条记录
@@ -55,39 +57,50 @@ public class EventServiceImpl extends CrudServiceImpl<EventDao, EventEntity, Eve
         return super.page(params);
     }
 
+    private void populateTotalNPercent(List<Map<String, Object>> list, Integer precision){
+        Double totalCount = list.stream().mapToDouble(x -> Convert.toDouble(x.get(Constant.COUNT_NAME))).sum();
+        for (Map<String, Object> item : list){
+            item.put(Constant.TOTAL_NAME, Convert.toLong(totalCount));
+            if (totalCount > 0) {
+                item.put(Constant.PERCENT_NAME, StringUtil.getPercentString(
+                        Convert.toFloat(Convert.toDouble(item.get(Constant.COUNT_NAME)) / totalCount), precision));
+            } else {
+                item.put(Constant.PERCENT_NAME, "N/A");
+            }
+        }
+    }
+
     @Override
-    public List<Map<String, Object>> statGroupByLevel() {
+    public List<Map<String, Object>> statGroupByLevel(Integer precision) {
         List<Map<String, Object>> list = this.baseDao.statGroupByLevel();
         for (Map<String, Object> item : list){
-            item.put("label", EventLevel.parse(Convert.toInt(item.get("code"))).getName());
+            item.put(Constant.LABEL_NAME, EventLevel.parse(Convert.toInt(item.get(Constant.CODE_NAME))).getName());
         }
+        this.populateTotalNPercent(list, precision);
         return list;
     }
 
     @Override
-    public List<Map<String, Object>> statGroupByType() {
+    public List<Map<String, Object>> statGroupByType(Integer precision) {
         List<Map<String, Object>> list = this.baseDao.statGroupByType();
-//        for (Map<String, Object> item : list){
-//            item.put("label", String.format("事件类型%s", item.get("code")));
-//        }
+        this.populateTotalNPercent(list, precision);
         return list;
     }
 
     @Override
-    public List<Map<String, Object>> statGroupByAppCode() {
+    public List<Map<String, Object>> statGroupByAppCode(Integer precision) {
         List<Map<String, Object>> list = this.baseDao.statGroupByAppCode();
-//        for (Map<String, Object> item : list){
-//            item.put("label", item.get("code"));
-//        }
+        this.populateTotalNPercent(list, precision);
         return list;
     }
 
     @Override
-    public List<Map<String, Object>> statGroupByStatus() {
+    public List<Map<String, Object>> statGroupByStatus(Integer precision) {
         List<Map<String, Object>> list = this.baseDao.statGroupByStatus();
         for (Map<String, Object> item : list){
-            item.put("label", EventStatus.parse(Convert.toInt(item.get("code"))).getName());
+            item.put(Constant.LABEL_NAME, EventStatus.parse(Convert.toInt(item.get(Constant.CODE_NAME))).getName());
         }
+        this.populateTotalNPercent(list, precision);
         return list;
     }
 

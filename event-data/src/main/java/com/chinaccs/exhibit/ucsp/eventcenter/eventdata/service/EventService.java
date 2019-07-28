@@ -14,10 +14,10 @@ import java.util.Map;
  * @since 1.0.0 2019-07-01
  */
 public interface EventService extends CrudService<EventEntity, EventDTO> {
-    List<Map<String, Object>> statGroupByLevel();
-    List<Map<String, Object>> statGroupByType();
-    List<Map<String, Object>> statGroupByAppCode();
-    List<Map<String, Object>> statGroupByStatus();
+    List<Map<String, Object>> statGroupByLevel(Integer precision);
+    List<Map<String, Object>> statGroupByType(Integer precision);
+    List<Map<String, Object>> statGroupByAppCode(Integer precision);
+    List<Map<String, Object>> statGroupByStatus(Integer precision);
 
     EventEntity getByTraceId(String traceId, String appCode);
 //    Map<String, Object> statGroupByFWStatus();

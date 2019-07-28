@@ -62,4 +62,8 @@ public interface Constant {
 
     String COUNT_NAME = "count";
 
+    String PERCENT_NAME = "percent";
+
+    String TOTAL_NAME = "total";
+
 }
