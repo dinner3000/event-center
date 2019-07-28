@@ -9,7 +9,7 @@ public class StringUtil {
             throw new RuntimeException("precision cannot be smaller than 0");
         }
 
-        String percentFormat = String.format("%%.%df%%%%", precision);
+        String percentFormat = String.format("%%.%df", precision);
 
         return String.format(percentFormat, input * 100F);
     }
