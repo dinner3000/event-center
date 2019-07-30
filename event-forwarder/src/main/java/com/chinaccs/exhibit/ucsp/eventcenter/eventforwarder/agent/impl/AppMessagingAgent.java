@@ -7,7 +7,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
-@Component
+@Component("appMessagingAgent")
 public class AppMessagingAgent implements MessagingAgent {
 
     @Value("${internal-api.app-msg.url}")

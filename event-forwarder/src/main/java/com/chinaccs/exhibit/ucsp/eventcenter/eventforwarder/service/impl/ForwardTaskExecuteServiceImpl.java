@@ -9,6 +9,7 @@ import com.chinaccs.exhibit.ucsp.eventcenter.eventforwarder.service.ForwardTaskE
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
@@ -22,12 +23,15 @@ public class ForwardTaskExecuteServiceImpl implements ForwardTaskExecuteService 
     private EventForwardLogService eventForwardLogService;
 
     @Autowired
+    @Qualifier("smsMessagingAgent")
     private MessagingAgent smsMessagingAgent;
 
     @Autowired
+    @Qualifier("appMessagingAgent")
     private MessagingAgent appMessagingAgent;
 
     @Autowired
+    @Qualifier("webMessagingAgent")
     private MessagingAgent webMessagingAgent;
 
     @Override

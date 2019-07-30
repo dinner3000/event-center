@@ -7,10 +7,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
-@Component
+@Component("webMessagingAgent")
 public class WebMessagingAgent implements MessagingAgent {
 
-    @Value("${external-api.web-msg.url}")
+    @Value("${internal-api.web-msg.url}")
     private String url;
 
     private Logger logger = LoggerFactory.getLogger(getClass());
