@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class AppMessagingAgent implements MessagingAgent {
 
-    @Value("${external-api.app-msg.url}")
+    @Value("${internal-api.app-msg.url}")
     private String url;
 
     private Logger logger = LoggerFactory.getLogger(getClass());
