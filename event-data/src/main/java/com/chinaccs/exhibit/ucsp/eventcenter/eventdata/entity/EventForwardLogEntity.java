@@ -24,9 +24,15 @@ public class EventForwardLogEntity implements Serializable {
     @TableId(type = IdType.INPUT)
     private Long id;
 
-	private Long configId;
+	private String traceId;
 
-	private Integer type;
+    private String appCode;
+
+    private Long typeId;
+
+    private Integer level;
+
+	private Long configId;
 
 	private String targets;
 
@@ -34,11 +40,17 @@ public class EventForwardLogEntity implements Serializable {
 
 	private String tplParams;
 
-	private String text;
+	private String title;
+
+	private String message;
+
+	private Date occurTime;
 
 	private Integer status;
 
 	private Integer retries;
+
+	private Integer fwType;
 
 	private Date fwTime;
 

@@ -8,7 +8,7 @@ import cn.hutool.core.convert.Convert;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.chinaccs.exhibit.ucsp.eventcenter.common.exception.ErrorCode;
 import com.chinaccs.exhibit.ucsp.eventcenter.common.exception.EventCenterException;
-import com.chinaccs.exhibit.ucsp.eventcenter.common.utils.DateUtils;
+import com.chinaccs.exhibit.ucsp.eventcenter.eventdata.utils.DateUtils;
 import com.chinaccs.exhibit.ucsp.eventcenter.eventapi.utils.CollectionUtils;
 import com.chinaccs.exhibit.ucsp.eventcenter.eventapi.utils.Result;
 import com.chinaccs.exhibit.ucsp.eventcenter.eventdata.utils.StringUtil;

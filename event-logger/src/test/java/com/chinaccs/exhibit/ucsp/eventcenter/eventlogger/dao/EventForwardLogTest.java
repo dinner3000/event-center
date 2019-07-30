@@ -57,7 +57,7 @@ public class EventForwardLogTest {
 
         EventForwardLogEntity entity = new EventForwardLogEntity();
         entity.setId(1L);
-        entity.setText(uuid.toString());
+        entity.setMessage(uuid.toString());
         entity.setStatus(0);
 
         entity.setStatus(0);

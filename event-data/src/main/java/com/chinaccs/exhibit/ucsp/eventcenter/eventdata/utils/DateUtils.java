@@ -6,7 +6,7 @@
  *
  */
 
-package com.chinaccs.exhibit.ucsp.eventcenter.common.utils;
+package com.chinaccs.exhibit.ucsp.eventcenter.eventdata.utils;
 
 import org.apache.commons.lang3.StringUtils;
 import org.joda.time.DateTime;

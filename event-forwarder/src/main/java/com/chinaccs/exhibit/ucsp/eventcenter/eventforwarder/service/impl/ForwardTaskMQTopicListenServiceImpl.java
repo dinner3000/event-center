@@ -8,7 +8,6 @@ import com.chinaccs.exhibit.ucsp.eventcenter.eventdata.dto.ForwardNoticeDTO;
 import com.chinaccs.exhibit.ucsp.eventcenter.eventdata.entity.EventEntity;
 import com.chinaccs.exhibit.ucsp.eventcenter.eventdata.entity.EventForwardLogEntity;
 import com.chinaccs.exhibit.ucsp.eventcenter.eventdata.entity.EventForwardConfigEntity;
-import com.chinaccs.exhibit.ucsp.eventcenter.eventdata.service.EventForwardLogService;
 import com.chinaccs.exhibit.ucsp.eventcenter.eventforwarder.constant.EventForwardStatus;
 import com.chinaccs.exhibit.ucsp.eventcenter.eventforwarder.service.ForwardTaskExecuteService;
 import com.chinaccs.exhibit.ucsp.eventcenter.eventforwarder.service.ForwardTaskMQTopicListenService;
@@ -81,10 +80,15 @@ public class ForwardTaskMQTopicListenServiceImpl implements ForwardTaskMQTopicLi
                 for(Integer typeId : typeIdList) {
                     EventForwardLogEntity eventForwardLogEntity = new EventForwardLogEntity();
                     eventForwardLogEntity.setId(eventEntity.getId());
+                    eventForwardLogEntity.setTraceId(eventEntity.getTraceId());
+                    eventForwardLogEntity.setAppCode(eventEntity.getAppCode());
+                    eventForwardLogEntity.setTypeId(eventEntity.getTypeId());
+                    eventForwardLogEntity.setLevel(eventEntity.getLevel());
                     eventForwardLogEntity.setConfigId(eventForwardConfigEntity.getId());
-                    eventForwardLogEntity.setType(typeId);
+                    eventForwardLogEntity.setFwType(typeId);
                     eventForwardLogEntity.setTargets(eventForwardConfigEntity.getFwTargets());
-                    eventForwardLogEntity.setText(eventEntity.getMessage());
+                    eventForwardLogEntity.setTitle(eventEntity.getTitle());
+                    eventForwardLogEntity.setMessage(eventEntity.getMessage());
                     eventForwardLogEntity.setRetries(0);
                     eventForwardLogEntity.setStatus(EventForwardStatus.INITIAL.getValue());
 

@@ -24,11 +24,20 @@ public class EventForwardLogDTO implements Serializable {
 	@ApiModelProperty(value = "事件id")
 	private Long id;
 
+	@ApiModelProperty(value = "事件追踪id")
+	private String traceId;
+
+	@ApiModelProperty(value = "业务系统id")
+	private String appCode;
+
+	@ApiModelProperty(value = "事件类型id")
+	private Long typeId;
+
+	@ApiModelProperty(value = "事件等级")
+	private Integer level;
+
 	@ApiModelProperty(value = "推送配置id")
 	private Long configId;
-
-	@ApiModelProperty(value = "推送类型")
-	private Integer type;
 
 	@ApiModelProperty(value = "推送目标列表")
 	private String targets;
@@ -39,14 +48,25 @@ public class EventForwardLogDTO implements Serializable {
 	@ApiModelProperty(value = "模版变量列表")
 	private String tplParams;
 
+	@ApiModelProperty(value = "推送标题")
+	private String title;
+
 	@ApiModelProperty(value = "推送内容")
-	private String text;
+	private String message;
+
+	@ApiModelProperty(value = "发生时间")
+//    @JSONField(format="yyyy-MM-dd HH:mm:ss")
+	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+	private Date occurTime;
 
 	@ApiModelProperty(value = "推送状态")
 	private Integer status;
 
 	@ApiModelProperty(value = "重试次数")
 	private Integer retries;
+
+	@ApiModelProperty(value = "推送类型")
+	private Integer fwType;
 
 	@ApiModelProperty(value = "推送时间")
 //	@JSONField(format="yyyy-MM-dd HH:mm:ss")

@@ -41,11 +41,11 @@ public class ForwardTaskExecuteServiceImpl implements ForwardTaskExecuteService 
 
         try {
 
-            if (eventForwardLogEntity.getType() == EventForwardType.SMS.getCode()){
+            if (eventForwardLogEntity.getFwType() == EventForwardType.SMS.getCode()){
                 smsMessagingAgent.invoke(eventForwardLogEntity);
-            } else if (eventForwardLogEntity.getType() == EventForwardType.PORTAL.getCode()){
+            } else if (eventForwardLogEntity.getFwType() == EventForwardType.PORTAL.getCode()){
                 webMessagingAgent.invoke(eventForwardLogEntity);
-            } else if (eventForwardLogEntity.getType() == EventForwardType.APP.getCode()){
+            } else if (eventForwardLogEntity.getFwType() == EventForwardType.APP.getCode()){
                 appMessagingAgent.invoke(eventForwardLogEntity);
             }
 
