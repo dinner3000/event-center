@@ -51,16 +51,18 @@ public class WebMessagingAgent implements MessagingAgent {
 
         httpPost.addHeader("Content-Type", "application/json");
 
-        httpPost.setEntity(new StringEntity(JSON.toJSONString(this.buildPayload(forwardLogEntity))));
+        String payLoad = JSON.toJSONString(this.buildPayload(forwardLogEntity));
+        httpPost.setEntity(new StringEntity(payLoad));
 
         String context = StringUtils.EMPTY;
         CloseableHttpResponse response = null;
         try {
             logger.debug("send request to {}", url);
-            logger.debug("payload", ((StringEntity)httpPost.getEntity()).getContent());
+            logger.debug("payload: {}", payLoad);
             response = httpClient.execute(httpPost);
             HttpEntity entity = response.getEntity();
             context = EntityUtils.toString(entity, StandardCharsets.UTF_8);
+            logger.debug("response: {}", context);
         } catch (Exception e) {
             logger.debug("error", e);
             e.getStackTrace();

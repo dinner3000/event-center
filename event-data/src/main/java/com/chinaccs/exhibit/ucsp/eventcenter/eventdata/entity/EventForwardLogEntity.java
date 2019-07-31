@@ -21,8 +21,10 @@ import java.util.Date;
 public class EventForwardLogEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-    @TableId(type = IdType.INPUT)
-    private Long id;
+	@TableId(type = IdType.AUTO)
+	private Long id;
+
+	private Long eventId;
 
 	private String traceId;
 

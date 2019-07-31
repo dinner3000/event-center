@@ -21,8 +21,11 @@ import java.util.Date;
 public class EventForwardLogDTO implements Serializable {
     private static final long serialVersionUID = 1L;
 
-	@ApiModelProperty(value = "事件id")
+	@ApiModelProperty(value = "id")
 	private Long id;
+
+	@ApiModelProperty(value = "事件id")
+	private Long eventId;
 
 	@ApiModelProperty(value = "事件追踪id")
 	private String traceId;

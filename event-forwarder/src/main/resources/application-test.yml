@@ -8,3 +8,10 @@ spring:
   # Kafka servers
   kafka:
     bootstrap-servers: kafka:9092
+
+internal-api:
+  app-msg:
+    url: http://192.168.5.103:9093/
+  web-msg:
+    url: http://192.168.5.103:9093/
+

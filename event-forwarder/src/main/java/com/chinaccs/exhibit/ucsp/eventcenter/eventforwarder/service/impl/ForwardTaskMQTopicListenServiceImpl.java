@@ -79,7 +79,8 @@ public class ForwardTaskMQTopicListenServiceImpl implements ForwardTaskMQTopicLi
 
                 for(Integer typeId : typeIdList) {
                     EventForwardLogEntity eventForwardLogEntity = new EventForwardLogEntity();
-                    eventForwardLogEntity.setId(eventEntity.getId());
+                    eventForwardLogEntity.setId(null);
+                    eventForwardLogEntity.setEventId(eventEntity.getId());
                     eventForwardLogEntity.setTraceId(eventEntity.getTraceId());
                     eventForwardLogEntity.setAppCode(eventEntity.getAppCode());
                     eventForwardLogEntity.setTypeId(eventEntity.getTypeId());
@@ -95,11 +96,12 @@ public class ForwardTaskMQTopicListenServiceImpl implements ForwardTaskMQTopicLi
                     logger.debug("save forward task to db");
                     eventForwardLogDao.insert(eventForwardLogEntity);
 
-                    ack.acknowledge();
-
                     logger.debug("try call forward api");
                     forwardTaskExecuteService.forward(eventForwardLogEntity);
+
                 }
+
+                ack.acknowledge();
 
                 logger.debug("====================================================================");
             } while (false);

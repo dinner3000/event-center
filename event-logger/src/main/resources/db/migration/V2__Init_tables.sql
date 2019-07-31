@@ -70,7 +70,8 @@ ALTER TABLE event_forward_config ADD INDEX idx_3(level, app_code);
 
 
 CREATE TABLE IF NOT EXISTS event_forward_log(
-  `id` BIGINT NOT NULL COMMENT '事件ID',
+  `id` BIGINT NOT NULL AUTO_INCREMENT COMMENT 'ID',
+  `event_id` BIGINT NOT NULL COMMENT '事件ID',
   `config_id` BIGINT COMMENT '推送设置ID',
   `trace_id` VARCHAR(64) COMMENT '追踪ID',
   `app_code` VARCHAR(64) COMMENT '源应用系统代码',
