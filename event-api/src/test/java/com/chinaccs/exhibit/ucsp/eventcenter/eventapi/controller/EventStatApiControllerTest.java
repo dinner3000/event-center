@@ -2,8 +2,6 @@ package com.chinaccs.exhibit.ucsp.eventcenter.eventapi.controller;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-import com.chinaccs.exhibit.ucsp.eventcenter.eventdata.constant.Constant;
-import com.chinaccs.exhibit.ucsp.eventcenter.eventdata.dto.EventDTO;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -18,16 +16,13 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-import org.springframework.util.LinkedMultiValueMap;
-import org.springframework.util.MultiValueMap;
 import org.springframework.web.context.WebApplicationContext;
 
-import java.text.SimpleDateFormat;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 
 @SpringBootTest

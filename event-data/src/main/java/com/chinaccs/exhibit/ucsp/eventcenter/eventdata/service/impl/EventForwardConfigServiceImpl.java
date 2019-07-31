@@ -11,7 +11,6 @@ import com.chinaccs.exhibit.ucsp.eventcenter.eventdata.service.EventForwardConfi
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
-import java.io.Serializable;
 import java.util.Date;
 import java.util.Map;
 

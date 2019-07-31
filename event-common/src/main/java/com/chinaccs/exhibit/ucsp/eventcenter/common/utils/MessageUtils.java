@@ -11,8 +11,6 @@ package com.chinaccs.exhibit.ucsp.eventcenter.common.utils;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
 
-import java.util.Locale;
-
 /**
  * 国际化
  *

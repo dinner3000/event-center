@@ -1,7 +1,6 @@
 package com.chinaccs.exhibit.ucsp.eventcenter.eventdata.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.chinaccs.exhibit.ucsp.eventcenter.eventdata.core.service.impl.BaseServiceImpl;
 import com.chinaccs.exhibit.ucsp.eventcenter.eventdata.dao.EventStatusStatDao;
 import com.chinaccs.exhibit.ucsp.eventcenter.eventdata.entity.EventStatusStatEntity;
 import com.chinaccs.exhibit.ucsp.eventcenter.eventdata.service.EventStatusStatService;

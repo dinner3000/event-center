@@ -4,7 +4,6 @@
 
 package com.chinaccs.exhibit.ucsp.eventcenter.eventapi.controller;
 
-import com.chinaccs.exhibit.ucsp.eventcenter.eventapi.utils.CollectionUtils;
 import com.chinaccs.exhibit.ucsp.eventcenter.eventapi.utils.Result;
 import com.chinaccs.exhibit.ucsp.eventcenter.eventdata.constant.EventForwardType;
 import com.chinaccs.exhibit.ucsp.eventcenter.eventdata.constant.EventLevel;
@@ -14,13 +13,12 @@ import com.chinaccs.exhibit.ucsp.eventcenter.eventdata.dto.EventTypeDTO;
 import com.chinaccs.exhibit.ucsp.eventcenter.eventdata.service.EventAppCodeService;
 import com.chinaccs.exhibit.ucsp.eventcenter.eventdata.service.EventTypeService;
 import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiImplicitParam;
-import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;

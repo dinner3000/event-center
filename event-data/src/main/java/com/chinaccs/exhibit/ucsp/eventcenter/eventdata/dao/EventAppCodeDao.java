@@ -2,7 +2,6 @@ package com.chinaccs.exhibit.ucsp.eventcenter.eventdata.dao;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.chinaccs.exhibit.ucsp.eventcenter.eventdata.entity.EventAppCodeEntity;
-import com.chinaccs.exhibit.ucsp.eventcenter.eventdata.entity.EventStatusLogEntity;
 import org.apache.ibatis.annotations.Mapper;
 
 /**

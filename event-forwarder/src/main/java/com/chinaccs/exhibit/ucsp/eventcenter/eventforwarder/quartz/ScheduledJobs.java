@@ -1,20 +1,8 @@
 package com.chinaccs.exhibit.ucsp.eventcenter.eventforwarder.quartz;
 
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.chinaccs.exhibit.ucsp.eventcenter.eventdata.dao.EventForwardLogDao;
-import com.chinaccs.exhibit.ucsp.eventcenter.eventdata.entity.EventForwardLogEntity;
-import com.chinaccs.exhibit.ucsp.eventcenter.eventdata.service.EventForwardLogService;
-import com.chinaccs.exhibit.ucsp.eventcenter.eventforwarder.constant.EventForwardStatus;
-import com.chinaccs.exhibit.ucsp.eventcenter.eventforwarder.service.ForwardTaskExecuteService;
 import org.quartz.DisallowConcurrentExecution;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.EnableScheduling;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
-
-import java.util.List;
 
 @Component
 @EnableScheduling

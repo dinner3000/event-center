@@ -1,14 +1,10 @@
 package com.chinaccs.exhibit.ucsp.eventcenter.eventdata.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.chinaccs.exhibit.ucsp.eventcenter.eventdata.core.service.impl.BaseServiceImpl;
 import com.chinaccs.exhibit.ucsp.eventcenter.eventdata.core.service.impl.CrudServiceImpl;
-import com.chinaccs.exhibit.ucsp.eventcenter.eventdata.dao.EventStatusLogDao;
 import com.chinaccs.exhibit.ucsp.eventcenter.eventdata.dao.EventTypeDao;
 import com.chinaccs.exhibit.ucsp.eventcenter.eventdata.dto.EventTypeDTO;
-import com.chinaccs.exhibit.ucsp.eventcenter.eventdata.entity.EventStatusLogEntity;
 import com.chinaccs.exhibit.ucsp.eventcenter.eventdata.entity.EventTypeEntity;
-import com.chinaccs.exhibit.ucsp.eventcenter.eventdata.service.EventStatusLogService;
 import com.chinaccs.exhibit.ucsp.eventcenter.eventdata.service.EventTypeService;
 import org.springframework.stereotype.Service;
 

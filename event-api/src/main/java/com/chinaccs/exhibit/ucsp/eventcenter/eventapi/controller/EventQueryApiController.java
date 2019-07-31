@@ -7,7 +7,6 @@ package com.chinaccs.exhibit.ucsp.eventcenter.eventapi.controller;
 import com.chinaccs.exhibit.ucsp.eventcenter.eventapi.utils.Result;
 import com.chinaccs.exhibit.ucsp.eventcenter.eventdata.constant.Constant;
 import com.chinaccs.exhibit.ucsp.eventcenter.eventdata.dto.EventDTO;
-import com.chinaccs.exhibit.ucsp.eventcenter.eventdata.dto.EventForwardConfigDTO;
 import com.chinaccs.exhibit.ucsp.eventcenter.eventdata.dto.EventForwardLogDTO;
 import com.chinaccs.exhibit.ucsp.eventcenter.eventdata.page.PageData;
 import com.chinaccs.exhibit.ucsp.eventcenter.eventdata.service.EventForwardConfigService;

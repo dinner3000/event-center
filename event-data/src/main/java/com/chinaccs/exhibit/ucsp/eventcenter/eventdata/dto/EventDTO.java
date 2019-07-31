@@ -1,6 +1,5 @@
 package com.chinaccs.exhibit.ucsp.eventcenter.eventdata.dto;
 
-import com.alibaba.fastjson.annotation.JSONField;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;

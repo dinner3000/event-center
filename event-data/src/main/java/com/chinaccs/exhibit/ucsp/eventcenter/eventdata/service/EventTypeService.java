@@ -1,9 +1,7 @@
 package com.chinaccs.exhibit.ucsp.eventcenter.eventdata.service;
 
 import com.chinaccs.exhibit.ucsp.eventcenter.eventdata.core.service.CrudService;
-import com.chinaccs.exhibit.ucsp.eventcenter.eventdata.dto.EventAppCodeDTO;
 import com.chinaccs.exhibit.ucsp.eventcenter.eventdata.dto.EventTypeDTO;
-import com.chinaccs.exhibit.ucsp.eventcenter.eventdata.entity.EventAppCodeEntity;
 import com.chinaccs.exhibit.ucsp.eventcenter.eventdata.entity.EventTypeEntity;
 
 /**

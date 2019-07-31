@@ -7,7 +7,6 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 import java.io.Serializable;
-import java.util.Date;
 
 /**
  * 事件 存储事件信息，每个事件作为一条记录

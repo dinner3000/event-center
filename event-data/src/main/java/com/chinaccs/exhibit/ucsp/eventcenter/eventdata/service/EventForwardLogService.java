@@ -1,8 +1,6 @@
 package com.chinaccs.exhibit.ucsp.eventcenter.eventdata.service;
 
-import com.baomidou.mybatisplus.extension.service.IService;
 import com.chinaccs.exhibit.ucsp.eventcenter.eventdata.core.service.CrudService;
-import com.chinaccs.exhibit.ucsp.eventcenter.eventdata.core.service.impl.CrudServiceImpl;
 import com.chinaccs.exhibit.ucsp.eventcenter.eventdata.dto.EventForwardLogDTO;
 import com.chinaccs.exhibit.ucsp.eventcenter.eventdata.entity.EventForwardLogEntity;
 
